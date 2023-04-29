@@ -42,7 +42,7 @@ public class LoginGUI implements ActionListener {
         //////////// รูปภาพ ///////////////////////
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("D:\\New folder\\Learn_IT\\oop\\guiProject\\untitled\\src\\imgtest.jpg"));
+            img = ImageIO.read(new File("CozyCapybara-Diner_Project\\src\\imggui\\imgtest.jpg"));
 
         } catch (IOException e) {
             System.out.printf("5555555");
