@@ -13,7 +13,7 @@ public class JavaGUI implements ActionListener {
         public JavaGUI(){
             f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            f.setSize(860,600);
+            f.setSize(1024,600);
 
             // สร้าง CardLayout
             cardLayout = new CardLayout();
