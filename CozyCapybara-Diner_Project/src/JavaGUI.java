@@ -105,7 +105,7 @@ public class JavaGUI implements ActionListener {
             panel_R2.add(panel_R1, "Home");
             panel_R2.add(tablePanel, "Table");
             panel_R2.add(menuPanel, "Menu");
-            panel_R2.add(contactPanel, "Contact");
+            panel_R2.add(contactPanel, "Member");
 
             f.add(panel_L1, BorderLayout.WEST);
 
@@ -127,7 +127,7 @@ public class JavaGUI implements ActionListener {
             else if (e.getSource() == b2) {
                 cardLayout.show(panel_R2, "Menu");
             } else if (e.getSource() == b3) {
-                cardLayout.show(panel_R2, "Contact");
+                cardLayout.show(panel_R2, "Member");
             } else if (e.getSource() == b4) {
             cardLayout.show(panel_R2, "Home");
         }
