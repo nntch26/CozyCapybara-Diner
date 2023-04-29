@@ -81,8 +81,11 @@ public class LoginGUI implements ActionListener {
         txtPass.setPreferredSize(new Dimension(50, 30));
 
         b1 = new JButton("Login");
+        b1.setForeground(Color.white);
+        b1.setBackground(Color.DARK_GRAY);
         b1.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
         b1.setPreferredSize(new Dimension(100, 40));
+        b1.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // กำหนดเส้นขอบ
 
         b1.addActionListener(this);
 
