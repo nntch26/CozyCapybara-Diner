@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class JavaGUI implements ActionListener {
+public class MainGUI implements ActionListener {
         private JFrame f;
         private JPanel panel_L1,panel_L2,pn,panel_R1,panel_R2;
         private JButton b1,b2,b3,b4;
@@ -10,7 +10,7 @@ public class JavaGUI implements ActionListener {
 
         private CardLayout cardLayout;
 
-        public JavaGUI(){
+        public MainGUI(){
             f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.setSize(1024,600);
