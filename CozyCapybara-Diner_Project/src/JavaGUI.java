@@ -128,7 +128,9 @@ public class JavaGUI implements ActionListener {
                 cardLayout.show(panel_R2, "Menu");
             } else if (e.getSource() == b3) {
                 cardLayout.show(panel_R2, "Contact");
-            }
+            } else if (e.getSource() == b4) {
+            cardLayout.show(panel_R2, "Home");
+        }
 
         }
 }
