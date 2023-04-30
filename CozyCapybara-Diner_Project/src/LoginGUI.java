@@ -35,9 +35,12 @@ public class LoginGUI implements ActionListener {
         pn = new JPanel();
 
         ///////// ชื่อร้าน /////////////
-        JLabel welcome = new JLabel("WELCOME TO COZY CAPYBARA DINER");
+        JLabel welcome = new JLabel("WELCOME TO");
+        JLabel welcome1 = new JLabel("COZY CAPYBARA DINER");
         welcome.setFont(new Font("Tahoma", Font.BOLD, 24)); // กำหนดแบบอักษร และขนาด
         welcome.setHorizontalAlignment(JTextField.CENTER);
+        welcome1.setFont(new Font("Tahoma", Font.BOLD, 30)); // กำหนดแบบอักษร และขนาด
+        welcome1.setHorizontalAlignment(JTextField.CENTER);
 
         //////////// รูปภาพ ///////////////////////
         BufferedImage img = null;
@@ -96,6 +99,7 @@ public class LoginGUI implements ActionListener {
 
         p1.add(pn);
         p1.add(welcome);
+        p1.add(welcome1);
         panelLogin1.add(lblUser);
         panelLogin1.add(txtUser);
         panelLogin2.add(lblPass);
