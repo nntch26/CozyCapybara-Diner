@@ -60,9 +60,8 @@ public class LoginGUI implements ActionListener {
         // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
         ImageIcon resizedIcon = new ImageIcon(reImage);
         // สร้าง JLabel และแสดงรูปภาพที่ปรับขนาดแล้ว
-        JLabel label = new JLabel(resizedIcon);
-        JPanel pimg = new JPanel();
-        pimg.add(label);
+        JLabel labelimg = new JLabel(resizedIcon);
+        
 
 
 
@@ -76,6 +75,9 @@ public class LoginGUI implements ActionListener {
         p3.setLayout(new GridLayout(5,1));
         panelLogin1.setLayout(new FlowLayout());
         panelLogin2.setLayout(new FlowLayout());
+
+        pi.setBackground(Color.decode("#FFDEAD"));
+
 
 
 
@@ -119,12 +121,11 @@ public class LoginGUI implements ActionListener {
         //ADD TO FRAME
         p3.add(pn);
         p3.add(p1);
-        p3.add(p1, BorderLayout.NORTH);
         p3.add(p2);
         p3.add(panelLogin3);
 
         //pi.add(pn);
-        pi.add(pimg);
+        pi.add(labelimg);
 
         f.add(p3, BorderLayout.EAST);
         f.add(pi);
