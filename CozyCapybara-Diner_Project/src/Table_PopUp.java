@@ -68,7 +68,8 @@ public class Table_PopUp{
         pBig.add(p1);
         pBig.add(p_button);
         internal_frame_1.add(pBig);
-        frame.add(internal_frame_1, BorderLayout.NORTH);
+        desktopPane.add(internal_frame_1);
+        frame.add(desktopPane);
 
         frame.setSize(860, 600);
         frame.setVisible(true);
