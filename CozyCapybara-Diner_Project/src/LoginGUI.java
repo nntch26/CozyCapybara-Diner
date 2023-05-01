@@ -24,6 +24,7 @@ public class LoginGUI implements ActionListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
         f.setResizable(false);
+        f.setLocationRelativeTo(null); //แสดงหน้าต่างตรงกลาง
 
 
         panelLogin1 = new JPanel();
