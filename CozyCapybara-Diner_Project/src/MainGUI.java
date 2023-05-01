@@ -14,6 +14,7 @@ public class MainGUI implements ActionListener {
             f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.setSize(1024,600);
+            f.setResizable(false);
 
             // สร้าง CardLayout
             cardLayout = new CardLayout();

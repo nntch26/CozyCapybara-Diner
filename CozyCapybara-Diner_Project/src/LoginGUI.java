@@ -23,6 +23,7 @@ public class LoginGUI implements ActionListener {
         f.setSize(1024, 600);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
+        f.setResizable(false);
 
 
         panelLogin1 = new JPanel();
@@ -44,16 +45,22 @@ public class LoginGUI implements ActionListener {
 
         //////////// รูปภาพ ///////////////////////
         BufferedImage img = null;
+        
         try {
             img = ImageIO.read(new File("CozyCapybara-Diner_Project\\src\\imggui\\imgtest.jpg"));
 
         } catch (IOException e) {
-            System.out.printf("5555555");
+            System.out.printf("Can't find the image, please check the path of the image.");
         }
 
         ImageIcon icon = new ImageIcon(img);
-        JLabel label = new JLabel();
-        label.setIcon(icon);
+        // ปรับขนาดของรูปภาพ
+        Image image = icon.getImage();
+        Image reImage = image.getScaledInstance(530, 500, Image.SCALE_SMOOTH);
+        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+        ImageIcon resizedIcon = new ImageIcon(reImage);
+        // สร้าง JLabel และแสดงรูปภาพที่ปรับขนาดแล้ว
+        JLabel label = new JLabel(resizedIcon);
         JPanel pimg = new JPanel();
         pimg.add(label);
 
