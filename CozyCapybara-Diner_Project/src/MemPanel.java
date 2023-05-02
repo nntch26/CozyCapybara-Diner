@@ -11,14 +11,15 @@ public class MemPanel extends JPanel {
         p1 = new JPanel(); p2 = new JPanel();
         p1_1 = new JPanel(); p1_2 = new JPanel();
         puser = new JPanel(); ppass = new JPanel(); pn = new JPanel();
-
-        setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#deba83")));
+        
+        setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
         setLayout(new BorderLayout());
 
         p1.setLayout(new GridLayout(2,1));
 
         /////พื้นที่เหลือด้ายล่าง/////////
         p1_2.setLayout(null);
+        p1_2.setBackground(Color.decode("#deba83"));
         
         /////หน้าใส่ข้อมูล/////////
         p1_1.setLayout(new GridLayout(3, 1));
@@ -33,6 +34,9 @@ public class MemPanel extends JPanel {
         user.setPreferredSize(new Dimension(50, 30));
         pass.setPreferredSize(new Dimension(50, 30));
 
+        puser.setBackground(Color.decode("#deba83"));
+        ppass.setBackground(Color.decode("#deba83"));
+        pn.setBackground(Color.decode("#deba83"));
         puser.setLayout(new FlowLayout()); 
         ppass.setLayout(new FlowLayout());
 
@@ -42,6 +46,8 @@ public class MemPanel extends JPanel {
 
         /////หน้าปุ่ม////////
         p2.setLayout(new FlowLayout());
+        p2.setBackground(Color.decode("#deba83"));
+
 
         login = new JButton("Login"); cancel = new JButton("Cancel");
 

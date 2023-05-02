@@ -24,7 +24,7 @@ public class MainGUI implements ActionListener {
             // สร้าง Panels จากคลาสอื่น
             JPanel menuPanel = new MenuPanel();
             JPanel contactPanel = new MemPanel();
-            JPanel tablePanel = new TablePanel();
+            JPanel tablePanel = new MenuTable();
 
 
             panel_L1 = new JPanel();
