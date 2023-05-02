@@ -1,57 +1,82 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class MenuTable implements ActionListener{
-    public JFrame f;
-    public JPanel p1, p2, p3, p4;
-    public JButton[] buttons = new JButton[4];
+public class MenuTable extends JPanel implements ActionListener{
+    public JPanel Table_Row1, Table_Row2, Table_Row3, Table;
+    public JButton[] buttons_R1 = new JButton[4],buttons_R2 = new JButton[4] ,buttons_R3 = new JButton[4];
+    public JScrollPane s;
     public MenuTable(){
-        f = new JFrame("");
-        p1 = new JPanel(); p2 = new JPanel(); p3 = new JPanel(); p4 = new JPanel();
+        Table = new JPanel();
+        Table_Row1 = new JPanel(); Table_Row2 = new JPanel(); Table_Row3 = new JPanel();
         
-        f.setLayout(new GridLayout(2,1));
+        setLayout(new GridLayout(1,2));
+
+        /////mainTable/////////
+        Table.setLayout(new GridLayout(3, 1));
         
-        ///////////////////////////////////////////////////////
+        ///scrollbar////
+        s = new JScrollPane(Table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        //////Table Row1///////
         
-        p1.setLayout(new FlowLayout());
-        p1.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.red));
+        Table_Row1.setLayout(new FlowLayout());
+        Table_Row1.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.red));
         
         for(int i=0 ; i<4 ; i++){
-            JButton btn = new JButton("");
-            btn.setPreferredSize(new Dimension(190,250));
-            buttons[i] = btn;
+            JButton btn = new JButton("Table"+(i+1));
+            btn.setPreferredSize(new Dimension(175,240));
+            buttons_R1[i] = btn;
             btn.addActionListener(this);
-            p1.add(Box.createRigidArea(new Dimension(5,0)));
-            p1.add(btn);
+            Table_Row1.add(Box.createRigidArea(new Dimension(2,0)));
+            Table_Row1.add(btn);
     }
-        p1.add(Box.createRigidArea(new Dimension(5,0)));
+        Table_Row1.add(Box.createRigidArea(new Dimension(5,0)));
+    
+        ////Table Row 2////////
         
-        /////////////////////////////////////////////////////
+        Table_Row2.setLayout(new FlowLayout());
+        Table_Row2.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, Color.red));
         
-        p2.setLayout(new FlowLayout());
-        p2.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, Color.red));
-        
-        for(int i=4 ; i<8 ; i++){
-            JButton btn = new JButton("");
-            btn.setPreferredSize(new Dimension(190,250));
-            p2.add(Box.createRigidArea(new Dimension(5,0)));
-            p2.add(btn);     
+        for(int i=0 ; i<4 ; i++){
+            JButton btn = new JButton("Table"+(i+5));
+            btn.setPreferredSize(new Dimension(175,240));
+            buttons_R2[i] = btn;
+            btn.addActionListener(this);
+            Table_Row2.add(Box.createRigidArea(new Dimension(5,0)));
+            Table_Row2.add(btn);     
     }
-        p2.add(Box.createRigidArea(new Dimension(5,0)));
+        Table_Row2.add(Box.createRigidArea(new Dimension(5,0)));
+
+        ////Table Row 3////////
         
-        ///////////////////////////////////////////////////////////////
-        f.add(p1);
-        f.add(p2);
+        Table_Row3.setLayout(new FlowLayout());
+        Table_Row3.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, Color.red));
         
-        f.setSize(860, 600);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        for(int i=0 ; i<4 ; i++){
+            JButton btn = new JButton("Table"+(i+9));
+            btn.setPreferredSize(new Dimension(175,240));
+            buttons_R3[i] = btn;
+            btn.addActionListener(this);
+            Table_Row3.add(Box.createRigidArea(new Dimension(5,0)));
+            Table_Row3.add(btn);     
+    }
+        Table_Row3.add(Box.createRigidArea(new Dimension(5,0)));
+
         
+        ///Add Thing///
+        
+        Table.add(Table_Row1);
+        Table.add(Table_Row2);
+        Table.add(Table_Row3);
+        add(s);
+             
     }
     public void actionPerformed(ActionEvent ae){
-        if(ae.getSource().equals(buttons[0])){
-            buttons[0].setBackground(Color.red);
+        if(ae.getSource().equals(buttons_R1[0])){
+            buttons_R1[0].setBackground(Color.red);
             new Table_PopUp();
         }
     }
 }
+
+
