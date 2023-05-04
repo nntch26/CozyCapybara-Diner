@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class MainGUI implements ActionListener {
         private JFrame f;
         private JPanel panel_L1,panel_L2,pn,panel_R1,panel_R2;
-        private JButton b1,b2,b3,b4;
+        private JButton b1,b2,b3,b4,bAdmin;
         private JLabel l1;
 
         private CardLayout cardLayout;
@@ -65,12 +65,20 @@ public class MainGUI implements ActionListener {
             b4.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
             b4.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // กำหนดเส้นขอบ
 
+            bAdmin = new JButton("Admin");
+            bAdmin.setForeground(Color.white);
+            bAdmin.setBackground(Color.DARK_GRAY);
+            bAdmin.setPreferredSize(new Dimension(200, 50));
+            bAdmin.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
+            bAdmin.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // กำหนดเส้นขอบ
+
 
             //////////// event /////////////////////
             b1.addActionListener(this);
             b2.addActionListener(this);
             b3.addActionListener(this);
             b4.addActionListener(this);
+            bAdmin.addActionListener(this);
 
 
 
@@ -99,7 +107,7 @@ public class MainGUI implements ActionListener {
 
             /////////////// เพิ่มเมนู /////////////////////
 
-            panel_L2.add(b1); panel_L2.add(b2); panel_L2.add(b3); panel_L2.add(b4);
+            panel_L2.add(b1); panel_L2.add(b2); panel_L2.add(b3); panel_L2.add(b4); panel_L2.add(bAdmin);
             panel_L1.add(panel_L2);
 
 
@@ -130,11 +138,13 @@ public class MainGUI implements ActionListener {
                 cardLayout.show(panel_R2, "Menu");
             } else if (e.getSource() == b3) {
                 cardLayout.show(panel_R2, "Member");
-            } else if (e.getSource() == b4) {
-            cardLayout.show(panel_R2, "Home");
+            } else if (e.getSource() == b4){
+                new LoginGUI();
+                f.dispose();
+            }
         }
 
         }
-}
+
 
 
