@@ -117,7 +117,6 @@ public class Test extends JPanel implements ActionListener{
         Table.add(Table_Row1);
         Table.add(Table_Row2);
         Table.add(Table_Row3);
-        txt.add(Table);
         txt.add(s);
         add(txt);
         add(Table_Row4, BorderLayout.SOUTH);
