@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
+
+
 
 
 public class GUI_OrderPanel {
