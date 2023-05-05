@@ -69,6 +69,9 @@ public class MemPanel extends JPanel {
 
 
 
+
+
+
         ////add thing/////
         p1.add(p1_1);
         p1.add(p1_2);
