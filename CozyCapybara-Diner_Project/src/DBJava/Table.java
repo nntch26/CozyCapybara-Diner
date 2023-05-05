@@ -1,8 +1,6 @@
 package DBJava;
 
 public class Table {
-
-    
     private int Id;
     private int TableCap;
     private String TableNameCus;
