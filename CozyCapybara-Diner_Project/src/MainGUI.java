@@ -24,7 +24,7 @@ public class MainGUI implements ActionListener {
             // สร้าง Panels จากคลาสอื่น
             JPanel menuPanel = new MenuPanel();
             JPanel contactPanel = new MemPanel();
-            JPanel tablePanel = new MenuTable();
+            JPanel tablePanel = new TablePanel();
 
 
             panel_L1 = new JPanel();
@@ -107,7 +107,11 @@ public class MainGUI implements ActionListener {
 
             /////////////// เพิ่มเมนู /////////////////////
 
-            panel_L2.add(b1); panel_L2.add(b2); panel_L2.add(b3); panel_L2.add(b4); panel_L2.add(bAdmin);
+            panel_L2.add(b1); 
+            panel_L2.add(b2); 
+            panel_L2.add(b3); 
+            panel_L2.add(bAdmin);
+            panel_L2.add(b4);
             panel_L1.add(panel_L2);
 
 
