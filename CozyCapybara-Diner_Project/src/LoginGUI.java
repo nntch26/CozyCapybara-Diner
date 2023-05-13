@@ -45,16 +45,7 @@ public class LoginGUI implements ActionListener {
         welcome1.setHorizontalAlignment(JTextField.CENTER);
 
         //////////// รูปภาพ ///////////////////////
-        BufferedImage img = null;
-        
-        try {
-            img = ImageIO.read(new File("CozyCapybara-Diner_Project\\src\\imggui\\imgtest.jpg"));
-
-        } catch (IOException e) {
-            System.out.printf("Can't find the image, please check the path of the image.");
-        }
-
-        ImageIcon icon = new ImageIcon(img);
+        ImageIcon icon = new ImageIcon("CozyCapybara-Diner_Project/src/imggui/imgtest.jpg");
         // ปรับขนาดของรูปภาพ
         Image image = icon.getImage();
         Image reImage = image.getScaledInstance(530, 500, Image.SCALE_SMOOTH);
