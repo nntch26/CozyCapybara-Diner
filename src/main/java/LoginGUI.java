@@ -10,6 +10,13 @@ public class LoginGUI implements ActionListener {
     private JPasswordField txtPass;
     private JButton b1;
 
+
+
+
+
+
+
+
     public LoginGUI() {
         f = new JFrame();
         f.setTitle("Login");
