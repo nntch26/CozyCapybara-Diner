@@ -1,14 +1,11 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 
-
-
 public class LoginGUI implements ActionListener {
     private JFrame f;
-    private JPanel panelLogin1,panelLogin2,panelLogin3,p1,p2,p3,pn,pi;
+    private JPanel panelLogin1, panelLogin2, panelLogin3, p1, p2, p3, pn, pi;
     private JTextField txtUser;
     private JPasswordField txtPass;
     private JButton b1;
@@ -49,25 +46,19 @@ public class LoginGUI implements ActionListener {
         ImageIcon resizedIcon = new ImageIcon(reImage);
         // สร้าง JLabel และแสดงรูปภาพที่ปรับขนาดแล้ว
         JLabel labelimg = new JLabel(resizedIcon);
-        
-
-
 
 
         p1.setPreferredSize(new Dimension(500, 100));
         p2.setPreferredSize(new Dimension(600, 100));
 
 
-        p1.setLayout(new GridLayout(3,1));
-        p2.setLayout(new GridLayout(2,1));
-        p3.setLayout(new GridLayout(5,1));
+        p1.setLayout(new GridLayout(3, 1));
+        p2.setLayout(new GridLayout(2, 1));
+        p3.setLayout(new GridLayout(5, 1));
         panelLogin1.setLayout(new FlowLayout());
         panelLogin2.setLayout(new FlowLayout());
 
         pi.setBackground(Color.decode("#FFDEAD"));
-
-
-
 
 
         JLabel lblUser = new JLabel("Username: ");
@@ -139,5 +130,5 @@ public class LoginGUI implements ActionListener {
 
     }
 
-    
+
 }

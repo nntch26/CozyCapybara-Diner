@@ -1,8 +1,7 @@
-
 import java.awt.*;
 import javax.swing.*;
 
-public class Table_PopUp{
+public class Table_PopUp {
 
     private JFrame frame;
     private JDesktopPane desktopPane;
@@ -31,15 +30,15 @@ public class Table_PopUp{
         btn_yes = new JButton("YES");
         btn_no = new JButton("NO");
         internal_frame_1 = new JInternalFrame("TableNum", true, true, true, true);
-        
+
         //SET LAYOUT
-        pBig.setLayout(new GridLayout(4,1));
-        p1.setLayout(new GridLayout(3,1));
+        pBig.setLayout(new GridLayout(4, 1));
+        p1.setLayout(new GridLayout(3, 1));
         psub_1.setLayout(new FlowLayout());
         psub_2.setLayout(new FlowLayout());
         psub_3.setLayout(new FlowLayout());
         p_button.setLayout(new FlowLayout());
-        
+
         //ADD
         psub_1.add(txt_name);
         psub_1.add(take_name);
@@ -47,12 +46,12 @@ public class Table_PopUp{
         psub_2.add(take_time);
         psub_3.add(txt_phoneNum);
         psub_3.add(take_phoneNum);
-        p_button.add(Box.createRigidArea(new Dimension(5,0)));
+        p_button.add(Box.createRigidArea(new Dimension(5, 0)));
         p_button.add(btn_no);
-        p_button.add(Box.createRigidArea(new Dimension(5,0)));
+        p_button.add(Box.createRigidArea(new Dimension(5, 0)));
         p_button.add(btn_yes);
-        p_button.add(Box.createRigidArea(new Dimension(5,0)));
-        
+        p_button.add(Box.createRigidArea(new Dimension(5, 0)));
+
         //INTERNAL FRAME SETTING
         int x1 = internal_frame_1.getX() + internal_frame_1.getWidth() + 10;
         int y1 = internal_frame_1.getY() + 40;
@@ -60,7 +59,7 @@ public class Table_PopUp{
         internal_frame_1.pack();
         internal_frame_1.setVisible(true);
         internal_frame_1.setSize(new Dimension(500, 300));
-        
+
         //ADD TO Frame-Panel
         p1.add(psub_1);
         p1.add(psub_2);
