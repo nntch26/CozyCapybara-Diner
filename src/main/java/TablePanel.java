@@ -3,10 +3,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TablePanel extends JPanel implements ActionListener {
-    public JPanel Table_Row1, Table_Row2, Table_Row3, Table, hugePanel, Table_Row4, txt;
+    public JPanel Table_Row1, Table_Row2, Table_Row3, Table, hugePanel, Table_Row4, txt, showPanel1, showPanel2;
     public JButton[] buttons_R1 = new JButton[4], buttons_R2 = new JButton[4], buttons_R3 = new JButton[4];
-    public JButton b1, b2;
     public JScrollPane s;
+    public JLabel showLabel1, showLabel2;
 
     public TablePanel() {
         Table = new JPanel();
@@ -97,23 +97,33 @@ public class TablePanel extends JPanel implements ActionListener {
 
         ////Menu Row 4////////
 
+        hugePanel.setLayout(new GridLayout(1,2));
+        showLabel1 = new JLabel("Free Table");
+        showLabel2 = new JLabel("Busy Table");
+
         Table_Row4.setLayout(new GridLayout(1, 2));
         Table_Row4.setBackground(Color.decode("#FFDEAD"));
         Table_Row4.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, Color.decode("#deba83")));
 
-        b1 = new JButton("Free Table");
-        b2 = new JButton("Busy Table");
-        b1.setPreferredSize(new Dimension(240, 100));
-        b1.setFont(new Font("Tahoma", Font.BOLD, 12));
-        b1.setBackground(Color.decode("#deba83"));
-        b1.setVerticalAlignment(SwingConstants.TOP);
+        showPanel1 = new JPanel();
+        showPanel2 = new JPanel();
+        showPanel1.setPreferredSize(new Dimension(240,100));
+        showLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
+        showPanel1.setBackground(Color.decode("#deba83"));
+        showLabel1.setVerticalAlignment(SwingConstants.TOP);
+        showPanel1.add(showLabel1);
 
-        b2.setPreferredSize(new Dimension(240, 100));
-        b2.setFont(new Font("Tahoma", Font.BOLD, 12));
-        b2.setBackground(Color.decode("#deba83"));
-        b2.setVerticalAlignment(SwingConstants.TOP);
-        Table_Row4.add(b1);
-        Table_Row4.add(b2);
+        showPanel2.setPreferredSize(new Dimension(240,100));
+        showLabel2.setFont(new Font("Tahoma", Font.BOLD, 12));
+        showPanel2.setBackground(Color.decode("#deba83"));
+        showLabel2.setVerticalAlignment(SwingConstants.TOP);
+        showPanel2.add(showLabel2);
+
+
+
+        hugePanel.add(showPanel1); hugePanel.add(showPanel2);
+        Table_Row4.add(hugePanel);
+
 
 
         ///Add Thing///
