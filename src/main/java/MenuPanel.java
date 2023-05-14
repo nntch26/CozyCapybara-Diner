@@ -1,6 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
+import DBJava.SQLquery;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class MenuPanel extends JPanel implements ActionListener {
     private DefaultListModel<String> foodListModel;
@@ -8,17 +10,25 @@ public class MenuPanel extends JPanel implements ActionListener {
     private DefaultListModel<String> selectedFoodListModel;
     private JList<String> selectedFoodList;
     private JButton addButton, reButton;
+    private SQLquery db = new SQLquery();
 
     public MenuPanel() {
         setBorder(BorderFactory.createTitledBorder("Menu Panel"));
         //add(new JLabel("Menu items go here"));
         // สร้างรายการอาหาร
+        String fname = "";
+        try {
+            fname = db.getTableList().get(0).getTableNameCus();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         foodListModel = new DefaultListModel<String>();
         foodListModel.addElement(" Beef steak");
         foodListModel.addElement(" Lobster Thermidor");
         foodListModel.addElement(" Braised Pork Ribs with Honey");
         foodListModel.addElement(" Duck breast a l' Orange");
         foodListModel.addElement(" Grilled Sea Bass with Garlic Butter");
+        foodListModel.addElement(""+ fname);
 
         // สร้าง JList ของรายการอาหาร
         foodList = new JList<String>(foodListModel);

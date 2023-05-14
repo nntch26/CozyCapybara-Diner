@@ -3,14 +3,39 @@ package DBJava;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SQLquery extends DatabaseConnect {
-    
+public class SQLquery{
+    public Connection conn;
+    public Statement st;
+    public String url="jdbc:mysql://localhost:3306/dbjava";
+    public String user="root";
+    public String password="1234";
     private ArrayList<Table> tables;
     private ArrayList<Menu> menus;
     private ArrayList<Customer> customers;
+    
 
     public SQLquery(){
-        DBConnect();
+
+        // เชื่อมต่อ MySQL
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn= DriverManager.getConnection(url, user, password);
+            System.out.println("The connection to MySQL is complete.");
+
+        }catch(Exception e){
+            System.out.println("Unable to connect to MySQL : " + e.getMessage());
+        }
+    }
+    // ปิดการทำงาน MySQL
+    public void closeConnection() {
+        try {
+            if (conn != null) {
+                conn.close();
+                System.out.println("Connection closed.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // เพิ่มข้อมูลใหม่ลงตาราง
