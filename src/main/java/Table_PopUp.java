@@ -1,15 +1,25 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
-public class Table_PopUp {
+public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener{
 
     private JFrame frame;
     private JDesktopPane desktopPane;
     private JPanel pBig, p1, psub_1, psub_2, psub_3, p_button;
-    private JLabel txt_name, txt_time, txt_phoneNum;
-    private JTextField take_name, take_time, take_phoneNum;
+    private JLabel labelName, labelTime, labelPhoneNumber;
+    private JTextField tfName, tfTime, tfPhoneNumber;
     private JButton btn_yes, btn_no;
     private JInternalFrame internal_frame_1;
+    private String nameToDatabase;
+    private String timeToDatabase;
+    private String phoneNumberToDatabase;
+
 
     public Table_PopUp() {
         frame = new JFrame();
@@ -21,12 +31,12 @@ public class Table_PopUp {
         psub_2 = new JPanel();
         psub_3 = new JPanel();
         p_button = new JPanel();
-        txt_name = new JLabel("Customer Name : ");
-        txt_time = new JLabel("Time :                    ");
-        txt_phoneNum = new JLabel("Phone Number : ");
-        take_name = new JTextField(20);
-        take_time = new JTextField(20);
-        take_phoneNum = new JTextField(20);
+        labelName = new JLabel("Customer Name : ");
+        labelTime = new JLabel("Time :                    ");
+        labelPhoneNumber = new JLabel("Phone Number : ");
+        tfName = new JTextField(20);
+        tfTime = new JTextField(20);
+        tfPhoneNumber = new JTextField(20);
         btn_yes = new JButton("YES");
         btn_no = new JButton("NO");
         internal_frame_1 = new JInternalFrame("TableNum", true, true, true, true);
@@ -40,12 +50,12 @@ public class Table_PopUp {
         p_button.setLayout(new FlowLayout());
 
         //ADD
-        psub_1.add(txt_name);
-        psub_1.add(take_name);
-        psub_2.add(txt_time);
-        psub_2.add(take_time);
-        psub_3.add(txt_phoneNum);
-        psub_3.add(take_phoneNum);
+        psub_1.add(labelName);
+        psub_1.add(tfName);
+        psub_2.add(labelTime);
+        psub_2.add(tfTime);
+        psub_3.add(labelPhoneNumber);
+        psub_3.add(tfPhoneNumber);
         p_button.add(Box.createRigidArea(new Dimension(5, 0)));
         p_button.add(btn_no);
         p_button.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -70,8 +80,106 @@ public class Table_PopUp {
         desktopPane.add(internal_frame_1);
         frame.add(desktopPane);
 
+        //ADD ACTIONLISTENER
+        btn_yes.addActionListener(this);
+        btn_no.addActionListener(this);
+        frame.addWindowListener(this);
+        internal_frame_1.addInternalFrameListener(this);
+
         frame.setSize(860, 600);
         frame.setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource().equals(btn_yes)) {
+            nameToDatabase = tfName.getText(); //GET INFO
+            phoneNumberToDatabase = tfPhoneNumber.getText(); //GET INFO
+            timeToDatabase = tfTime.getText(); //GET INFO
+            System.out.println(nameToDatabase + "______" + timeToDatabase + "_________" + phoneNumberToDatabase); //SEND INFO
+            frame.dispose();
+        } else if (ae.getSource().equals(btn_no)) {
+            int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                frame.dispose();
+            }
+        }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        //DO NOTHING
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        //DO NOTHING
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        //DO NOTHING
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        //DO NOTHING
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        //DO NOTHING
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        //DO NOTHING
+    }
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+        int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            System.out.println("Internal frame is closing");
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+
+    }
 }

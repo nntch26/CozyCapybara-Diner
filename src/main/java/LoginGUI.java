@@ -11,12 +11,6 @@ public class LoginGUI implements ActionListener {
     private JButton b1;
 
 
-
-
-
-
-
-
     public LoginGUI() {
         f = new JFrame();
         f.setTitle("Login");
@@ -25,7 +19,6 @@ public class LoginGUI implements ActionListener {
         f.setLayout(new BorderLayout());
         f.setResizable(false);
         f.setLocationRelativeTo(null); //แสดงหน้าต่างตรงกลาง
-
 
         panelLogin1 = new JPanel();
         panelLogin2 = new JPanel();

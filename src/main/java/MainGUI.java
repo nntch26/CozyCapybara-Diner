@@ -7,7 +7,6 @@ public class MainGUI implements ActionListener {
     private JPanel panel_L1, panel_L2, pn, panel_R1, panel_R2;
     private JButton b1, b2, b3, b4, bAdmin;
     private JLabel l1;
-
     private CardLayout cardLayout;
 
     public MainGUI() {
