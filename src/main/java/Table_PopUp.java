@@ -96,11 +96,11 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
             phoneNumberToDatabase = tfPhoneNumber.getText(); //GET INFO
             timeToDatabase = tfTime.getText(); //GET INFO
             System.out.println(nameToDatabase + "______" + timeToDatabase + "_________" + phoneNumberToDatabase); //SEND INFO
-            System.exit(0);
+            frame.dispose();
         } else if (ae.getSource().equals(btn_no)) {
             int windowClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
             if (windowClose == JOptionPane.YES_OPTION) {
-                System.exit(0);
+                frame.dispose();
             }
         }
     }
@@ -114,7 +114,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     public void windowClosing(WindowEvent e) {
         int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            System.exit(0);
+            frame.dispose();
         }else{
             return;
         }
@@ -154,8 +154,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     public void internalFrameClosing(InternalFrameEvent e) {
         int internalClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
         if (internalClose == JOptionPane.YES_OPTION) {
-            System.out.println("Internal frame is closing");
-            System.exit(0);
+            frame.dispose();
         }else{
             return;
         }
