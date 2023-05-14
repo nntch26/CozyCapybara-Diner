@@ -140,8 +140,8 @@ public class TablePanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(buttons_R1[0])) {
-            buttons_R1[0].setBackground(Color.red);
             new Table_PopUp();
+            buttons_R1[0].setBackground(Color.red);
         }
     }
 }

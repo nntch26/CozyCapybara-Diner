@@ -85,6 +85,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
 
         frame.setSize(860, 600);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        internal_frame_1.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
     }
 
     @Override
@@ -94,11 +96,11 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
             phoneNumberToDatabase = tfPhoneNumber.getText(); //GET INFO
             timeToDatabase = tfTime.getText(); //GET INFO
             System.out.println(nameToDatabase + "______" + timeToDatabase + "_________" + phoneNumberToDatabase); //SEND INFO
-            frame.dispose();
+            System.exit(0);
         } else if (ae.getSource().equals(btn_no)) {
-            int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
-                frame.dispose();
+            int windowClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
+            if (windowClose == JOptionPane.YES_OPTION) {
+                System.exit(0);
             }
         }
     }
@@ -113,6 +115,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             System.exit(0);
+        }else{
+            return;
         }
     }
 
@@ -148,10 +152,12 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
-        int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
+        int internalClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
+        if (internalClose == JOptionPane.YES_OPTION) {
             System.out.println("Internal frame is closing");
             System.exit(0);
+        }else{
+            return;
         }
     }
 
