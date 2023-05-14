@@ -18,7 +18,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         // สร้างรายการอาหาร
         String fname = "";
         try {
-            fname = db.getTableList().get(0).getTableNameCus();
+            fname = db.getMenuList().get(0).getMenuName();
         } catch (SQLException e) {
             e.printStackTrace();
         }
