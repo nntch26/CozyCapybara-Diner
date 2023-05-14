@@ -2,11 +2,13 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MenuPanel extends JPanel {
+public class MenuPanel extends JPanel implements ActionListener {
     private DefaultListModel<String> foodListModel;
     private JList<String> foodList;
     private DefaultListModel<String> selectedFoodListModel;
     private JList<String> selectedFoodList;
+    private JButton addButton, reButton;
+
     public MenuPanel() {
         setBorder(BorderFactory.createTitledBorder("Menu Panel"));
         //add(new JLabel("Menu items go here"));
@@ -37,20 +39,15 @@ public class MenuPanel extends JPanel {
         selectedFoodListPanel.add(new JLabel("Selected Food Items"), BorderLayout.NORTH);
         selectedFoodListPanel.add(selectedFoodScrollPane, BorderLayout.CENTER);
 
-        // สร้างปุ่มเพิ่มอาหาร
-        JButton addButton = new JButton("Add");
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedFood = foodList.getSelectedValue();
-                int num = 1;
-                if (selectedFood != null) {
-                    //foodListModel.removeElement(selectedFood);
-                    selectedFoodListModel.addElement(selectedFood+" x "+num);
-                }
-            }
-        });
+        // สร้างปุ่มเพิ่มอาหาร และ ล้างรายการ
+        addButton = new JButton("Add");
+        reButton = new JButton("Reset");
+        addButton.addActionListener(this);
+        reButton.addActionListener(this);
+           
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addButton);
+        buttonPanel.add(reButton);
 
         // สร้าง GUI
         setLayout(new FlowLayout());
@@ -60,6 +57,23 @@ public class MenuPanel extends JPanel {
         mainPanel.add(selectedFoodListPanel, BorderLayout.EAST);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel,BorderLayout.CENTER);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String selectedFood = foodList.getSelectedValue();
+        int num = 1;
+        if (e.getSource().equals(addButton)){
+            if (selectedFood != null) {
+                //foodListModel.removeElement(selectedFood);
+            selectedFoodListModel.addElement(selectedFood+" x "+num);
+            }
+
+        }else if (e.getSource().equals(reButton)){
+            selectedFoodListModel.removeAllElements();
+        }
+        
+        
+        
     }
 }
     
