@@ -4,49 +4,63 @@ import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener{
+public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener {
 
     private JFrame frame;
     private JDesktopPane desktopPane;
-    private JPanel pBig, p1, psub_1, psub_2, psub_3, p_button;
-    private JLabel labelName, labelTime, labelPhoneNumber;
-    private JTextField tfName, tfTime, tfPhoneNumber;
+    private JPanel pBig, p1, p2, psub_1, psub_2, psub_3, p_button, pID;
+    private JLabel labelID, labelName, labelTime, labelPhoneNumber;
+    private JTextField tfName, tfTime, tfPhoneNumber, take_idTable;
     private JButton btn_yes, btn_no;
-    private JInternalFrame internal_frame_1;
-    private String nameToDatabase;
-    private String timeToDatabase;
-    private String phoneNumberToDatabase;
+    private JInternalFrame internal_frame_1, internal_frame_2;
+    private JComboBox selectStatus;
+    private JTable tabledetails;
+    // private Database db;
+    // private ArrayList<Table> tables;
 
 
     public Table_PopUp() {
+        // db = new Database();
         frame = new JFrame();
         frame.setBackground(Color.yellow);
         desktopPane = new JDesktopPane();
         pBig = new JPanel();
         p1 = new JPanel();
+        p2 = new JPanel();
+        pID = new JPanel();
         psub_1 = new JPanel();
         psub_2 = new JPanel();
         psub_3 = new JPanel();
         p_button = new JPanel();
+        labelID = new JLabel("ID Table               :");
         labelName = new JLabel("Customer Name : ");
         labelTime = new JLabel("Time :                    ");
         labelPhoneNumber = new JLabel("Phone Number : ");
         tfName = new JTextField(20);
         tfTime = new JTextField(20);
         tfPhoneNumber = new JTextField(20);
+        take_idTable = new JTextField(20);
         btn_yes = new JButton("YES");
         btn_no = new JButton("NO");
+        tabledetails = new JTable();
+        selectStatus = new JComboBox();
+        selectStatus.addItem("FREE");
+        selectStatus.addItem("BOOKED");
+        selectStatus.addItem("CLOSED");
         internal_frame_1 = new JInternalFrame("TableNum", true, true, true, true);
-
+        internal_frame_2 = new JInternalFrame("JTableNum", true, true, true, true);
         //SET LAYOUT
         pBig.setLayout(new GridLayout(4, 1));
-        p1.setLayout(new GridLayout(3, 1));
+        p1.setLayout(new GridLayout(4, 1));
         psub_1.setLayout(new FlowLayout());
         psub_2.setLayout(new FlowLayout());
         psub_3.setLayout(new FlowLayout());
         p_button.setLayout(new FlowLayout());
 
         //ADD
+        pID.add(labelID);
+        pID.add(take_idTable);
+        p2.add(selectStatus);
         psub_1.add(labelName);
         psub_1.add(tfName);
         psub_2.add(labelTime);
@@ -62,19 +76,26 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         //INTERNAL FRAME SETTING
         int x1 = internal_frame_1.getX() + internal_frame_1.getWidth() + 10;
         int y1 = internal_frame_1.getY() + 40;
+
         internal_frame_1.setLocation(x1, y1);
         internal_frame_1.pack();
         internal_frame_1.setVisible(true);
-        internal_frame_1.setSize(new Dimension(500, 300));
+        internal_frame_1.setSize(new Dimension(700, 500));
+        internal_frame_2.setLocation(x1+ 50, y1+ 50);
+        internal_frame_2.setVisible(true);
+        internal_frame_2.setSize(new Dimension(500, 500));
 
         //ADD TO Frame-Panel
+        p1.add(pID);
         p1.add(psub_1);
         p1.add(psub_2);
         p1.add(psub_3);
         pBig.add(p1);
+        pBig.add(p2);
         pBig.add(p_button);
         internal_frame_1.add(pBig);
         desktopPane.add(internal_frame_1);
+        desktopPane.add(internal_frame_2);
         frame.add(desktopPane);
 
         //ADD ACTIONLISTENER
@@ -82,21 +103,62 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         btn_no.addActionListener(this);
         frame.addWindowListener(this);
         internal_frame_1.addInternalFrameListener(this);
+        internal_frame_2.addInternalFrameListener(this);
+
+        //JTABLE
+        // DefaultTableModel model = (DefaultTableModel)tabledetails.getModel();
+        // setJTable();
+        // internal_frame_2.addInternalFrameListener(scrollPane);
+        // JScrollPane scrollPane = new JScrollPane(tabledetails);
 
         frame.setSize(860, 600);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         internal_frame_1.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        internal_frame_2.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
     }
+
+    public JTextField getTake_idTable() {
+        return take_idTable;
+    }
+
+    public void setTake_idTable(JTextField take_idTable) {
+        this.take_idTable = take_idTable;
+    }
+
+    // public void setJTable() {
+    //     DefaultTableModel model = (DefaultTableModel) tabledetails.getModel();
+    //     model.setRowCount(0);
+    //     Object[] columnsName = new Object[4];
+    //     columnsName[0] = "Id";
+    //     columnsName[1] = "Cap";
+    //     columnsName[2] = "Status";
+    //     columnsName[3] = "Date";
+
+    //     model.setColumnIdentifiers(columnsName);
+    //     Object[] rowData = new Object[4];
+    //     db.loadTable();
+    //     tables = db.getTable();
+        
+    //     for (int i = 0; i < tables.size(); i++) {
+    //         rowData[0] = tables.get(i).getId();
+    //         rowData[1] = tables.get(i).getTableNameCus();
+    //         rowData[2] = tables.get(i).getTableStatus();
+    //         rowData[3] = tables.get(i).getTableTimeres();
+    //         model.addRow(rowData);
+    //     }
+    // }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(btn_yes)) {
-            nameToDatabase = tfName.getText(); //GET INFO
-            phoneNumberToDatabase = tfPhoneNumber.getText(); //GET INFO
-            timeToDatabase = tfTime.getText(); //GET INFO
-            System.out.println(nameToDatabase + "______" + timeToDatabase + "_________" + phoneNumberToDatabase); //SEND INFO
-            frame.dispose();
+            if((take_idTable.getText().equals("")) || (tfName.getText().equals("")) || (tfPhoneNumber.getText().equals("")) || (tfTime.getText().equals(""))){
+                JOptionPane.showMessageDialog(null, " Please fill the form."); //show message
+            }else {
+                // db.reserveTable(take_idTable.getText(), tfName.getText(), tfPhoneNumber.getText(), tfTime.getText()); //ADD TO TABLE
+                // setJTable();
+                frame.dispose();
+            }
         } else if (ae.getSource().equals(btn_no)) {
             int windowClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
             if (windowClose == JOptionPane.YES_OPTION) {
@@ -115,7 +177,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             frame.dispose();
-        }else{
+        } else {
             return;
         }
     }
@@ -155,7 +217,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         int internalClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
         if (internalClose == JOptionPane.YES_OPTION) {
             frame.dispose();
-        }else{
+        } else {
             return;
         }
     }
