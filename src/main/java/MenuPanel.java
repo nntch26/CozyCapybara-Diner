@@ -16,19 +16,19 @@ public class MenuPanel extends JPanel implements ActionListener {
         setBorder(BorderFactory.createTitledBorder("Menu Panel"));
         //add(new JLabel("Menu items go here"));
         // สร้างรายการอาหาร
-        String fname = "";
+        /*String fname = "";
         try {
             fname = db.getMenuList().get(0).getMenuName();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         foodListModel = new DefaultListModel<String>();
         foodListModel.addElement(" Beef steak");
         foodListModel.addElement(" Lobster Thermidor");
         foodListModel.addElement(" Braised Pork Ribs with Honey");
         foodListModel.addElement(" Duck breast a l' Orange");
         foodListModel.addElement(" Grilled Sea Bass with Garlic Butter");
-        foodListModel.addElement(""+ fname);
+        //foodListModel.addElement(""+ fname);
 
         // สร้าง JList ของรายการอาหาร
         foodList = new JList<String>(foodListModel);
