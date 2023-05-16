@@ -136,8 +136,12 @@ public class MainGUI implements ActionListener {
         } else if (e.getSource() == b3) {
             cardLayout.show(panel_R2, "Member");
         } else if (e.getSource() == b4) {
-            new LoginGUI();
-            f.dispose();
+            //JOptionPane hello = new JOptionPane();
+            int windowClose = JOptionPane.showConfirmDialog(f, "Are you sure you want to Logout", "", JOptionPane.YES_NO_OPTION);
+            if (windowClose == JOptionPane.YES_OPTION){
+                new LoginGUI();
+                f.dispose();
+            }
         }
     }
 
