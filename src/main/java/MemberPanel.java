@@ -23,10 +23,30 @@ public class MemberPanel extends JPanel implements ActionListener {
         deleteButton = new JButton("Delete");
         editButton = new JButton("Edit");
 
+        // ใส่สีปุ่ม
+        addButton.setForeground(Color.white);
+        addButton.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
+        addButton.setPreferredSize(new Dimension(100, 50));
+        addButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        addButton.setBackground(Color.DARK_GRAY);
+
+        deleteButton.setForeground(Color.white);
+        deleteButton.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
+        deleteButton.setPreferredSize(new Dimension(100, 50));
+        deleteButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        deleteButton.setBackground(Color.DARK_GRAY);
+
+        editButton.setForeground(Color.white);
+        editButton.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
+        editButton.setPreferredSize(new Dimension(100, 50));
+        editButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        editButton.setBackground(Color.DARK_GRAY);
+
         addButton.addActionListener(this);
         deleteButton.addActionListener(this);
         editButton.addActionListener(this);
         searchField.addActionListener(this);
+
 
         // MemberView
         label1.setForeground(Color.DARK_GRAY);
@@ -46,9 +66,9 @@ public class MemberPanel extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         add(new JScrollPane(memberTable), BorderLayout.CENTER);
 
-        // ปุ่ม
+        // เพิ่ม Panel ปุ่มต่างๆ
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 3));
+        buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(addButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(editButton);
