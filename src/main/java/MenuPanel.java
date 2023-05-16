@@ -10,10 +10,12 @@ public class MenuPanel extends JPanel implements ActionListener {
     private DefaultListModel<String> selectedFoodListModel;
     private JList<String> selectedFoodList;
     private JButton addButton, reButton;
+    private JLabel lID , lTotal;
+    private JTextField tID, tTotal;
     private SQLquery db = new SQLquery();
 
     public MenuPanel() {
-        setBorder(BorderFactory.createTitledBorder("Menu Panel"));
+        //setBorder(BorderFactory.createTitledBorder("Menu Panel"));
         //add(new JLabel("Menu items go here"));
         // สร้างรายการอาหาร
         /*String fname = "";
@@ -29,6 +31,18 @@ public class MenuPanel extends JPanel implements ActionListener {
         foodListModel.addElement(" Duck breast a l' Orange");
         foodListModel.addElement(" Grilled Sea Bass with Garlic Butter");
         //foodListModel.addElement(""+ fname);
+
+        //เลขโต๊ะและข้อมูล
+        //บนสุด
+        JPanel Panelinfo = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        lID = new JLabel("Table ID : "); 
+        tID = new JTextField("",5); tID.setEditable(false);
+        Panelinfo.add(lID); Panelinfo.add(tID);
+        //ล่างสุด
+        JPanel PanelTotal = new JPanel(new FlowLayout());
+        lTotal = new JLabel("Total : ");
+        tTotal = new JTextField("",5); tTotal.setEditable(false);
+        PanelTotal.add(lTotal); PanelTotal.add(tTotal);
 
         // สร้าง JList ของรายการอาหาร
         foodList = new JList<String>(foodListModel);
@@ -49,9 +63,10 @@ public class MenuPanel extends JPanel implements ActionListener {
         selectedFoodListPanel.add(new JLabel("Selected Food Items"), BorderLayout.NORTH);
         selectedFoodListPanel.add(selectedFoodScrollPane, BorderLayout.CENTER);
 
-        // สร้างปุ่มเพิ่มอาหาร และ ล้างรายการ
+        // สร้างปุ่มเพิ่มอาหาร และ ล้างรายการ และ 
         addButton = new JButton("Add");
         reButton = new JButton("Reset");
+
         addButton.addActionListener(this);
         reButton.addActionListener(this);
            
@@ -60,13 +75,17 @@ public class MenuPanel extends JPanel implements ActionListener {
         buttonPanel.add(reButton);
 
         // สร้าง GUI
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setPreferredSize(new Dimension(600, 450)); // พื้นที่ด้านบน
+        //mainPanel.setPreferredSize(new Dimension(600, 450)); // พื้นที่ด้านบน
         mainPanel.add(foodListPanel, BorderLayout.WEST);
         mainPanel.add(selectedFoodListPanel, BorderLayout.EAST);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(PanelTotal , BorderLayout.SOUTH);
+        add(Panelinfo,BorderLayout.NORTH);
         add(mainPanel,BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
+        add(Box.createRigidArea(new Dimension(70, 5)), BorderLayout.EAST);
+        add(Box.createRigidArea(new Dimension(70, 5)), BorderLayout.WEST);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -75,7 +94,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         if (e.getSource().equals(addButton)){
             if (selectedFood != null) {
                 //foodListModel.removeElement(selectedFood);
-            selectedFoodListModel.addElement(selectedFood+" x "+num);
+                selectedFoodListModel.addElement(selectedFood+" x "+num);
             }
 
         }else if (e.getSource().equals(reButton)){
