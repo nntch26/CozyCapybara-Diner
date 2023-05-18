@@ -11,8 +11,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     private JFrame frame;
     private JDesktopPane desktopPane;
     private JPanel pBig, p1, p2, psub_1, psub_2, psub_3, p_button, pID;
-    private JLabel labelID, labelName, labelTime, labelPhoneNumber;
-    private JTextField tfName, tfTime, tfPhoneNumber, take_idTable;
+    private JLabel labelID, labelName, labelTime, labelPhoneNumber, labelCap;
+    private JTextField tfName, tfTime, tfPhoneNumber, take_idTable, takeCap;
     private JButton btn_yes, btn_no;
     private JInternalFrame internal_frame_1, internal_frame_2;
     private JComboBox selectStatus;
@@ -22,7 +22,6 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     private MenuPanel menuPanel;
     private ArrayList<Table> tables;
     private MainGUI mainGUI;
-
 
     public Table_PopUp(TablePanel tablePanel) {
          db = new Database();
@@ -42,10 +41,12 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         labelName = new JLabel("Customer Name : ");
         labelTime = new JLabel("Time :                    ");
         labelPhoneNumber = new JLabel("Phone Number : ");
+        labelCap = new JLabel("Capacity");
         tfName = new JTextField(20);
         tfTime = new JTextField(20);
         tfPhoneNumber = new JTextField(20);
         take_idTable = new JTextField(20);
+        takeCap = new JTextField(20);
         btn_yes = new JButton("YES");
         btn_no = new JButton("NO");
         tabledetails = new JTable();
@@ -55,8 +56,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         selectStatus.addItem("CLOSED");
         internal_frame_1 = new JInternalFrame("TableNum", true, true, true, true);
         internal_frame_2 = new JInternalFrame("JTableNum", true, true, true, true);
-        
-        
+
+
         //SET LAYOUT
         pBig.setLayout(new GridLayout(4, 1));
         p1.setLayout(new GridLayout(4, 1));
@@ -82,14 +83,14 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         p_button.add(Box.createRigidArea(new Dimension(5, 0)));
 
         //INTERNAL FRAME SETTING
-        int x1 = internal_frame_1.getX() + internal_frame_1.getWidth() + 10;
+        int x1 = internal_frame_1.getX() + internal_frame_1.getWidth() + 550;
         int y1 = internal_frame_1.getY() + 40;
 
         internal_frame_1.setLocation(x1, y1);
         internal_frame_1.pack();
         internal_frame_1.setVisible(true);
-        internal_frame_1.setSize(new Dimension(700, 500));
-        internal_frame_2.setLocation(x1+ 50, y1+ 50);
+        internal_frame_1.setSize(new Dimension(400, 400));
+        internal_frame_2.setLocation(x1 - 520, y1);
         internal_frame_2.setVisible(true);
         internal_frame_2.setSize(new Dimension(500, 500));
 
@@ -123,9 +124,9 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         tablePanel = new TablePanel(mainGUI, menuPanel);
         db.addContactView(this);
 //        db.addContactView(tablePanel);
-        
-        
-        frame.setSize(860, 600);
+
+
+        frame.setSize(1000, 600);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         internal_frame_1.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
@@ -154,7 +155,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
          Object[] rowData = new Object[5];
 //         db.loadTable();
 //         tables = db.getTable();
-        
+
          for (int i = 0; i < tables.size(); i++) {
              rowData[0] = tables.get(i).getId();
              rowData[1] = tables.get(i).getTableNameCus();
@@ -175,9 +176,9 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
                 db.reserveTable(take_idTable.getText(), tfName.getText(), tfPhoneNumber.getText(), tfTime.getText()); //ADD TO TABLE
                 db.addContactView(tablePanel);
                 db.updateModel(tables);
-                
+
 //               tablePanel.refreshtable(tables);
-              
+
                 //frame.dispose();
             }
         } else if (ae.getSource().equals(btn_no)) {
