@@ -155,7 +155,6 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
             menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "   " + Menu.get(i).getMenuPrice());
             pmenu.add(menulabels[i]);
             menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 12));
-          
             menulabels[i].addMouseListener(this);
         }
 //        pmenu.setBackground(Color.red);

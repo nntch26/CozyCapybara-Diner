@@ -1,13 +1,13 @@
-package DBJava;
+
 
 import java.sql.*;
 
 public class DatabaseConnect {
     public Connection conn;
     public Statement st;
-    public String url="jdbc:mysql://localhost:3306/dbjava";
-    public String user="root";
-    public String password="1234";
+    String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
+    String user = "rootoop"; // ชื่อผู้ใช้
+    String password = "123456789"; // รหัส
 
     
     // เชื่อมต่อ MySQL

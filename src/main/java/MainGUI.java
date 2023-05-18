@@ -165,7 +165,9 @@ public class MainGUI implements ActionListener, Refreshtable{
     }
 
    
-
+    public static void main(String[] args) {
+        new MainGUI();
+    }
         }
 
 
