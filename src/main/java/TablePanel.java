@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class TablePanel extends JPanel implements ActionListener, WindowListener, Refreshtable {
+public class TablePanel extends JPanel implements ActionListener, WindowListener, Refreshable {
     public JPanel Table_show, Table_butpanel, txtback;
     public JButton[] tableButtons;
     public JButton b1, b2, bre;

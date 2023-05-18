@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class MainGUI implements ActionListener, Refreshtable{
+public class MainGUI implements ActionListener, Refreshable {
         private JFrame f;
         public JPanel panel_L1,panel_L2,pn,panel_R1,panel_R2;
         private JButton b1,b2,b3,b4,bAdmin;

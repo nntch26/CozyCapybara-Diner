@@ -6,7 +6,7 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener, Refreshtable {
+public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener, Refreshable {
 
     private JFrame frame;
     private JDesktopPane desktopPane;
