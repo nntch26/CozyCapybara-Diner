@@ -19,7 +19,7 @@ public class Database {
        
        
 //        private static ArrayList<Table> Bill = new ArrayList<Bill>();
-    public void addContactView(Refreshtable view) {
+    public void addContactView(Refreshable view) {
     if (!tableView.contains(view)) 
             tableView.add(view);
     }
@@ -34,7 +34,7 @@ public class Database {
         System.out.println(notifyViews);
         System.out.println("tappp ++"+tableView.size());
         while (notifyViews.hasNext()) 
-        ((Refreshtable)notifyViews.next()).refreshtable(table);
+        ((Refreshable)notifyViews.next()).refreshtable(table);
         
         
     }   

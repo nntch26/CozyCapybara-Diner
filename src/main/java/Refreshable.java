@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author ASUS
  */
-public interface Refreshtable {
+public interface Refreshable {
     public abstract void refreshtable(ArrayList<Table> table);
         
     
