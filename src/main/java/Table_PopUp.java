@@ -10,10 +10,10 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
 
     private JFrame frame;
     private JDesktopPane desktopPane;
-    private JPanel pBig, p1, p2, psub_1, psub_2, psub_3, p_button, pID;
+    private JPanel p1;
     private JLabel labelID, labelName, labelTime, labelPhoneNumber, labelCap;
     private JTextField tfName, tfTime, tfPhoneNumber, take_idTable, takeCap;
-    private JButton btn_yes, btn_no;
+    private JButton btn_yes, btn_no, btn_edit;
     private JInternalFrame internal_frame_1, internal_frame_2;
     private JComboBox selectStatus;
     private JTable tabledetails;
@@ -29,19 +29,12 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         frame.setBackground(Color.yellow);
         desktopPane = new JDesktopPane();
         this.tablePanel = tablePanel;
-        pBig = new JPanel();
         p1 = new JPanel();
-        p2 = new JPanel();
-        pID = new JPanel();
-        psub_1 = new JPanel();
-        psub_2 = new JPanel();
-        psub_3 = new JPanel();
-        p_button = new JPanel();
-        labelID = new JLabel("ID Table               :");
+        labelID = new JLabel("ID Table : ");
         labelName = new JLabel("Customer Name : ");
-        labelTime = new JLabel("Time :                    ");
+        labelTime = new JLabel("Time : ");
         labelPhoneNumber = new JLabel("Phone Number : ");
-        labelCap = new JLabel("Capacity");
+        labelCap = new JLabel("Capacity : ");
         tfName = new JTextField(20);
         tfTime = new JTextField(20);
         tfPhoneNumber = new JTextField(20);
@@ -49,6 +42,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         takeCap = new JTextField(20);
         btn_yes = new JButton("YES");
         btn_no = new JButton("NO");
+        btn_edit = new JButton("EDIT");
         tabledetails = new JTable();
         selectStatus = new JComboBox();
         selectStatus.addItem("FREE");
@@ -57,52 +51,61 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         internal_frame_1 = new JInternalFrame("TableNum", true, true, true, true);
         internal_frame_2 = new JInternalFrame("JTableNum", true, true, true, true);
 
-
-        //SET LAYOUT
-        pBig.setLayout(new GridLayout(4, 1));
-        p1.setLayout(new GridLayout(4, 1));
-        psub_1.setLayout(new FlowLayout());
-        psub_2.setLayout(new FlowLayout());
-        psub_3.setLayout(new FlowLayout());
-        p_button.setLayout(new FlowLayout());
-
+        //SETBOUNDS
+        labelID.setBounds(50,40,200,30);
+        labelName.setBounds(50,80,200,30);
+        labelTime.setBounds(50,120,200,30);
+        labelPhoneNumber.setBounds(50,160,200,30);
+        labelCap.setBounds(50,200,200,30);
+        //SETBOUNDS TEXTFIELD
+        take_idTable.setBounds(200,40,200,30);
+        tfName.setBounds(200,80,200,30);
+        tfTime.setBounds(200,120,200,30);
+        tfPhoneNumber.setBounds(200,160,200,30);
+        takeCap.setBounds(200,200,200,30);
+        //SETBOUNDS COMBOBOX
+        selectStatus.setBounds(200, 240, 200, 30);
+        //SETBOUNDS BUTTONS
+        btn_yes.setBounds(100,300,75,30);
+        btn_no.setBounds(200,300,75,30);
+        btn_edit.setBounds(300,300,75,30);
         //ADD
-        pID.add(labelID);
-        pID.add(take_idTable);
-        p2.add(selectStatus);
-        psub_1.add(labelName);
-        psub_1.add(tfName);
-        psub_2.add(labelTime);
-        psub_2.add(tfTime);
-        psub_3.add(labelPhoneNumber);
-        psub_3.add(tfPhoneNumber);
-        p_button.add(Box.createRigidArea(new Dimension(5, 0)));
-        p_button.add(btn_no);
-        p_button.add(Box.createRigidArea(new Dimension(5, 0)));
-        p_button.add(btn_yes);
-        p_button.add(Box.createRigidArea(new Dimension(5, 0)));
+        p1.add(labelID);
+        p1.add(take_idTable);
+
+        p1.add(labelName);
+        p1.add(tfName);
+
+        p1.add(labelTime);
+        p1.add(tfTime);
+
+        p1.add(labelPhoneNumber);
+        p1.add(tfPhoneNumber);
+
+        p1.add(labelCap);
+        p1.add(takeCap);
+
+        p1.add(selectStatus);
+        p1.add(btn_no);
+        p1.add(btn_yes);
+        p1.add(btn_edit);
+
+        //LAYOUT
+        p1.setLayout(null);
 
         //INTERNAL FRAME SETTING
         int x1 = internal_frame_1.getX() + internal_frame_1.getWidth() + 550;
         int y1 = internal_frame_1.getY() + 40;
-
         internal_frame_1.setLocation(x1, y1);
         internal_frame_1.pack();
         internal_frame_1.setVisible(true);
-        internal_frame_1.setSize(new Dimension(400, 400));
+        internal_frame_1.setSize(new Dimension(450, 400));
         internal_frame_2.setLocation(x1 - 520, y1);
         internal_frame_2.setVisible(true);
         internal_frame_2.setSize(new Dimension(500, 500));
 
         //ADD TO Frame-Panel
-        p1.add(pID);
-        p1.add(psub_1);
-        p1.add(psub_2);
-        p1.add(psub_3);
-        pBig.add(p1);
-        pBig.add(p2);
-        pBig.add(p_button);
-        internal_frame_1.add(pBig);
+        internal_frame_1.add(p1);
         desktopPane.add(internal_frame_1);
         desktopPane.add(internal_frame_2);
         frame.add(desktopPane);
@@ -110,6 +113,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         //ADD ACTIONLISTENER
         btn_yes.addActionListener(this);
         btn_no.addActionListener(this);
+        btn_edit.addActionListener(this);
         frame.addWindowListener(this);
         internal_frame_1.addInternalFrameListener(this);
         internal_frame_2.addInternalFrameListener(this);
@@ -126,7 +130,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
 //        db.addContactView(tablePanel);
 
 
-        frame.setSize(1000, 600);
+        frame.setSize(1080, 600);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         internal_frame_1.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
@@ -153,8 +157,6 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
          System.out.println(tables.get(4).getTableStatus());
          model.setColumnIdentifiers(columnsName);
          Object[] rowData = new Object[5];
-//         db.loadTable();
-//         tables = db.getTable();
 
          for (int i = 0; i < tables.size(); i++) {
              rowData[0] = tables.get(i).getId();
@@ -171,15 +173,22 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         if (ae.getSource().equals(btn_yes)) {
             if((take_idTable.getText().equals("")) || (tfName.getText().equals("")) || (tfPhoneNumber.getText().equals("")) || (tfTime.getText().equals(""))){
                 JOptionPane.showMessageDialog(null, " Please fill the form."); //show message
-            }else {
-                System.out.println("what");
+            }if(Integer.parseInt(take_idTable.getText()) > 9) {
+                JOptionPane.showMessageDialog(null, " Sorry, We have only 9 tables."); //show message
+            }if((tfPhoneNumber.getText().length()) != 10) {
+                if ((tfPhoneNumber.getText()).length() < 10) {
+                    // Phone number is too short. less than 10 digits
+                    JOptionPane.showMessageDialog(null, " Phonenumber requires 10 digits.");
+                } else if ((tfPhoneNumber.getText()).length() > 10) {
+                    // Phone number is too long. more than 10 digits
+                    JOptionPane.showMessageDialog(null, " Phonenumber should not exceed 10 digits.");
+                }
+            }else{
+                System.out.println("GET DATA FROM FORMS!");
                 db.reserveTable(take_idTable.getText(), tfName.getText(), tfPhoneNumber.getText(), tfTime.getText()); //ADD TO TABLE
                 db.addContactView(tablePanel);
                 db.updateModel(tables);
-
-//               tablePanel.refreshtable(tables);
-
-                //frame.dispose();
+                frame.dispose();
             }
         } else if (ae.getSource().equals(btn_no)) {
             int windowClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
