@@ -115,7 +115,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
                 String str = String.valueOf(key);
                 String substring = str.substring(1, str.length() - 1);
            
-                setTextBill += "\t"+ substring + "   amount: " + value + "\n"; 
+                setTextBill += "                 "+ substring + "   amount: " + value + "\n";
 }
             
              checkBillGUI = new CheckBillGUI(this);

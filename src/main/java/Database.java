@@ -9,9 +9,9 @@ import java.util.Iterator;
 
 
 public class Database {
-    String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
+    String url = "jdbc:mysql://db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
     String user = "rootoop"; // ชื่อผู้ใช้
-    String password = "123456789"; // รหัส
+    String password = "123456789"; // รหัสผ่าน
         private ArrayList<Table> table;
         private ArrayList<Menu> menu;
         private ArrayList<Member> member;
@@ -220,6 +220,16 @@ public class Database {
     }
     return null;
 }
+
+    public Member searchmemberByphone(Member memObject) {
+        String phone = memObject.getTelcus();
+        for (Member mem : member) {
+            if (mem.getTelcus().equals(phone)) {
+                return mem;
+            }
+        }
+        return null;
+    }
    
 //    public static void main(String[] args) {
 //        Database db = new Database();

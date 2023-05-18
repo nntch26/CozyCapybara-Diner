@@ -22,6 +22,7 @@ public class CheckBillGUI implements ActionListener, WindowListener{
     private Database db;
     private ArrayList<Member> member;
     private Double totalnum, change;
+    private Exchange exchange;
 
     private Member mem;
     public CheckBillGUI(MenuPanel menuPanel){
@@ -51,8 +52,12 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         showdetail = new JTextArea();
         changeLabel = new JLabel("555");
 
+
         showdetail.setSize(250, 100);
 //      namecusshow.setEditable(false);
+
+
+
 
         pshowTop.setLayout(new BorderLayout());
         pshowTop.add(tablelaJlable, BorderLayout.NORTH);
@@ -83,7 +88,22 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         panelcenter.add(pallmember, BorderLayout.SOUTH);
         usePoint.setEnabled(false);
 
+
+
         totalnum = menuPanel.getSum();
+        Exchange exchange = new Exchange() {
+            @Override
+            public double calculate(double total) {
+                return Double.parseDouble(moneycus.getText())- totalnum;
+            }
+        };
+
+        // กำหนดค่าให้กับตัวแปร calculator ใน CheckBillGUI
+        this.setCalculator(exchange);
+
+
+
+
 
         panelcheckbill.add(usePoint);
         panelcheckbill.add(checkBill);
@@ -95,14 +115,16 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         f.add(panelcenter, BorderLayout.CENTER);
         f.add(panelcheckbill, BorderLayout.SOUTH);
         calButton.addActionListener(this);
-        f.pack();
+        f.setSize(250, 450);
         f.setVisible(true);
     }
     public static void main(String[] args) {
         MenuPanel menuPanel = new MenuPanel();
         new CheckBillGUI(menuPanel);
     }
-
+    public void setCalculator(Exchange exchange) {
+        this.exchange = exchange;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -126,7 +148,7 @@ public class CheckBillGUI implements ActionListener, WindowListener{
             moneycus.getText();
             System.out.println(totalnum);
             //เช็คตรงนี้
-            Double Ex = Double.parseDouble(moneycus.getText())- totalnum;
+            Double Ex = exchange.calculate(totalnum);;
 
             changeLabel.setText(""+Ex);
         }

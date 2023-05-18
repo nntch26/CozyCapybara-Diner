@@ -86,7 +86,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         } else if ("close".equals(status)) {
             j.setBackground(Color.gray);
         } else if ("booked".equals(status)) {
-            System.out.println("sdasds boooooooooek");
+
             j.setBackground(Color.yellow);
         }
     }
@@ -168,9 +168,8 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     public void refreshtable(ArrayList<Table> tables) {
        
         this.tables = tables;
-        System.out.println("status in ref tabel"+tables.get(6).getTableStatus());
         for (int i = 0; i < tables.size(); i++){
-            System.out.println(tables.get(i).getId()+ "   in loop set"+tables.get(i).getTableStatus());
+            //System.out.println(tables.get(i).getId()+ "   in loop set"+tables.get(i).getTableStatus());
             setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
         }
     
