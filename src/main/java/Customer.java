@@ -1,13 +1,13 @@
-package DBJava;
 
-public class Customer {
+
+public abstract class Customer{
     private int Id;
     private String Name;
     private String Telcus;
     private String Email;
-    private int Point;
-
-    public Customer(int Id, String Name, String Telcus, String Email, int Point) {
+    private double Point;
+    
+    public Customer(int Id, String Name, String Telcus, String Email, double Point) {
         this.Id = Id;
         this.Name = Name;
         this.Telcus = Telcus;
@@ -47,13 +47,14 @@ public class Customer {
         this.Email = Email;
     }
 
-    public int getPoint() {
+    public Double getPoint() {
         return Point;
     }
 
-    public void setPoint(int Point) {
+    public void setPoint(double Point) {
         this.Point = Point;
     }
     
-    
+    protected abstract void culculatePoint(double a);
+    protected abstract double culculatetotal(double a);
 }

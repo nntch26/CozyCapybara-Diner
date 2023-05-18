@@ -1,147 +1,178 @@
+//import DBJava.Database;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class TablePanel extends JPanel implements ActionListener {
-    public JPanel Table_Row1, Table_Row2, Table_Row3, Table, hugePanel, Table_Row4, txt, showPanel1, showPanel2;
-    public JButton[] buttons_R1 = new JButton[4], buttons_R2 = new JButton[4], buttons_R3 = new JButton[4];
+public class TablePanel extends JPanel implements ActionListener, WindowListener, Refreshtable {
+    public JPanel Table_show, Table_butpanel, txtback;
+    public JButton[] tableButtons;
+    public JButton b1, b2, bre;
     public JScrollPane s;
-    public JLabel showLabel1, showLabel2;
-
-    public TablePanel() {
-        Table = new JPanel();
-        hugePanel = new JPanel();
-        Table_Row1 = new JPanel();
-        Table_Row2 = new JPanel();
-        Table_Row3 = new JPanel();
-        Table_Row4 = new JPanel();
-        txt = new JPanel();
-
-
+    private ArrayList<Table> tables;
+    private Database db;
+    private MainGUI mainGUI;
+    private MenuPanel menuPanel;
+    private ArrayList<java.awt.Menu> Menu ;
+    public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
+        Table_butpanel = new JPanel();
+        Table_show = new JPanel();
+        txtback = new JPanel();
+        this.mainGUI = mainGUI;
+        this.menuPanel = menuPanel;
+        
+        db = new Database();
+        // loadtable
+        db.addContactView(this);
+        db.addContactView(mainGUI);
+        db.loadTable();
+        tables = db.getTable();
+        System.out.println(tables.get(0).getId());
+        // mainpanel show table
         setLayout(new BorderLayout());
-        ////////////
-        txt.setLayout(new GridLayout(1, 2));
-
-        /////mainTable/////////
-
-        Table.setLayout(new GridLayout(3, 1));
-
-        ///scrollbar////
-        s = new JScrollPane(Table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        //////Table Row1///////
-
-        Table_Row1.setLayout(new FlowLayout());
-        Table_Row1.setBackground(Color.decode("#FFDEAD"));
-        Table_Row1.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.decode("#deba83")));
-
-        for (int i = 0; i < 3; i++) {
-            JButton btn = new JButton("Table" + (i + 1));
-
-            btn.setPreferredSize(new Dimension(240, 175));
-            btn.setFont(new Font("Tahoma", Font.BOLD, 12));
-            btn.setBackground(Color.decode("#deba83"));
-            btn.setVerticalAlignment(SwingConstants.TOP);
-            btn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
-
-            buttons_R1[i] = btn;
-            btn.addActionListener(this);
-            Table_Row1.add(Box.createRigidArea(new Dimension(5, 0)));
-            Table_Row1.add(btn);
+        Table_show.setLayout(new GridLayout(3, 3, 3, 3));
+        System.out.println(tables.size());
+        tableButtons = new JButton[tables.size()];
+        for (int i = 0; i < tables.size(); i++) {
+            tableButtons[i] = new JButton("Table " + (i + 1));
+            tableButtons[i].addActionListener(this);
+            Table_show.add(tableButtons[i]);
+            tableButtons[i].setPreferredSize(new Dimension(240, 175));
+            tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
+            setStausTable(tableButtons[i], tables.get(i).getTableStatus());
+            tableButtons[i].setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
         }
-        Table_Row1.add(Box.createRigidArea(new Dimension(5, 0)));
+        add(Table_show, BorderLayout.CENTER);
+        Table_show.setBackground(Color.decode("#FFDEAD"));
 
-        ////Table Row 2////////
+        //bupanel 
+        Table_butpanel.setLayout(new FlowLayout());
 
-        Table_Row2.setLayout(new FlowLayout());
-        Table_Row2.setBackground(Color.decode("#FFDEAD"));
-        Table_Row2.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, Color.decode("#deba83")));
-
-        for (int i = 0; i < 3; i++) {
-            JButton btn = new JButton("Table" + (i + 4));
-
-            btn.setPreferredSize(new Dimension(240, 175));
-            btn.setFont(new Font("Tahoma", Font.BOLD, 12));
-            btn.setBackground(Color.decode("#deba83"));
-            btn.setVerticalAlignment(SwingConstants.TOP);
-            btn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
-
-            buttons_R2[i] = btn;
-            btn.addActionListener(this);
-            Table_Row2.add(Box.createRigidArea(new Dimension(5, 0)));
-            Table_Row2.add(btn);
-        }
-        Table_Row2.add(Box.createRigidArea(new Dimension(5, 0)));
-
-        ////Table Row 3////////
-
-        Table_Row3.setLayout(new FlowLayout());
-        Table_Row3.setBackground(Color.decode("#FFDEAD"));
-        Table_Row3.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, Color.decode("#deba83")));
-
-        for (int i = 0; i < 3; i++) {
-            JButton btn = new JButton("Table" + (i + 7));
-
-            btn.setPreferredSize(new Dimension(240, 175));
-            btn.setFont(new Font("Tahoma", Font.BOLD, 12));
-            btn.setBackground(Color.decode("#deba83"));
-            btn.setVerticalAlignment(SwingConstants.TOP);
-            btn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
-
-            buttons_R3[i] = btn;
-            btn.addActionListener(this);
-            Table_Row3.add(Box.createRigidArea(new Dimension(5, 0)));
-            Table_Row3.add(btn);
-        }
-        Table_Row3.add(Box.createRigidArea(new Dimension(5, 0)));
-
-        ////Menu Row 4////////
-
-        hugePanel.setLayout(new GridLayout(1,2));
-        showLabel1 = new JLabel("Free Table");
-        showLabel2 = new JLabel("Busy Table");
-
-        Table_Row4.setLayout(new GridLayout(1, 2));
-        Table_Row4.setBackground(Color.decode("#FFDEAD"));
-        Table_Row4.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, Color.decode("#deba83")));
-
-        showPanel1 = new JPanel();
-        showPanel2 = new JPanel();
-        showPanel1.setPreferredSize(new Dimension(240,100));
-        showLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
-        showPanel1.setBackground(Color.decode("#deba83"));
-        showLabel1.setVerticalAlignment(SwingConstants.TOP);
-        showPanel1.add(showLabel1);
-
-        showPanel2.setPreferredSize(new Dimension(240,100));
-        showLabel2.setFont(new Font("Tahoma", Font.BOLD, 12));
-        showPanel2.setBackground(Color.decode("#deba83"));
-        showLabel2.setVerticalAlignment(SwingConstants.TOP);
-        showPanel2.add(showLabel2);
-
-
-
-        hugePanel.add(showPanel1); hugePanel.add(showPanel2);
-        Table_Row4.add(hugePanel);
-
-
-
-        ///Add Thing///
-
-        Table.add(Table_Row1);
-        Table.add(Table_Row2);
-        Table.add(Table_Row3);
-        txt.add(s);
-        add(txt);
-        add(Table_Row4, BorderLayout.SOUTH);
-
-
+        b1 = new JButton("Free Table");
+        b2 = new JButton("Busy Table");
+        bre = new JButton("REFRESH");
+        b1.setPreferredSize(new Dimension(240, 100));
+        b1.setFont(new Font("Tahoma", Font.BOLD, 12));
+        b1.setBackground(Color.decode("#deba83"));
+        b1.setVerticalAlignment(SwingConstants.TOP);
+        b1.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
+        b2.setPreferredSize(new Dimension(240, 100));
+        b2.setFont(new Font("Tahoma", Font.BOLD, 12));
+        b2.setBackground(Color.decode("#deba83"));
+        b2.setVerticalAlignment(SwingConstants.TOP);
+        b2.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
+        bre.setPreferredSize(new Dimension(240, 100));
+        bre.setFont(new Font("Tahoma", Font.BOLD, 12));
+        bre.setBackground(Color.decode("#deba83"));
+        bre.setVerticalAlignment(SwingConstants.TOP);
+        bre.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
+        bre.addActionListener(this);
+        b1.addActionListener(this);
+        Table_butpanel.add(b1);
+        Table_butpanel.add(bre);
+        Table_butpanel.add(b2);
+        Table_butpanel.setBackground(Color.decode("#FFDEAD"));
+        add(Table_butpanel, BorderLayout.SOUTH);
+        
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource().equals(buttons_R1[0])) {
-            new Table_PopUp();
-            buttons_R1[0].setBackground(Color.red);
+    public void setStausTable(JButton j, String status) {
+        if ("busy".equals(status)) {
+            System.out.println("seetsss");
+             j.setBackground(Color.red);
+        } else if ("free".equals(status)) {
+            j.setBackground(Color.green);
+        } else if ("close".equals(status)) {
+            j.setBackground(Color.gray);
+        } else if ("booked".equals(status)) {
+            System.out.println("sdasds boooooooooek");
+            j.setBackground(Color.yellow);
         }
     }
+
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < tables.size(); i++) {
+            if (e.getSource() == tableButtons[i]) {
+                mainGUI.cardLayout.show(mainGUI.panel_R2, "Menu");
+                menuPanel.setTableIDshow(""+tables.get(i).getId());
+                menuPanel.setlabelorder();
+                //menuPanel2
+            }
+
+        }
+        if (e.getSource() == bre) {
+            //checkFoodBillInTable();
+            db.loadTable();
+            tables = db.getTable();
+            for (int i = 0; i < tables.size(); i++){
+            setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
+        }else if(e.getSource().equals(b1)){
+            new Table_PopUp(this);
+            db.addContactView(this);
+        }
+         
+    }
+   
+//    public void checkFoodBillInTable(){
+//        
+//        Table t;
+//        tables = menuPanel.getTables();
+//        for (int i = 0; i < tables.size(); i++){
+//            t = tables.get(i);
+//            if (!t.getBill().getFoodBill().isEmpty() & !t.getTableStatus().equals("booked")){
+//                db.setStatustable(t.getId()+"", "busy");
+//            }else if(t.getBill().getFoodBill().isEmpty()& !t.getTableStatus().equals("booked")){
+//                System.out.println("in");
+//                db.setStatustable(t.getId()+"","free");
+//            }
+//            
+//        }
+//        }
+        
+
+    public static void main(String[] args) {
+        new MainGUI();
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        System.out.println("sdfsdfsdfewlrk");
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+    @Override
+    public void refreshtable(ArrayList<Table> tables) {
+       
+        this.tables = tables;
+        System.out.println("status in ref tabel"+tables.get(6).getTableStatus());
+        for (int i = 0; i < tables.size(); i++){
+            System.out.println(tables.get(i).getId()+ "   in loop set"+tables.get(i).getTableStatus());
+            setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
+        }
+    
 }

@@ -1,4 +1,4 @@
-package DBJava;
+
 
 public class Menu {
 
@@ -6,6 +6,7 @@ public class Menu {
     private String menuName;
     private String menuPrice;
     private String menuType;
+    
 
     public Menu(int Id, String Menuname,String MenuPrice,String MenuType){
         this.Id = Id;
@@ -45,4 +46,9 @@ public class Menu {
     public void setMenuType(String menuType) {
         this.menuType = menuType;
     }
+    public boolean equals(String name){
+        return this.menuName.equals(name);
+    }
+    
+    
 }
