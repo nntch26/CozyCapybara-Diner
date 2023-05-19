@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 
 public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener, Refreshable {
 
@@ -24,7 +26,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     private MainGUI mainGUI;
 
     public Table_PopUp(TablePanel tablePanel) {
-         db = new Database();
+        db = new Database();
         frame = new JFrame();
         frame.setBackground(Color.yellow);
         desktopPane = new JDesktopPane();
@@ -120,7 +122,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
 
        // JTABLE
          DefaultTableModel model = (DefaultTableModel)tabledetails.getModel();
-          db.loadTable();
+         db.loadTable();
          tables = db.getTable();
          setJTable();
          JScrollPane scrollPane = new JScrollPane(tabledetails);
@@ -149,14 +151,20 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
          DefaultTableModel model = (DefaultTableModel) tabledetails.getModel();
          model.setRowCount(0);
          Object[] columnsName = new Object[5];
-         columnsName[0] = "Id";
-         columnsName[1] = "Cap";
-         columnsName[2] = "Name";
-         columnsName[3] = "Status";
-         columnsName[4] = "Date";
+         columnsName[0] = "ID";
+         columnsName[1] = "NAME";
+         columnsName[2] = "CAPACITY";
+         columnsName[3] = "STATUS";
+         columnsName[4] = "DATE";
          System.out.println(tables.get(4).getTableStatus());
          model.setColumnIdentifiers(columnsName);
          Object[] rowData = new Object[5];
+
+         JTableHeader Theader = tabledetails.getTableHeader();
+         Color txtOrange = new Color(0, 0, 0);
+         Color backgroundOrange = new Color(255, 128, 0);
+         Theader.setBackground(backgroundOrange);
+         Theader.setForeground(txtOrange);
 
          for (int i = 0; i < tables.size(); i++) {
              rowData[0] = tables.get(i).getId();
@@ -167,6 +175,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
              model.addRow(rowData);
          }
      }
+
 
     @Override
     public void actionPerformed(ActionEvent ae) {
