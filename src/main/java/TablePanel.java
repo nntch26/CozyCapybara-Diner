@@ -48,6 +48,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
             Table_show.add(tableButtons[i]);
             tableButtons[i].setPreferredSize(new Dimension(200, 175));
             tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
+            tableButtons[i].setBackground(Color.decode("#deba83"));
             setStausTable(tableButtons[i], tables.get(i).getTableStatus());
             tableButtons[i].setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
         }
@@ -87,10 +88,10 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
 
     public void setStausTable(JButton j, String status) {
         //////////// รูปภาพ ///////////////////////
-        ImageIcon icon = new ImageIcon("src/main/resources/imggui/busy.png");
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/red.png");
         // ปรับขนาดของรูปภาพ
         Image image = icon.getImage();
-        Image reImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        Image reImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
         ImageIcon resizedIcon = new ImageIcon(reImage);
 
