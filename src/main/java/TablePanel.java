@@ -16,6 +16,14 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     private MenuPanel menuPanel;
     private ArrayList<java.awt.Menu> Menu ;
     public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
+        //////////// รูปภาพ ///////////////////////
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/imgtest.jpg");
+        // ปรับขนาดของรูปภาพ
+        Image image = icon.getImage();
+        Image reImage = image.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+        ImageIcon resizedIcon = new ImageIcon(reImage);
+
         Table_butpanel = new JPanel();
         Table_show = new JPanel();
         txtback = new JPanel();
@@ -35,7 +43,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         System.out.println(tables.size());
         tableButtons = new JButton[tables.size()];
         for (int i = 0; i < tables.size(); i++) {
-            tableButtons[i] = new JButton(new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico"));
+            tableButtons[i] = new JButton(resizedIcon);
             tableButtons[i].addActionListener(this);
             Table_show.add(tableButtons[i]);
             tableButtons[i].setPreferredSize(new Dimension(200, 175));
@@ -75,7 +83,6 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         Table_butpanel.setBackground(Color.decode("#FFDEAD"));
         add(Table_butpanel, BorderLayout.SOUTH);
 
-        
     }
 
     public void setStausTable(JButton j, String status) {
