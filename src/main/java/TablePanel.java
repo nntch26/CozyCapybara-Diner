@@ -86,16 +86,27 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     }
 
     public void setStausTable(JButton j, String status) {
+        //////////// รูปภาพ ///////////////////////
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/busy.png");
+        // ปรับขนาดของรูปภาพ
+        Image image = icon.getImage();
+        Image reImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+        ImageIcon resizedIcon = new ImageIcon(reImage);
+
         if ("busy".equals(status)) {
             System.out.println("seetsss");
-             j.setBackground(Color.red);
+             j.setIcon(resizedIcon);
+             j.setText("Busy");
         } else if ("free".equals(status)) {
-            j.setBackground(Color.green);
+            j.setIcon(resizedIcon);
+            j.setText("Free");
         } else if ("close".equals(status)) {
-            j.setBackground(Color.gray);
+            j.setIcon(resizedIcon);
+            j.setText("close");
         } else if ("booked".equals(status)) {
-
-            j.setBackground(Color.yellow);
+            j.setIcon(resizedIcon);
+            j.setText("booked");
         }
     }
 
