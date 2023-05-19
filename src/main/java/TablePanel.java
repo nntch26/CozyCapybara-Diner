@@ -76,21 +76,18 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         add(Table_butpanel, BorderLayout.SOUTH);
 
         //////////// รูปภาพ ///////////////////////
-        ImageIcon icon = new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
-        // ปรับขนาดของรูปภาพ
-        Image image = icon.getImage();
-        Image reImage = image.getScaledInstance(530, 500, Image.SCALE_SMOOTH);
-        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
-        ImageIcon resizedIcon = new ImageIcon(reImage);
+        //Image icon = ImageIO.read(getClass().getResource("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico"));
+        //new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
+        //Icon icon = new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
         
     }
 
     public void setStausTable(JButton j, String status) {
         if ("busy".equals(status)) {
             System.out.println("seetsss");
-             j.setIcon(new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico"));
+             j.setBackground(Color.red);
         } else if ("free".equals(status)) {
-            j.setBackground(Color.green);
+            j.setIcon(new ImageIcon(this.getClass().getResource("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico")));;
         } else if ("close".equals(status)) {
             j.setBackground(Color.gray);
         } else if ("booked".equals(status)) {
