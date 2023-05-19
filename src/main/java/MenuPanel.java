@@ -45,38 +45,50 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
         tableIDshow = new JTextField("1");
         porderborder = new JPanel();
         pordermenu = new JPanel();
+        addmenu = new JButton("order Menu");
+
         //left panel menulist
         //tables = db.getTable();
         db.loadTable();
         tables = db.getTable();
         setlabel();
-        
-        //right panel table ordermenu
+
+        //right panel table ordermenu Top right
         porderborder.setLayout(new BorderLayout());
+        //ordermenu Top right
         pshowtableid.add(tableid);
         pshowtableid.add(tableIDshow);
         porderborder.add(pshowtableid, BorderLayout.NORTH);
+
+        //right center
         pordermenu.setLayout(new GridLayout(30,1));
         porderborder.add(pordermenu, BorderLayout.CENTER);
+
+        //totalpanel
         totalpanel.setLayout(new FlowLayout());
         totalpanel.add(totallabel);
         totallabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         totalpanel.add(total);
         porderborder.add(totalpanel, BorderLayout.SOUTH);
-        addmenu = new JButton("order Menu");
+
+
+
         addmenu.addActionListener(this);
+        checkBill.addActionListener(this);
+
+        //panel devide
         pback.setLayout(new GridLayout(1,2));
-        pback.add(pmenu);
-        pback.add(porderborder);
+        pback.add(pmenu); //add set left
+        pback.add(porderborder); //add set right
         //toolpanel
         toolpanel.add(addmenu);
         toolpanel.add(checkBill);
         
-        checkBill.addActionListener(this);
+
         setLayout(new BorderLayout());
-        add(pback, BorderLayout.CENTER);
+        add(pback, BorderLayout.CENTER); // add panel devide
         
-        add(toolpanel, BorderLayout.SOUTH);
+        add(toolpanel, BorderLayout.SOUTH);// add toolpanel
     }
 
     public JTextField getTableIDshow() {
@@ -100,6 +112,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
         Table t = db.searchTableById(idtable);
         if(e.getSource().equals(addmenu)){
             db.setStatustable(""+t.getId(), "busy");
+            tableid.setText("Table (busy)" );
             pmenu.removeAll();
             
             setlabel();
@@ -124,10 +137,14 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
              checkBillGUI.getCheckBill().addActionListener(this);
              checkBillGUI.getShowdetail().setText("");
             checkBillGUI.getShowdetail().setText(setTextBill);
-            db.setStatustable(""+t.getId(),"free");
+
+
         }else if(e.getSource().equals(checkBillGUI.getCheckBill())){
+            System.out.println("in in in ");
             t.getBill().setFoodBill(new LinkedList<>());
             System.out.println("smfoe");
+            db.setStatustable(""+t.getId(),"free");
+            tableid.setText("Table (free)" );
             pordermenu.removeAll();
             setlabelorder();
         }
@@ -141,10 +158,13 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
     public void setSetTextBill(String setTextBill) {
         this.setTextBill = setTextBill;
     }
+
+    public void setTableid(String setTextTable) {
+        tableid.setText(setTextTable);
+    }
     public void setlabel(){
         
         db.loadMenu();
-        
         Menu = db.getMenu();
         pmenu.removeAll();
         menulabels = new JLabel[Menu.size()];

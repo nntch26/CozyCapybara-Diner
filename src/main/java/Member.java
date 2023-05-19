@@ -19,11 +19,13 @@ public class Member extends Customer implements GetInfocustomer{
     public void culculatePoint(double a) {
         this.setPoint((this.getPoint() + a*RATE));
     }
-    
+    public void usePoint(double a) {
+        this.setPoint((this.getPoint() - a));
+    }
     
     @Override
     public String getInfocustomer(){
-        return ""+this.getName()+""+this.getPoint();
+        return "Member Name is"+this.getName()+" have point "+this.getPoint();
     }
 
     @Override

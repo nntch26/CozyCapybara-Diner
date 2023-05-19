@@ -9,9 +9,9 @@ import java.util.Iterator;
 
 
 public class Database {
-    String url = "jdbc:mysql://db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
+    String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
     String user = "rootoop"; // ชื่อผู้ใช้
-    String password = "123456789"; // รหัสผ่าน
+    String password = "123456789"; // รหัส
         private ArrayList<Table> table;
         private ArrayList<Menu> menu;
         private ArrayList<Member> member;
@@ -19,25 +19,7 @@ public class Database {
        
        
 //        private static ArrayList<Table> Bill = new ArrayList<Bill>();
-    public void addContactView(Refreshable view) {
-    if (!tableView.contains(view)) 
-            tableView.add(view);
-    }
-    public void updateModel(ArrayList<Table> tables) {
-        loadTable();
-        tables = table;
-        System.out.println("update");
-        updateView();
-    }
-    private void updateView() {
-        Iterator notifyViews = tableView.iterator();
-        System.out.println(notifyViews);
-        System.out.println("tappp ++"+tableView.size());
-        while (notifyViews.hasNext()) 
-        ((Refreshable)notifyViews.next()).refreshtable(table);
-        
-        
-    }   
+
     
     public Connection getConnection(){
         Connection connect = null;
@@ -81,6 +63,26 @@ public class Database {
         }
      
    }
+    public void autoCreatTabel(){
+        PreparedStatement pre = null;
+        try(Connection connect = getConnection();
+
+
+        ){pre = connect.prepareStatement("insert into tablenumber (Cap,Status, Namecus, TelCus, Dtime) values (?, ?, ?, ?, ?)");
+            pre.setString(1, "4");
+            pre.setString(2, "free");
+            pre.setString(3, "");
+            pre.setString(4, "");
+            pre.setString(5, "");
+            pre.executeUpdate();
+
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
    public void reserveTable(String id,String namecus, String phonecus, String time){
        PreparedStatement pre = null;
        try(Connection connect = getConnection();
@@ -155,22 +157,44 @@ public class Database {
    public void addMenu(String name,String price, String type){
        PreparedStatement pre = null;
        try(Connection connect = getConnection();
-            
+
 
             ){pre = connect.prepareStatement("insert into menulist (FoodName,Price,Type) values (?, ?, ?)");
               pre.setString(1, name);
               pre.setString(2, price);
               pre.setString(3, type);
-              
+
               pre.executeUpdate();
-           
-           
+
+
 
        }catch (SQLException e) {
         e.printStackTrace();
         }
        
    }
+
+    public void memSetPoint(Member memobject){
+
+
+        PreparedStatement pre = null;
+        try(Connection connect = getConnection();
+
+
+        ){pre = connect.prepareStatement("UPDATE customer SET point = ? WHERE TelCustomer = ?");
+            pre.setDouble(1, memobject.getPoint());
+            pre.setString(2, memobject.getTelcus());
+
+
+            pre.executeUpdate();
+
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
    public void addMenu2(Addmenu menu){
        PreparedStatement pre = null;
        String name = menu.getT1().getText();
@@ -283,9 +307,28 @@ public class Database {
     public void setMember(ArrayList<Member> member) {
         this.member = member;
     }
-    
-    
-   }
+
+    public void addContactView(Refreshable view) {
+        if (!tableView.contains(view))
+            tableView.add(view);
+    }
+    public void updateModel(ArrayList<Table> tables) {
+        loadTable();
+        tables = table;
+        System.out.println("update");
+        updateView();
+    }
+    private void updateView() {
+        Iterator notifyViews = tableView.iterator();
+        System.out.println(notifyViews);
+        System.out.println("tappp ++"+tableView.size());
+        while (notifyViews.hasNext())
+            ((Refreshable)notifyViews.next()).refreshtable(table);
+
+
+    }
+
+}
    
    
     

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JPanel;
@@ -21,8 +22,9 @@ public class CheckBillGUI implements ActionListener, WindowListener{
     private MenuPanel menuPanel;
     private Database db;
     private ArrayList<Member> member;
-    private Double totalnum, change;
+    private Double totalnum, change, pointuse;
     private Exchange exchange;
+
 
     private Member mem;
     public CheckBillGUI(MenuPanel menuPanel){
@@ -50,7 +52,7 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         calButton = new JButton("cal");
         moneycus = new JTextField(8);
         showdetail = new JTextArea();
-        changeLabel = new JLabel("555");
+        changeLabel = new JLabel("Change");
 
 
         showdetail.setSize(250, 100);
@@ -94,6 +96,10 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         Exchange exchange = new Exchange() {
             @Override
             public double calculate(double total) {
+                if (Double.parseDouble(moneycus.getText())- totalnum < 0){
+                    JOptionPane.showMessageDialog(null, " minas");
+                    return 0;
+                }
                 return Double.parseDouble(moneycus.getText())- totalnum;
             }
         };
@@ -110,6 +116,7 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         f.addWindowListener(this);
         checkBill.addActionListener(this);
         findmem.addActionListener(this);
+        usePoint.addActionListener(this);
         f.setLayout(new BorderLayout());
         f.add(pshowTop, BorderLayout.NORTH);
         f.add(panelcenter, BorderLayout.CENTER);
@@ -127,10 +134,10 @@ public class CheckBillGUI implements ActionListener, WindowListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        System.out.println(mem);
         if(e.getSource().equals(findmem)){
             totalnum = menuPanel.getSum();
-            Member mem = db.searchmemberByphone(getphonemem.getText());
+            mem = db.searchmemberByphone(getphonemem.getText());
             if (mem == null){
                 System.out.println("not found");
             }else{
@@ -138,9 +145,8 @@ public class CheckBillGUI implements ActionListener, WindowListener{
 
                 total.setText("Total "+ mem.culculatetotal(totalnum));
                 totalnum = mem.culculatetotal(totalnum);
-                JOptionPane.showMessageDialog(null, "Name "+mem.getName()+" have Point "+mem.getPoint(), "alert", JOptionPane.PLAIN_MESSAGE);
-                System.out.println(menuPanel.getSum());
-                System.out.println(totalnum);
+                JOptionPane.showMessageDialog(null, ""+mem.getInfocustomer(), "alert", JOptionPane.PLAIN_MESSAGE);
+
 
                 namecusshow.setText(mem.getName());
             System.out.println(mem.getInfocustomer());}
@@ -149,8 +155,40 @@ public class CheckBillGUI implements ActionListener, WindowListener{
             System.out.println(totalnum);
             //เช็คตรงนี้
             Double Ex = exchange.calculate(totalnum);;
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            String formattedEx = String.format("%.2f", Ex);
+            changeLabel.setText("Change "+formattedEx);
+        }else if(e.getSource().equals(checkBill)){
+            if (mem != null& !(showdetail.getText().isEmpty())){
+                mem.culculatePoint(totalnum);
 
-            changeLabel.setText(""+Ex);
+                db.memSetPoint(mem);
+                System.out.println("After "+mem.getPoint());
+                JOptionPane.showMessageDialog(null, ""+mem.getInfocustomer(), "Check Bill", JOptionPane.PLAIN_MESSAGE);
+                mem = null;
+                f.dispose();
+            }else if(mem == null & !(showdetail.getText().isEmpty())){
+                Guest g = new Guest(namecusshow.getText());
+                JOptionPane.showMessageDialog(null, ""+g.getInfocustomer()+" Check bill", "Check Bill", JOptionPane.PLAIN_MESSAGE);
+
+                f.dispose();
+            }
+        }else if(e.getSource().equals(usePoint)){
+            System.out.println(menuPanel.getSum());
+            if (mem.getPoint() > menuPanel.getSum()){
+                pointuse = menuPanel.getSum();
+                int x = JOptionPane.showConfirmDialog(null, mem.getInfocustomer()+ "You use point "+pointuse, "choose one", JOptionPane.OK_CANCEL_OPTION);
+                System.out.println("User clicked button " + x);
+                if(x == 0){
+                    mem.usePoint(pointuse);
+                    JOptionPane.showMessageDialog(null, "" + mem.getInfocustomer() + " Have Point", "Point", JOptionPane.PLAIN_MESSAGE);
+                    db.memSetPoint(mem);
+                    f.dispose();
+                }
+
+            }else {
+                JOptionPane.showMessageDialog(null, "" + mem.getInfocustomer() + " Have Point", "member don't have Point", JOptionPane.PLAIN_MESSAGE);
+            }
         }
     }
 
@@ -172,6 +210,13 @@ public class CheckBillGUI implements ActionListener, WindowListener{
 
     public JLabel getTotal() {
         return total;
+    }
+    public JFrame getF() {
+        return f;
+    }
+
+    public void setF(JFrame f) {
+        this.f = f;
     }
 
     public void setTotal(JLabel total) {
@@ -208,7 +253,8 @@ public class CheckBillGUI implements ActionListener, WindowListener{
 
     @Override
     public void windowClosing(WindowEvent e) {
-        showdetail.setText("");
+        mem = null;
+
     }
 
     @Override

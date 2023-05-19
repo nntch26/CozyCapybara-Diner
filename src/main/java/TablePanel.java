@@ -15,14 +15,21 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     private MainGUI mainGUI;
     private MenuPanel menuPanel;
     private ArrayList<java.awt.Menu> Menu ;
+
     public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
         Table_butpanel = new JPanel();
         Table_show = new JPanel();
         txtback = new JPanel();
         this.mainGUI = mainGUI;
         this.menuPanel = menuPanel;
-        
+
         db = new Database();
+//        db.loadTable();
+//        tables = db.getTable();
+
+
+
+
         // loadtable
         db.addContactView(this);
         db.addContactView(mainGUI);
@@ -95,6 +102,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         for (int i = 0; i < tables.size(); i++) {
             if (e.getSource() == tableButtons[i]) {
                 mainGUI.cardLayout.show(mainGUI.panel_R2, "Menu");
+                menuPanel.setTableid("Table ("+tables.get(i).getTableStatus()+")" );
                 menuPanel.setTableIDshow(""+tables.get(i).getId());
                 menuPanel.setlabelorder();
                 //menuPanel2
