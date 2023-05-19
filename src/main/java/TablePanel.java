@@ -20,7 +20,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         ImageIcon icon = new ImageIcon("src/main/resources/imggui/imgtest.jpg");
         // ปรับขนาดของรูปภาพ
         Image image = icon.getImage();
-        Image reImage = image.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+        Image reImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
         ImageIcon resizedIcon = new ImageIcon(reImage);
 
