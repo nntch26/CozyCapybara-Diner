@@ -17,6 +17,14 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     private ArrayList<java.awt.Menu> Menu ;
 
     public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
+        //////////// รูปภาพ ///////////////////////
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/busy.png");
+        // ปรับขนาดของรูปภาพ
+        Image image = icon.getImage();
+        Image reImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+        ImageIcon resizedIcon = new ImageIcon(reImage);
+
         Table_butpanel = new JPanel();
         Table_show = new JPanel();
         txtback = new JPanel();
@@ -38,15 +46,16 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         System.out.println(tables.get(0).getId());
         // mainpanel show table
         setLayout(new BorderLayout());
-        Table_show.setLayout(new GridLayout(3, 3, 3, 3));
+        Table_show.setLayout(new GridLayout(3, 3, 5, 5));
         System.out.println(tables.size());
         tableButtons = new JButton[tables.size()];
         for (int i = 0; i < tables.size(); i++) {
-            tableButtons[i] = new JButton("Table " + (i + 1));
+            tableButtons[i] = new JButton("Ayo what tha dog doing",resizedIcon);
             tableButtons[i].addActionListener(this);
             Table_show.add(tableButtons[i]);
-            tableButtons[i].setPreferredSize(new Dimension(240, 175));
+            tableButtons[i].setPreferredSize(new Dimension(200, 175));
             tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
+            tableButtons[i].setBackground(Color.decode("#deba83"));
             setStausTable(tableButtons[i], tables.get(i).getTableStatus());
             tableButtons[i].setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
         }
@@ -81,20 +90,31 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         Table_butpanel.add(b2);
         Table_butpanel.setBackground(Color.decode("#FFDEAD"));
         add(Table_butpanel, BorderLayout.SOUTH);
-        
+
     }
 
     public void setStausTable(JButton j, String status) {
+        //////////// รูปภาพ ///////////////////////
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/red.png");
+        // ปรับขนาดของรูปภาพ
+        Image image = icon.getImage();
+        Image reImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+        ImageIcon resizedIcon = new ImageIcon(reImage);
+
         if ("busy".equals(status)) {
             System.out.println("seetsss");
-             j.setBackground(Color.red);
+             j.setIcon(resizedIcon);
+             j.setText("Busy");
         } else if ("free".equals(status)) {
-            j.setBackground(Color.green);
+            j.setIcon(resizedIcon);
+            j.setText("Free");
         } else if ("close".equals(status)) {
-            j.setBackground(Color.gray);
+            j.setIcon(resizedIcon);
+            j.setText("close");
         } else if ("booked".equals(status)) {
-
-            j.setBackground(Color.yellow);
+            j.setIcon(resizedIcon);
+            j.setText("booked");
         }
     }
 
