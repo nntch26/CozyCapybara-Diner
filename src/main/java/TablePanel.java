@@ -17,10 +17,10 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     private ArrayList<java.awt.Menu> Menu ;
     public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
         //////////// รูปภาพ ///////////////////////
-        ImageIcon icon = new ImageIcon("src/main/resources/imggui/imgtest.jpg");
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
         // ปรับขนาดของรูปภาพ
         Image image = icon.getImage();
-        Image reImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image reImage = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
         ImageIcon resizedIcon = new ImageIcon(reImage);
 
