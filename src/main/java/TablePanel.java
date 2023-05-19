@@ -87,7 +87,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
             System.out.println("seetsss");
              j.setBackground(Color.red);
         } else if ("free".equals(status)) {
-            j.setIcon(new ImageIcon(this.getClass().getResource("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico")));;
+            j.setIcon(new ImageIcon(this.getClass().getResource("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico")));
         } else if ("close".equals(status)) {
             j.setBackground(Color.gray);
         } else if ("booked".equals(status)) {
