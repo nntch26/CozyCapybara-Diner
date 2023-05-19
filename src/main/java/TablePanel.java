@@ -35,7 +35,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         System.out.println(tables.size());
         tableButtons = new JButton[tables.size()];
         for (int i = 0; i < tables.size(); i++) {
-            tableButtons[i] = new JButton("Table " + (i + 1));
+            tableButtons[i] = new JButton(new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico"));
             tableButtons[i].addActionListener(this);
             Table_show.add(tableButtons[i]);
             tableButtons[i].setPreferredSize(new Dimension(200, 175));
