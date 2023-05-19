@@ -1,101 +1,90 @@
-//import java.awt.*;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
-public class MenuPanel extends JPanel implements ActionListener, MouseListener{
-        private JPanel pmenu, porderborder, pordermenu, pback, pshowtableid, toolpanel, totalpanel;
-        private JLabel[] menulabels;
-        private JLabel[] ordermenu, countmenushow;
-        private JLabel tableid, totallabel;
-        private JButton addmenu,refresh,checkBill;
-        private  JTextField tableIDshow, total;
-        private Database db;
-        private ArrayList<Menu> Menu;
-        private ArrayList<Table> tables;
-        private TablePanel tablePanel;
-        private String setTextBill = "";
-        private CheckBillGUI checkBillGUI;
-        private Double sum = 0.0;
-        public MenuPanel() {
-        pmenu = new JPanel();
-        db = new Database();
-        pback = new JPanel();
-        
-        toolpanel = new JPanel();
-        totalpanel = new JPanel();
-        pshowtableid = new JPanel();
-        checkBill = new JButton("CheckBill");
-        totallabel = new JLabel("Total");
-        total = new JTextField(7);
-        tableid = new JLabel("Table ID");
-        tableIDshow = new JTextField("1");
-        porderborder = new JPanel();
-        pordermenu = new JPanel();
-        addmenu = new JButton("order Menu");
+public class MenuPanel extends JPanel implements ActionListener, MouseListener {
+    private JPanel pMenuLeftside, pOrderRightside, pOrderMenu, pMain, pShowTableID, pButton, pTotal;
+    private JLabel[] menulabels, ordermenu, countmenushow;
+    private JLabel tableid, totallabel;
+    private JButton addmenu, refresh, checkBill;
+    private JTextField tableIDshow, total;
+    private Database db;
+    private ArrayList<Menu> Menu;
+    private ArrayList<Table> tables;
+    private TablePanel tablePanel;
+    private String setTextBill = "";
+    private CheckBillGUI checkBillGUI;
+    private Double sum = 0.0;
 
-        //left panel menulist
-        //tables = db.getTable();
+    public MenuPanel() {
+        //DATABASE
+        db = new Database();
+        //PANEL
+        pMenuLeftside = new JPanel(); //SUBMAIN LEFTSIDE
+        pOrderRightside = new JPanel(); //SUBMAIN RIGHTSIDE
+        pOrderMenu = new JPanel(); //CENTER OF SUBMAIN RIGHTSIDE
+        pMain = new JPanel(); //MAIN PANEL
+        pButton = new JPanel(); //BUTTON PANEL
+        pTotal = new JPanel(); //TOTAL FOR PAY PANEL
+        pShowTableID = new JPanel(); //SHOW TABLE ID PANEL (NORTH OF SUBMAIN RIGHT SIDE)
+        //JBUTTON
+        checkBill = new JButton("CheckBill");
+        addmenu = new JButton("order Menu");
+        //JLABEL
+        totallabel = new JLabel("Total");
+        tableid = new JLabel("Table ID");
+        //JTEXTFIELD
+        tableIDshow = new JTextField("1");
+        total = new JTextField(7);
+
+        //SUBMAIN LEFT SIDE
         db.loadTable();
         tables = db.getTable();
-        setlabel();
+        setlabel(); //ADD THINGS IN THIS METHODS
+        //SUBMAIN RIGHT SIDE
+        pOrderRightside.setLayout(new BorderLayout());
 
-        //right panel table ordermenu Top right
-        porderborder.setLayout(new BorderLayout());
-        //ordermenu Top right
-        pshowtableid.add(tableid);
-        pshowtableid.add(tableIDshow);
-        porderborder.add(pshowtableid, BorderLayout.NORTH);
+        //ADD SHOW TABLE ID (NORTH OF SUBMAIN RIGHT SIDE)
+        pShowTableID.add(tableid);
+        pShowTableID.add(tableIDshow);
+        pOrderRightside.add(pShowTableID, BorderLayout.NORTH);
 
-        //right center
-        pordermenu.setLayout(new GridLayout(30,1));
-        porderborder.add(pordermenu, BorderLayout.CENTER);
+        //ORDER MENU (CENTER OF SUBMAIN RIGHT SIDE)
+        pOrderMenu.setLayout(new GridLayout(30, 1));
+        pOrderRightside.add(pOrderMenu, BorderLayout.CENTER);
 
-        //totalpanel
-        totalpanel.setLayout(new FlowLayout());
-        totalpanel.add(totallabel);
+        //ADD pTotal
+        pTotal.setLayout(new FlowLayout());
+        pTotal.add(totallabel);
         totallabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        totalpanel.add(total);
-        porderborder.add(totalpanel, BorderLayout.SOUTH);
+        pTotal.add(total);
+        pOrderRightside.add(pTotal, BorderLayout.SOUTH);
 
+        //ADD pButton
+        pButton.add(addmenu);
+        pButton.add(checkBill);
 
-
+        //ADD ACTIONLISTENERS
         addmenu.addActionListener(this);
         checkBill.addActionListener(this);
 
-        //panel devide
-        pback.setLayout(new GridLayout(1,2));
-        pback.add(pmenu); //add set left
-        pback.add(porderborder); //add set right
-        //toolpanel
-        toolpanel.add(addmenu);
-        toolpanel.add(checkBill);
-        
+        //MAIN PANEL
+        pMain.setLayout(new GridLayout(1, 2));
+        pMain.add(pMenuLeftside); //ADD SUBMAIN LEFT
+        pMain.add(pOrderRightside); //ADD SUBMAIN RIGHT
 
+        //THE MAINPAGE ADD
         setLayout(new BorderLayout());
-        add(pback, BorderLayout.CENTER); // add panel devide
-        
-        add(toolpanel, BorderLayout.SOUTH);// add toolpanel
+        add(pMain, BorderLayout.CENTER); // ADD MAIN PANEL
+        add(pButton, BorderLayout.SOUTH);// ADD pButton
     }
 
     public JTextField getTableIDshow() {
         return tableIDshow;
     }
 
-    public  void setTableIDshow(String id) {
+    public void setTableIDshow(String id) {
         tableIDshow.setText(id);
     }
 
@@ -106,49 +95,50 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
     public void setTables(ArrayList<Table> tables) {
         this.tables = tables;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         int idtable = Integer.parseInt(tableIDshow.getText());
         Table t = db.searchTableById(idtable);
-        if(e.getSource().equals(addmenu)){
-            db.setStatustable(""+t.getId(), "busy");
-            tableid.setText("Table (busy)" );
-            pmenu.removeAll();
-            
+        if (e.getSource().equals(addmenu)) {
+            db.setStatustable("" + t.getId(), "busy");
+            tableid.setText("Table (busy)");
+            pMenuLeftside.removeAll();
+
             setlabel();
-        }else if(e.getSource().equals(checkBill)){
-          
+        } else if (e.getSource().equals(checkBill)) {
+
             t.getBill().countBill();
             setTextBill = "";
             HashMap<LinkedList<String>, Integer> countBill = t.getBill().getCountBill();
             sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
             for (Map.Entry<LinkedList<String>, Integer> entry : countBill.entrySet()) {
-            LinkedList<String> key = entry.getKey();
-            Integer value = entry.getValue();
+                LinkedList<String> key = entry.getKey();
+                Integer value = entry.getValue();
                 String str = String.valueOf(key);
                 String substring = str.substring(1, str.length() - 1);
-           
-                setTextBill += "                 "+ substring + "   amount: " + value + "\n";
-}
-            
-             checkBillGUI = new CheckBillGUI(this);
-             checkBillGUI.getTablelaJlable().setText("Table ID  " + idtable);
-             checkBillGUI.getTotal().setText("Total "+sum);
-             checkBillGUI.getCheckBill().addActionListener(this);
-             checkBillGUI.getShowdetail().setText("");
+
+                setTextBill += "                 " + substring + "   amount: " + value + "\n";
+            }
+
+            checkBillGUI = new CheckBillGUI(this);
+            checkBillGUI.getTablelaJlable().setText("Table ID  " + idtable);
+            checkBillGUI.getTotal().setText("Total " + sum);
+            checkBillGUI.getCheckBill().addActionListener(this);
+            checkBillGUI.getShowdetail().setText("");
             checkBillGUI.getShowdetail().setText(setTextBill);
 
 
-        }else if(e.getSource().equals(checkBillGUI.getCheckBill())){
+        } else if (e.getSource().equals(checkBillGUI.getCheckBill())) {
             System.out.println("in in in ");
             t.getBill().setFoodBill(new LinkedList<>());
             System.out.println("smfoe");
-            db.setStatustable(""+t.getId(),"free");
-            tableid.setText("Table (free)" );
-            pordermenu.removeAll();
+            db.setStatustable("" + t.getId(), "free");
+            tableid.setText("Table (free)");
+            pOrderMenu.removeAll();
             setlabelorder();
         }
-     
+
     }
 
     public String getSetTextBill() {
@@ -162,77 +152,79 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
     public void setTableid(String setTextTable) {
         tableid.setText(setTextTable);
     }
-    public void setlabel(){
-        
+
+    public void setlabel() {
+
         db.loadMenu();
         Menu = db.getMenu();
-        pmenu.removeAll();
+        pMenuLeftside.removeAll();
         menulabels = new JLabel[Menu.size()];
         countmenushow = new JLabel[Menu.size()];
-        pmenu.setLayout(new GridLayout(20, 1, 10 ,10));
-        
+        pMenuLeftside.setLayout(new GridLayout(20, 1, 10, 10));
+
         for (int i = 0; i < Menu.size(); i++) {
             menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "   " + Menu.get(i).getMenuPrice());
-            pmenu.add(menulabels[i]);
+            pMenuLeftside.add(menulabels[i]);
             menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 12));
             menulabels[i].addMouseListener(this);
         }
-//        pmenu.setBackground(Color.red);
-//        pmenu.setOpaque(true);
+//        pMenuLeftside.setBackground(Color.red);
+//        pMenuLeftside.setOpaque(true);
         revalidate();
         repaint();
     }
-    public void setlabelorder(){
-    pordermenu.removeAll();
-    ordermenu = new JLabel[Menu.size()];
-    int idtable = Integer.parseInt(tableIDshow.getText());
-    Table t = db.searchTableById(idtable);
-    if (t != null) {
-        t.getBill().countBill();
-        HashMap<LinkedList<String>, Integer> countBill = t.getBill().getCountBill();
-        pordermenu.setLayout(new GridLayout(30, 2));
-        int i = 0;
-        for (LinkedList<String> key : countBill.keySet()) {
-            String str = String.valueOf(key);
-            String substring = str.substring(1, str.length() - 1);
-            ordermenu[i] = new JLabel(substring+"");
-            countmenushow[i] = new JLabel(substring+"     "+countBill.get(key));
-            pordermenu.add(countmenushow[i]);
-            countmenushow[i].addMouseListener(this);
-            i++;
 
+    public void setlabelorder() {
+        pOrderMenu.removeAll();
+        ordermenu = new JLabel[Menu.size()];
+        int idtable = Integer.parseInt(tableIDshow.getText());
+        Table t = db.searchTableById(idtable);
+        if (t != null) {
+            t.getBill().countBill();
+            HashMap<LinkedList<String>, Integer> countBill = t.getBill().getCountBill();
+            pOrderMenu.setLayout(new GridLayout(30, 2));
+            int i = 0;
+            for (LinkedList<String> key : countBill.keySet()) {
+                String str = String.valueOf(key);
+                String substring = str.substring(1, str.length() - 1);
+                ordermenu[i] = new JLabel(substring + "");
+                countmenushow[i] = new JLabel(substring + "     " + countBill.get(key));
+                pOrderMenu.add(countmenushow[i]);
+                countmenushow[i].addMouseListener(this);
+                i++;
+
+            }
+        } else if (t == null) {
+            pOrderMenu.removeAll();
         }
-    }else if(t == null){
-                pordermenu.removeAll();
-                }
 
-    revalidate();
-    repaint();
-}
-    
+        revalidate();
+        repaint();
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-    int idtable = Integer.parseInt(tableIDshow.getText());
-    Table t = db.searchTableById(tables.get(idtable-1));
-    LinkedList<String> tempBilltable = t.getBill().getFoodBill();
-    for (int i = 0; i < Menu.size(); i++) {
-        if (e.getSource() == countmenushow[i]) {
-            tempBilltable.remove(ordermenu[i].getText());
-            sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
-            total.setText(sum+"");
-            setlabelorder();
+        int idtable = Integer.parseInt(tableIDshow.getText());
+        Table t = db.searchTableById(tables.get(idtable - 1));
+        LinkedList<String> tempBilltable = t.getBill().getFoodBill();
+        for (int i = 0; i < Menu.size(); i++) {
+            if (e.getSource() == countmenushow[i]) {
+                tempBilltable.remove(ordermenu[i].getText());
+                sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
+                total.setText(sum + "");
+                setlabelorder();
+            }
+        }
+        if (e.getSource().equals(addmenu)) {
+            pOrderMenu.removeAll();
+            revalidate();
+            repaint();
         }
     }
-    if(e.getSource().equals(addmenu)){
-        pordermenu.removeAll();
-        revalidate();
-        repaint();
-    }
-}
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override
@@ -242,19 +234,19 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
             if (e.getSource() == menulabels[i]) {
                 Table t = db.searchTableById(Integer.parseInt(tableIDshow.getText()));
                 t.getBill().addFoodToBill(menulabels[i].getText());
-                
+
                 Double sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
-                total.setText(sum+"");
+                total.setText(sum + "");
                 System.out.println(t.getBill().getFoodBill());
-                
+
 //                if (t.getBill().getFoodBill().size()==1){
 //                    db.setStatustable(tableIDshow.getText()+"", "busy");
 //                }
-                
+
                 setlabelorder();
-                
+
             }
-        } 
+        }
     }
 
     @Override
@@ -272,7 +264,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener{
     public void setSum(Double sum) {
         this.sum = sum;
     }
-        
+
 }
     
 

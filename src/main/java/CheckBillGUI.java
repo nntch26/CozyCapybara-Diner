@@ -107,10 +107,6 @@ public class CheckBillGUI implements ActionListener, WindowListener{
         // กำหนดค่าให้กับตัวแปร calculator ใน CheckBillGUI
         this.setCalculator(exchange);
 
-
-
-
-
         panelcheckbill.add(usePoint);
         panelcheckbill.add(checkBill);
         f.addWindowListener(this);
