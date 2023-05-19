@@ -31,14 +31,14 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         System.out.println(tables.get(0).getId());
         // mainpanel show table
         setLayout(new BorderLayout());
-        Table_show.setLayout(new GridLayout(3, 3, 3, 3));
+        Table_show.setLayout(new GridLayout(3, 3, 5, 5));
         System.out.println(tables.size());
         tableButtons = new JButton[tables.size()];
         for (int i = 0; i < tables.size(); i++) {
             tableButtons[i] = new JButton("Table " + (i + 1));
             tableButtons[i].addActionListener(this);
             Table_show.add(tableButtons[i]);
-            tableButtons[i].setPreferredSize(new Dimension(240, 175));
+            tableButtons[i].setPreferredSize(new Dimension(200, 175));
             tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
             setStausTable(tableButtons[i], tables.get(i).getTableStatus());
             tableButtons[i].setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
@@ -74,13 +74,21 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         Table_butpanel.add(b2);
         Table_butpanel.setBackground(Color.decode("#FFDEAD"));
         add(Table_butpanel, BorderLayout.SOUTH);
+
+        //////////// รูปภาพ ///////////////////////
+        ImageIcon icon = new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
+        // ปรับขนาดของรูปภาพ
+        Image image = icon.getImage();
+        Image reImage = image.getScaledInstance(530, 500, Image.SCALE_SMOOTH);
+        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+        ImageIcon resizedIcon = new ImageIcon(reImage);
         
     }
 
     public void setStausTable(JButton j, String status) {
         if ("busy".equals(status)) {
             System.out.println("seetsss");
-             j.setBackground(Color.red);
+             j.setIcon(new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico"));
         } else if ("free".equals(status)) {
             j.setBackground(Color.green);
         } else if ("close".equals(status)) {
