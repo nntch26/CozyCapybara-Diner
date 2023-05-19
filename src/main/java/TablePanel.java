@@ -75,10 +75,6 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         Table_butpanel.setBackground(Color.decode("#FFDEAD"));
         add(Table_butpanel, BorderLayout.SOUTH);
 
-        //////////// รูปภาพ ///////////////////////
-        //Image icon = ImageIO.read(getClass().getResource("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico"));
-        //new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
-        //Icon icon = new ImageIcon("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico");
         
     }
 
@@ -87,7 +83,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
             System.out.println("seetsss");
              j.setBackground(Color.red);
         } else if ("free".equals(status)) {
-            j.setIcon(new ImageIcon(this.getClass().getResource("src/main/resources/imggui/477771968a154cbb812eb02e0f051e70.ico")));
+            j.setBackground(Color.green);
         } else if ("close".equals(status)) {
             j.setBackground(Color.gray);
         } else if ("booked".equals(status)) {
