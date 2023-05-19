@@ -7,7 +7,6 @@ public class MainGUI implements ActionListener, Refreshable {
         private JFrame f;
         public JPanel panel_L1,panel_L2,pn,panel_R1,panel_R2;
         private JButton b1,b2,b3,b4,bAdmin;
-        private JLabel l1;
         public MenuPanel menuPanel;
         public CardLayout cardLayout;
 
@@ -33,7 +32,17 @@ public class MainGUI implements ActionListener, Refreshable {
             panel_L2 = new JPanel();
             panel_R1 = new JPanel();
             pn = new JPanel();
-            l1 = new JLabel("WELCOME");
+
+             //////////// รูปภาพ ///////////////////////
+            ImageIcon icon = new ImageIcon("src/main/resources/imggui/home.png");
+            // ปรับขนาดของรูปภาพ
+            Image image = icon.getImage();
+            Image reImage = image.getScaledInstance(850, 600, Image.SCALE_SMOOTH);
+            // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
+            ImageIcon resizedIcon = new ImageIcon(reImage);
+            // สร้าง JLabel และแสดงรูปภาพที่ปรับขนาดแล้ว
+            JLabel labelimg = new JLabel(resizedIcon);
+            panel_R1.add(labelimg);
 
            
 
@@ -92,13 +101,6 @@ public class MainGUI implements ActionListener, Refreshable {
 
             // Panel
             panel_L2.setBackground(Color.DARK_GRAY);
-            l1.setForeground(Color.DARK_GRAY);
-            l1.setFont(new Font("Tahoma", Font.BOLD, 56)); // กำหนดแบบอักษร และขนาด
-            panel_R1.add(l1);
-
-
-
-            // ขนาด Panel
             panel_L1.setPreferredSize(new Dimension(200, 100));
 
             //// กำหนดพื้นที่ภายใน
@@ -138,19 +140,44 @@ public class MainGUI implements ActionListener, Refreshable {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == b1) {
-                cardLayout.show(panel_R2, "Table");}
-            else if (e.getSource() == b2) {
-                cardLayout.show(panel_R2, "Menu");
-                //menuPanel.setlabelorder();
-            } else if (e.getSource() == b3) {
-                cardLayout.show(panel_R2, "Member");
-            } else if (e.getSource() == b4){
-                //new LoginGUI();
+        if (e.getSource() == b1) {
+            cardLayout.show(panel_R2, "Table");
+            b1.setBackground(Color.decode("#E67E22"));
+            b2.setBackground(Color.darkGray);
+            b3.setBackground(Color.darkGray);
+            bAdmin.setBackground(Color.DARK_GRAY);
+
+        } else if (e.getSource() == b2) {
+            cardLayout.show(panel_R2, "Menu");
+            b1.setBackground(Color.darkGray);
+            b2.setBackground(Color.decode("#E67E22"));
+            b3.setBackground(Color.darkGray);
+            bAdmin.setBackground(Color.DARK_GRAY);
+
+        } else if (e.getSource() == b3) {
+            cardLayout.show(panel_R2, "Member");
+            b1.setBackground(Color.darkGray);
+            b2.setBackground(Color.DARK_GRAY);
+            b3.setBackground(Color.decode("#E67E22"));
+            bAdmin.setBackground(Color.DARK_GRAY);
+
+        } else if (e.getSource() == bAdmin) {
+            cardLayout.show(panel_R2, "Member");
+            b1.setBackground(Color.darkGray);
+            b2.setBackground(Color.DARK_GRAY);
+            b3.setBackground(Color.DARK_GRAY);
+            bAdmin.setBackground(Color.decode("#E67E22"));
+        }
+        else if (e.getSource() == b4) {
+            int windowClose = JOptionPane.showConfirmDialog(f, "Are you sure you want to Logout", "", JOptionPane.YES_NO_OPTION);
+            if (windowClose == JOptionPane.YES_OPTION){
+                new LoginGUI();
                 f.dispose();
             }
         }
+    }
 
+    
     public JPanel getPanel_L2() {
         return panel_L2;
     }
@@ -165,10 +192,7 @@ public class MainGUI implements ActionListener, Refreshable {
     }
 
    
-    public static void main(String[] args) {
-        new MainGUI();
-    }
-        }
+}
 
 
 
