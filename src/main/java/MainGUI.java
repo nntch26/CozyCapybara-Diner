@@ -24,7 +24,7 @@ public class MainGUI implements ActionListener, Refreshable {
             // สร้าง Panels จากคลาสอื่น
             
             menuPanel = new MenuPanel();
-            JPanel contactPanel = new MemPanel();
+            JPanel memberPanel = new MemberPanel();
             JPanel tablePanel = new TablePanel(this, menuPanel);
 
 
@@ -123,7 +123,7 @@ public class MainGUI implements ActionListener, Refreshable {
             panel_R2.add(panel_R1, "Home");
             panel_R2.add(tablePanel, "Table");
             panel_R2.add(menuPanel, "Menu");
-            panel_R2.add(contactPanel, "Member");
+            panel_R2.add(memberPanel, "Member");
 
             f.add(panel_L1, BorderLayout.WEST);
 
