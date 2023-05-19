@@ -109,7 +109,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         } else if ("free".equals(status)) {
             j.setIcon(resizedIcon);
             j.setText("Free");
-        } else if ("close".equals(status)) {
+        } else if ("closed".equals(status)) {
             j.setIcon(resizedIcon);
             j.setText("close");
         } else if ("booked".equals(status)) {

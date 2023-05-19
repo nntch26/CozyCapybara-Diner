@@ -25,7 +25,7 @@ public class Member extends Customer implements GetInfocustomer{
     
     @Override
     public String getInfocustomer(){
-        return "Member Name is"+this.getName()+" have point "+this.getPoint();
+        return "Member Name is "+this.getName()+" have point "+this.getPoint();
     }
 
     @Override

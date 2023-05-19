@@ -37,19 +37,20 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         labelTime = new JLabel("Time : ");
         labelPhoneNumber = new JLabel("Phone Number : ");
         labelCap = new JLabel("Capacity : ");
-        tfName = new JTextField(20);
-        tfTime = new JTextField(20);
-        tfPhoneNumber = new JTextField(20);
-        take_idTable = new JTextField(20);
-        takeCap = new JTextField(20);
-        btn_yes = new JButton("YES");
+        tfName = new JTextField("",20);
+        tfTime = new JTextField("",20);
+        tfPhoneNumber = new JTextField("",20);
+        take_idTable = new JTextField("",20);
+        takeCap = new JTextField("",20);
+        btn_yes = new JButton("Booked");
         btn_no = new JButton("NO");
         btn_edit = new JButton("EDIT");
         tabledetails = new JTable();
         selectStatus = new JComboBox();
-        selectStatus.addItem("FREE");
-        selectStatus.addItem("BOOKED");
-        selectStatus.addItem("CLOSED");
+        //selectStatus.addItem("booked");
+        selectStatus.addItem("free");
+        selectStatus.addItem("busy");
+        selectStatus.addItem("closed");
         internal_frame_1 = new JInternalFrame("TableNum", true, true, true, true);
         internal_frame_2 = new JInternalFrame("JTableNum", true, true, true, true);
 
@@ -129,6 +130,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
          internal_frame_2.add(scrollPane);
         tablePanel = new TablePanel(mainGUI, menuPanel);
         db.addContactView(this);
+
 //        db.addContactView(tablePanel);
 
 
@@ -145,6 +147,45 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
 
     public void setTake_idTable(JTextField take_idTable) {
         this.take_idTable = take_idTable;
+    }
+
+    public JTextField getTfName() {
+        return tfName;
+    }
+
+    public void setTfName(JTextField tfName) {
+        this.tfName = tfName;
+    }
+
+    public JTextField getTfTime() {
+        return tfTime;
+    }
+
+    public void setTfTime(JTextField tfTime) {
+        this.tfTime = tfTime;
+    }
+
+    public JTextField getTfPhoneNumber() {
+        return tfPhoneNumber;
+    }
+
+    public void setTfPhoneNumber(JTextField tfPhoneNumber) {
+        this.tfPhoneNumber = tfPhoneNumber;
+    }
+
+    public JTextField getTakeCap() {
+        return takeCap;
+    }
+
+    public void setTakeCap(JTextField takeCap) {
+        this.takeCap = takeCap;
+    }
+    public JComboBox getSelectStatus() {
+        return selectStatus;
+    }
+
+    public void setSelectStatus(JComboBox selectStatus) {
+        this.selectStatus = selectStatus;
     }
 
      public void setJTable() {
@@ -197,12 +238,25 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
                 db.reserveTable(take_idTable.getText(), tfName.getText(), tfPhoneNumber.getText(), tfTime.getText()); //ADD TO TABLE
                 db.addContactView(tablePanel);
                 db.updateModel(tables);
-                frame.dispose();
+                //frame.dispose();
             }
         } else if (ae.getSource().equals(btn_no)) {
             int windowClose = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this application?", "Confirm Close", JOptionPane.YES_NO_OPTION);
             if (windowClose == JOptionPane.YES_OPTION) {
                 frame.dispose();
+            }
+        } else if(ae.getSource().equals(btn_edit)){
+            if (take_idTable.getText().equals("") | takeCap.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Pls insert idtable or cap");
+
+            }else{
+                System.out.println(4);
+                System.out.println("asdasd"+selectStatus.getSelectedItem());
+                db.editTable(this);
+
+
+                db.addContactView(tablePanel);
+                db.updateModel(tables);
             }
         }
     }
