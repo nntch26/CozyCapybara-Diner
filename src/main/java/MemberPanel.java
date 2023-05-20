@@ -42,7 +42,7 @@ public class MemberPanel extends JPanel implements ActionListener {
 
         // MemberView
         label1 = new JLabel("MemberShip");
-        label1.setForeground(Color.decode("#E67E22"));
+        label1.setForeground(Color.decode("#F14902"));
         label1.setFont(new Font("Tahoma", Font.BOLD, 48)); // กำหนดแบบอักษร และขนาด
         label1.setBounds(200,100,200,30);
 
@@ -68,14 +68,14 @@ public class MemberPanel extends JPanel implements ActionListener {
         allButton.setForeground(Color.white);
         allButton.setFont(new Font("Tahoma", Font.BOLD, 14)); // กำหนดแบบอักษร และขนาด
         allButton.setPreferredSize(new Dimension(80, 30));
-        allButton.setBorder(BorderFactory.createLineBorder(Color.decode("#E67E22")));
+        allButton.setBorder(BorderFactory.createLineBorder(Color.decode("#F14902")));
         allButton.setBackground(Color.DARK_GRAY);
 
 
         searchButton.setForeground(Color.white);
         searchButton.setFont(new Font("Tahoma", Font.BOLD, 14)); // กำหนดแบบอักษร และขนาด
         searchButton.setPreferredSize(new Dimension(80, 30));
-        searchButton.setBorder(BorderFactory.createLineBorder(Color.decode("#E67E22")));
+        searchButton.setBorder(BorderFactory.createLineBorder(Color.decode("#F14902")));
         searchButton.setBackground(Color.DARK_GRAY);
 
         // ตกแต่งตาราง
