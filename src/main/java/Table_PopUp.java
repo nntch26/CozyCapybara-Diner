@@ -32,7 +32,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         desktopPane = new JDesktopPane();
         this.tablePanel = tablePanel;
         p1 = new JPanel();
-        labelID = new JLabel("ID Table : ");
+        labelID = new JLabel("ID Table ( 1 - 8 ) : ");
         labelName = new JLabel("Customer Name : ");
         labelTime = new JLabel("Time : ");
         labelPhoneNumber = new JLabel("Phone Number : ");
