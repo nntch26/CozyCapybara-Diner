@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class Database {
     String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
     String user = "rootoop"; // ชื่อผู้ใช้
-    String password = "123456789"; // รหัส
+    String password = "123456789"; // รหัสัสผ่าน
         private ArrayList<Table> table;
         private ArrayList<Menu> menu;
         private ArrayList<Member> member;
@@ -104,6 +104,34 @@ public class Database {
         }
        
    }
+
+    public void editTable(Table_PopUp tablePopUp){
+        String id = tablePopUp.getTake_idTable().getText();
+        String namecus = tablePopUp.getTfName().getText();
+        String time = tablePopUp.getTfTime().getText();
+        String status = ""+tablePopUp.getSelectStatus().getSelectedItem();
+        String phonecus = tablePopUp.getTfPhoneNumber().getText();
+
+        PreparedStatement pre = null;
+        try(Connection connect = getConnection();
+
+
+        ){pre = connect.prepareStatement("update tablenumber set NameCus = ?, TelCus = ?, DTime = ?, Status = ? where idTable = ?");
+            pre.setString(1, namecus);
+            pre.setString(2, phonecus);
+            pre.setString(3, time);
+            pre.setString(4, status);
+            pre.setString(5, id);
+
+            pre.executeUpdate();
+
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
    public void setStatustable(String id,String Status){
        PreparedStatement pre = null;
        try(Connection connect = getConnection();
