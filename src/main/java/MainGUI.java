@@ -92,6 +92,7 @@ public class MainGUI implements ActionListener, Refreshable {
             bAdmin.addActionListener(this);
 
 
+            //load
 
 
             // layout
@@ -142,7 +143,7 @@ public class MainGUI implements ActionListener, Refreshable {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == b1) {
             cardLayout.show(panel_R2, "Table");
-            b1.setBackground(Color.decode("#E67E22"));
+            b1.setBackground(Color.decode("#F14902"));
             b2.setBackground(Color.darkGray);
             b3.setBackground(Color.darkGray);
             bAdmin.setBackground(Color.DARK_GRAY);
@@ -150,7 +151,7 @@ public class MainGUI implements ActionListener, Refreshable {
         } else if (e.getSource() == b2) {
             cardLayout.show(panel_R2, "Menu");
             b1.setBackground(Color.darkGray);
-            b2.setBackground(Color.decode("#E67E22"));
+            b2.setBackground(Color.decode("#F14902"));
             b3.setBackground(Color.darkGray);
             bAdmin.setBackground(Color.DARK_GRAY);
 
@@ -158,7 +159,7 @@ public class MainGUI implements ActionListener, Refreshable {
             cardLayout.show(panel_R2, "Member");
             b1.setBackground(Color.darkGray);
             b2.setBackground(Color.DARK_GRAY);
-            b3.setBackground(Color.decode("#E67E22"));
+            b3.setBackground(Color.decode("#F14902"));
             bAdmin.setBackground(Color.DARK_GRAY);
 
         } else if (e.getSource() == bAdmin) {
@@ -166,7 +167,7 @@ public class MainGUI implements ActionListener, Refreshable {
             b1.setBackground(Color.darkGray);
             b2.setBackground(Color.DARK_GRAY);
             b3.setBackground(Color.DARK_GRAY);
-            bAdmin.setBackground(Color.decode("#E67E22"));
+            bAdmin.setBackground(Color.decode("#F14902"));
         }
         else if (e.getSource() == b4) {
             int windowClose = JOptionPane.showConfirmDialog(f, "Are you sure you want to Logout", "", JOptionPane.YES_NO_OPTION);

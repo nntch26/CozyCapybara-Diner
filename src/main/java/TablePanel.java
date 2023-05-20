@@ -14,7 +14,8 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     private Database db;
     private MainGUI mainGUI;
     private MenuPanel menuPanel;
-    private ArrayList<java.awt.Menu> Menu ;
+   // private ArrayList<java.awt.Menu> Menu ;
+//    private static final int counttable = 9;
 
     public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
         //////////// รูปภาพ ///////////////////////
@@ -34,6 +35,11 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         db = new Database();
 //        db.loadTable();
 //        tables = db.getTable();
+//        if (tables.size() < counttable){
+//            for(int i = tables.size(); i < counttable; i++){
+//                db.autoCreatTabel();
+//            }
+//        }
 
 
 
@@ -43,22 +49,13 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         db.addContactView(mainGUI);
         db.loadTable();
         tables = db.getTable();
+        setTablespanel();
         System.out.println(tables.get(0).getId());
         // mainpanel show table
         setLayout(new BorderLayout());
         Table_show.setLayout(new GridLayout(3, 3, 5, 5));
         System.out.println(tables.size());
-        tableButtons = new JButton[tables.size()];
-        for (int i = 0; i < tables.size(); i++) {
-            tableButtons[i] = new JButton("Ayo what tha dog doing",resizedIcon);
-            tableButtons[i].addActionListener(this);
-            Table_show.add(tableButtons[i]);
-            tableButtons[i].setPreferredSize(new Dimension(200, 175));
-            tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
-            tableButtons[i].setBackground(Color.decode("#deba83"));
-            setStausTable(tableButtons[i], tables.get(i).getTableStatus());
-            tableButtons[i].setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
-        }
+
         add(Table_show, BorderLayout.CENTER);
         Table_show.setBackground(Color.decode("#FFDEAD"));
 
@@ -93,6 +90,23 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
 
     }
 
+    public void setTablespanel(){
+        tableButtons = new JButton[tables.size()];
+        Table_show.removeAll();
+        for (int i = 0; i < tables.size(); i++) {
+            tableButtons[i] = new JButton("Ayo what tha dog doing");
+            tableButtons[i].addActionListener(this);
+            Table_show.add(tableButtons[i]);
+            tableButtons[i].setPreferredSize(new Dimension(200, 175));
+            tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
+            tableButtons[i].setBackground(Color.decode("#deba83"));
+            setStausTable(tableButtons[i], tables.get(i).getTableStatus());
+            tableButtons[i].setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
+        }
+        Table_show.revalidate(); // เพิ่มบรรทัดนี้เพื่อเปลี่ยนแปลงเล็กน้อยในส่วนของ JPanel
+        Table_show.repaint();
+    }
+
     public void setStausTable(JButton j, String status) {
         //////////// รูปภาพ ///////////////////////
         ImageIcon icon = new ImageIcon("src/main/resources/imggui/red.png");
@@ -124,6 +138,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
                 mainGUI.cardLayout.show(mainGUI.panel_R2, "Menu");
                 menuPanel.setTableid("Table ("+tables.get(i).getTableStatus()+")" );
                 menuPanel.setTableIDshow(""+tables.get(i).getId());
+                menuPanel.setTotalcliked();
                 menuPanel.setlabelorder();
                 //menuPanel2
             }
@@ -132,9 +147,10 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         if (e.getSource() == bre) {
             //checkFoodBillInTable();
             db.loadTable();
+            tables = new ArrayList<>();
             tables = db.getTable();
-            for (int i = 0; i < tables.size(); i++){
-            setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
+            setTablespanel();
+
         }else if(e.getSource().equals(b1)){
             new Table_PopUp(this);
             db.addContactView(this);

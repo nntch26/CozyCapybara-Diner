@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class Database {
     String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
     String user = "rootoop"; // ชื่อผู้ใช้
-    String password = "123456789"; // รหัสัสผ่าน
+    String password = "123456789"; // รหัส
         private ArrayList<Table> table;
         private ArrayList<Menu> menu;
         private ArrayList<Member> member;
@@ -253,15 +253,15 @@ public class Database {
     }
     return null;
 }
-    public Table searchTableById(Table tableObject) {
-    int id = tableObject.getId();
-    for (Table t : table) {
-        if (t.getId() == id) {
-            return t;
-        }
-    }
-    return null;
-}
+//    public Table searchTableById(Table tableObject) {
+//    int id = tableObject.getId();
+//    for (Table t : table) {
+//        if (t.getId() == id) {
+//            return t;
+//        }
+//    }
+//    return null;
+//}
    
    
    public Member searchmemberByphone(String phone) {
@@ -307,8 +307,6 @@ public class Database {
             Statement st = connect.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM customer");
             ){
-           
-           
            while(rs.next()){
             Member mem = new Member(rs.getInt("idCustomer"), rs.getString("NameCustomer"), rs.getString("TelCustomer")
                     ,rs.getString("Email"), rs.getInt("Point"));
