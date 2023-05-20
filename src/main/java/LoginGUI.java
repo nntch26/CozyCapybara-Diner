@@ -10,6 +10,7 @@ public class LoginGUI implements ActionListener {
     private JPasswordField txtPass;
     private JButton b1;
 
+    private AutocreatTable a;
 
     public LoginGUI() {
         f = new JFrame();
@@ -121,6 +122,8 @@ public class LoginGUI implements ActionListener {
         if (username.equals("admin") && password.equals("1234")) {
             JOptionPane.showMessageDialog(null, "Welcome " + username + "!");
             // เปิดหน้าต่าง Main ร้านอาหาร
+            a = new AutocreatTable();
+
             new MainGUI();
             f.dispose();
 

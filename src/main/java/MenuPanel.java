@@ -91,7 +91,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         pOrderRightside.add(pTopRightside, BorderLayout.NORTH);
 
         //ORDER MENU (CENTER OF SUBMAIN RIGHT SIDE)
-        pOrderMenu.setLayout(new GridLayout(15, 1, 10, 10));
+        pOrderMenu.setLayout(new GridLayout(10, 1, 10, 10));
         pOrderMenu.setBackground(Color.decode("#F6E7D8"));
         pOrderMenu.setFont(new Font("Tahoma", Font.BOLD, 24));
         pOrderMenu.setBorder(BorderFactory.createCompoundBorder(GridBorder, PanelBorder));
@@ -203,7 +203,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         pShowMenu.removeAll();
         menulabels = new JLabel[Menu.size()];
         countmenushow = new JLabel[Menu.size()];
-        pShowMenu.setLayout(new GridLayout(15, 1, 10, 10));
+        pShowMenu.setLayout(new GridLayout(10, 1, 10, 10));
 
         for (int i = 0; i < Menu.size(); i++) {
             menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "   " + Menu.get(i).getMenuPrice());
@@ -248,7 +248,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         int idtable = Integer.parseInt(tableIDshow.getText());
-        Table t = db.searchTableById(tables.get(idtable - 1));
+        Table t = db.searchTableById(idtable);
         LinkedList<String> tempBilltable = t.getBill().getFoodBill();
         for (int i = 0; i < Menu.size(); i++) {
             if (e.getSource() == countmenushow[i]) {
@@ -278,8 +278,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 Table t = db.searchTableById(Integer.parseInt(tableIDshow.getText()));
                 t.getBill().addFoodToBill(menulabels[i].getText());
 
-                Double sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
-                total.setText(sum + "");
+                setTotalcliked();
                 System.out.println(t.getBill().getFoodBill());
 
 //                if (t.getBill().getFoodBill().size()==1){
@@ -292,6 +291,12 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         }
     }
 
+    public void setTotalcliked(){
+        Table t = db.searchTableById(Integer.parseInt(tableIDshow.getText()));
+        Double sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
+        total.setText(sum + "");
+
+    }
     @Override
     public void mouseEntered(MouseEvent e) {
     }
@@ -320,6 +325,8 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
     public void setTableid(String setTextTable) {
         tableid.setText(setTextTable);
     }
+
+
 }
     
 

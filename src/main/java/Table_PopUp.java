@@ -252,6 +252,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
             }else{
                 System.out.println(4);
                 System.out.println("asdasd"+selectStatus.getSelectedItem());
+                //db.autoCreatTabel();
                 db.editTable(this);
 
 
