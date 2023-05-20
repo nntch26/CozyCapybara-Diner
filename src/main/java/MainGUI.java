@@ -163,11 +163,12 @@ public class MainGUI implements ActionListener, Refreshable {
             bAdmin.setBackground(Color.DARK_GRAY);
 
         } else if (e.getSource() == bAdmin) {
-            cardLayout.show(panel_R2, "Member");
             b1.setBackground(Color.darkGray);
             b2.setBackground(Color.DARK_GRAY);
             b3.setBackground(Color.DARK_GRAY);
             bAdmin.setBackground(Color.decode("#F14902"));
+            new AdminPanel();
+            f.dispose();
         }
         else if (e.getSource() == b4) {
             int windowClose = JOptionPane.showConfirmDialog(f, "Are you sure you want to Logout", "", JOptionPane.YES_NO_OPTION);
