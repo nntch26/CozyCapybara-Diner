@@ -116,8 +116,9 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         checkBill.setPreferredSize(new Dimension(120, 40));
         checkBill.setFont(new Font("Tahoma", Font.BOLD, 14));
         addmenu.setFont(new Font("Tahoma", Font.BOLD, 14));
+        checkBill.setForeground(Color.WHITE);
         addmenu.setBackground(Color.decode("#F6E7D8"));
-        checkBill.setBackground(Color.decode("#F6E7D8"));
+        checkBill.setBackground(Color.decode("#F14902"));
         pButton.add(addmenu);
         pButton.add(checkBill);
 
@@ -207,7 +208,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         for (int i = 0; i < Menu.size(); i++) {
             menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "   " + Menu.get(i).getMenuPrice());
             pShowMenu.add(menulabels[i]);
-            menulabels[i].setFont(new Font("Tahoma", Font.PLAIN, 12));
+            menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 18));
             menulabels[i].addMouseListener(this);
         }
 //        pMenuLeftside.setBackground(Color.red);
@@ -229,9 +230,9 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 String str = String.valueOf(key);
                 String substring = str.substring(1, str.length() - 1);
                 ordermenu[i] = new JLabel(substring + "");
-                countmenushow[i] = new JLabel(substring + "     " + countBill.get(key));
+                countmenushow[i] = new JLabel(substring + " x " + countBill.get(key));
                 pOrderMenu.add(countmenushow[i]);
-                countmenushow[i].setFont(new Font("Tahoma", Font.PLAIN, 12));
+                countmenushow[i].setFont(new Font("Tahoma", Font.BOLD, 18));
                 countmenushow[i].addMouseListener(this);
                 i++;
 
