@@ -2,11 +2,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 public class MenuPanel extends JPanel implements ActionListener, MouseListener {
-    private JPanel pMenuLeftside, pOrderRightside, pOrderMenu, pMain, pShowTableID, pButton, pTotal;
+    private JPanel pMenuLeftside, pOrderRightside, pOrderMenu, pMain, pShowTableID, pButton, pTotal, pShowMenu, pTopRightside;
     private JLabel[] menulabels, ordermenu, countmenushow;
-    private JLabel tableid, totallabel;
+    private JLabel tableid, totallabel, labelMenu, orderingMenu, labelCurrency;
     private JButton addmenu, refresh, checkBill;
     private JTextField tableIDshow, total;
     private Database db;
@@ -22,46 +24,100 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         db = new Database();
         //PANEL
         pMenuLeftside = new JPanel(); //SUBMAIN LEFTSIDE
+        pShowMenu = new JPanel(); //SHOW MENU CENTER LEFT SIDE
         pOrderRightside = new JPanel(); //SUBMAIN RIGHTSIDE
         pOrderMenu = new JPanel(); //CENTER OF SUBMAIN RIGHTSIDE
         pMain = new JPanel(); //MAIN PANEL
         pButton = new JPanel(); //BUTTON PANEL
         pTotal = new JPanel(); //TOTAL FOR PAY PANEL
-        pShowTableID = new JPanel(); //SHOW TABLE ID PANEL (NORTH OF SUBMAIN RIGHT SIDE)
+        pShowTableID = new JPanel(new FlowLayout(FlowLayout.RIGHT)); //SHOW TABLE ID PANEL (NORTH OF SUBMAIN RIGHT SIDE)
+        pTopRightside = new JPanel(new BorderLayout());
         //JBUTTON
         checkBill = new JButton("CheckBill");
-        addmenu = new JButton("order Menu");
+        addmenu = new JButton("Order Menu");
         //JLABEL
-        totallabel = new JLabel("Total");
+        labelMenu = new JLabel("Menu");
+        totallabel = new JLabel("Total : ");
+        orderingMenu = new JLabel("  Ordering Menu");
         tableid = new JLabel("Table ID");
+        labelCurrency = new JLabel("฿");
         //JTEXTFIELD
         tableIDshow = new JTextField("1");
-        total = new JTextField(7);
+        total = new JTextField(10);
+        tableIDshow.setEditable(false);
+        total.setEditable(false);
 
         //SUBMAIN LEFT SIDE
         db.loadTable();
         tables = db.getTable();
-        setlabel(); //ADD THINGS IN THIS METHODS
+        pMenuLeftside.setLayout(new BorderLayout());
+        setlabel(); //ADD MENU METHOD
+        //CUSTOM
+        Border PanelBorder = new EmptyBorder(15, 15, 15, 15);
+        Border ptotalBorder = new EmptyBorder(5, 5, 5, 5);
+        Border onlyBottom = new EmptyBorder(0, 0, 10, 0);
+        Border GridBorder = BorderFactory.createLineBorder(Color.decode("#F14902"), 2);
+        pMenuLeftside.setFont(new Font("Tahoma", Font.BOLD, 12));
+        pMenuLeftside.setBorder(PanelBorder);
+        pShowMenu.setBorder(BorderFactory.createCompoundBorder(GridBorder, PanelBorder));
+        //BACKGROUND COLORS
+        pShowMenu.setBackground(Color.decode("#F6E7D8"));
+        pMenuLeftside.setBackground(Color.decode("#303030"));
+        //TEXT COLORS
+        labelMenu.setFont(new Font("Tahoma", Font.BOLD, 24)); // กำหนดแบบอักษร และขนาด
+        labelMenu.setHorizontalAlignment(JTextField.CENTER);
+        labelMenu.setForeground(Color.WHITE);
+        labelMenu.setBorder(onlyBottom);
+        //ADD**
+        pMenuLeftside.add(labelMenu, BorderLayout.NORTH);
+        pMenuLeftside.add(pShowMenu, BorderLayout.CENTER);
+
         //SUBMAIN RIGHT SIDE
         pOrderRightside.setLayout(new BorderLayout());
-
+        pOrderRightside.setBackground(Color.decode("#303030"));
+        pOrderRightside.setBorder(PanelBorder);
         //ADD SHOW TABLE ID (NORTH OF SUBMAIN RIGHT SIDE)
+        pTopRightside.add(orderingMenu, BorderLayout.WEST);
+        pTopRightside.add(pShowTableID, BorderLayout.EAST);
+        pTopRightside.setBackground(Color.decode("#303030"));
+        pTopRightside.setBorder(onlyBottom);
+        orderingMenu.setFont(new Font("Tahoma", Font.BOLD, 24));
+        orderingMenu.setForeground(Color.WHITE);
+        tableid.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pShowTableID.add(tableid);
         pShowTableID.add(tableIDshow);
-        pOrderRightside.add(pShowTableID, BorderLayout.NORTH);
+        pShowTableID.setBackground(Color.decode("#303030"));
+        tableid.setForeground(Color.WHITE);
+        pOrderRightside.add(pTopRightside, BorderLayout.NORTH);
 
         //ORDER MENU (CENTER OF SUBMAIN RIGHT SIDE)
-        pOrderMenu.setLayout(new GridLayout(30, 1));
+        pOrderMenu.setLayout(new GridLayout(15, 1, 10, 10));
+        pOrderMenu.setBackground(Color.decode("#F6E7D8"));
+        pOrderMenu.setFont(new Font("Tahoma", Font.BOLD, 24));
+        pOrderMenu.setBorder(BorderFactory.createCompoundBorder(GridBorder, PanelBorder));
         pOrderRightside.add(pOrderMenu, BorderLayout.CENTER);
 
         //ADD pTotal
-        pTotal.setLayout(new FlowLayout());
+        pTotal.setLayout(new FlowLayout(FlowLayout.LEFT));
         pTotal.add(totallabel);
+        totallabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        labelCurrency.setFont(new Font("Tahoma", Font.PLAIN, 16));
         totallabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         pTotal.add(total);
+        pTotal.add(labelCurrency);
+        pTotal.setBackground(Color.decode("#F6E7D8"));
+        pTotal.setBorder(BorderFactory.createCompoundBorder(GridBorder, ptotalBorder));
         pOrderRightside.add(pTotal, BorderLayout.SOUTH);
 
         //ADD pButton
+        pButton.setBackground(Color.decode("#303030"));
+        pButton.setBorder(onlyBottom);
+        addmenu.setPreferredSize(new Dimension(120, 40));
+        checkBill.setPreferredSize(new Dimension(120, 40));
+        checkBill.setFont(new Font("Tahoma", Font.BOLD, 14));
+        addmenu.setFont(new Font("Tahoma", Font.BOLD, 14));
+        addmenu.setBackground(Color.decode("#F6E7D8"));
+        checkBill.setBackground(Color.decode("#F6E7D8"));
         pButton.add(addmenu);
         pButton.add(checkBill);
 
@@ -138,34 +194,20 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
             pOrderMenu.removeAll();
             setlabelorder();
         }
-
     }
 
-    public String getSetTextBill() {
-        return setTextBill;
-    }
-
-    public void setSetTextBill(String setTextBill) {
-        this.setTextBill = setTextBill;
-    }
-
-    public void setTableid(String setTextTable) {
-        tableid.setText(setTextTable);
-    }
-
-    public void setlabel() {
-
+    public void setlabel() { //ALL MENUS รายการอาหารทั้งหมด
         db.loadMenu();
         Menu = db.getMenu();
-        pMenuLeftside.removeAll();
+        pShowMenu.removeAll();
         menulabels = new JLabel[Menu.size()];
         countmenushow = new JLabel[Menu.size()];
-        pMenuLeftside.setLayout(new GridLayout(20, 1, 10, 10));
+        pShowMenu.setLayout(new GridLayout(15, 1, 10, 10));
 
         for (int i = 0; i < Menu.size(); i++) {
             menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "   " + Menu.get(i).getMenuPrice());
-            pMenuLeftside.add(menulabels[i]);
-            menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 12));
+            pShowMenu.add(menulabels[i]);
+            menulabels[i].setFont(new Font("Tahoma", Font.PLAIN, 12));
             menulabels[i].addMouseListener(this);
         }
 //        pMenuLeftside.setBackground(Color.red);
@@ -182,7 +224,6 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         if (t != null) {
             t.getBill().countBill();
             HashMap<LinkedList<String>, Integer> countBill = t.getBill().getCountBill();
-            pOrderMenu.setLayout(new GridLayout(30, 2));
             int i = 0;
             for (LinkedList<String> key : countBill.keySet()) {
                 String str = String.valueOf(key);
@@ -190,6 +231,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 ordermenu[i] = new JLabel(substring + "");
                 countmenushow[i] = new JLabel(substring + "     " + countBill.get(key));
                 pOrderMenu.add(countmenushow[i]);
+                countmenushow[i].setFont(new Font("Tahoma", Font.PLAIN, 12));
                 countmenushow[i].addMouseListener(this);
                 i++;
 
@@ -257,6 +299,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
+    //SETTER GETTER HERE
     public Double getSum() {
         return sum;
     }
@@ -265,6 +308,17 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         this.sum = sum;
     }
 
+    public String getSetTextBill() {
+        return setTextBill;
+    }
+
+    public void setSetTextBill(String setTextBill) {
+        this.setTextBill = setTextBill;
+    }
+
+    public void setTableid(String setTextTable) {
+        tableid.setText(setTextTable);
+    }
 }
     
 
