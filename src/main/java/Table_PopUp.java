@@ -223,8 +223,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         if (ae.getSource().equals(btn_yes)) {
             if((take_idTable.getText().equals("")) || (tfName.getText().equals("")) || (tfPhoneNumber.getText().equals("")) || (tfTime.getText().equals(""))){
                 JOptionPane.showMessageDialog(null, " Please fill the form."); //show message
-            }if(Integer.parseInt(take_idTable.getText()) > 9) {
-                JOptionPane.showMessageDialog(null, " Sorry, We have only 9 tables."); //show message
+            }if(Integer.parseInt(take_idTable.getText()) > 8) {
+                JOptionPane.showMessageDialog(null, " Sorry, We have only 8 tables."); //show message
             }if((tfPhoneNumber.getText().length()) != 10) {
                 if ((tfPhoneNumber.getText()).length() < 10) {
                     // Phone number is too short. less than 10 digits
