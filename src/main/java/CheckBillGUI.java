@@ -176,9 +176,12 @@ public class CheckBillGUI implements ActionListener, WindowListener{
                 int x = JOptionPane.showConfirmDialog(null, mem.getInfocustomer()+ "You use point "+pointuse, "choose one", JOptionPane.OK_CANCEL_OPTION);
                 System.out.println("User clicked button " + x);
                 if(x == 0){
+
                     mem.usePoint(pointuse);
                     JOptionPane.showMessageDialog(null, "" + mem.getInfocustomer() + " Have Point", "Point", JOptionPane.PLAIN_MESSAGE);
                     db.memSetPoint(mem);
+                    menuPanel.clearOrder();
+                    menuPanel.setTotalcliked();
                     f.dispose();
                 }
 

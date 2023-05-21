@@ -160,9 +160,10 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         if (e.getSource().equals(addmenu)) {
             db.setStatustable("" + t.getId(), "busy");
             tableid.setText("Table (busy)");
-            pMenuLeftside.removeAll();
-
+            pShowMenu.removeAll();
             setlabel();
+//            pMenuLeftside.revalidate(); // Revalidate the panel
+//            pMenuLeftside.repaint(); //
         } else if (e.getSource().equals(checkBill)) {
 
             t.getBill().countBill();
@@ -187,13 +188,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
 
 
         } else if (e.getSource().equals(checkBillGUI.getCheckBill())) {
-            System.out.println("in in in ");
-            t.getBill().setFoodBill(new LinkedList<>());
-            System.out.println("smfoe");
-            db.setStatustable("" + t.getId(), "free");
-            tableid.setText("Table (free)");
-            pOrderMenu.removeAll();
-            setlabelorder();
+            clearOrder();
         }
     }
 
@@ -258,11 +253,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 setlabelorder();
             }
         }
-        if (e.getSource().equals(addmenu)) {
-            pOrderMenu.removeAll();
-            revalidate();
-            repaint();
-        }
+
     }
 
     @Override
@@ -296,6 +287,19 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         Double sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
         total.setText(sum + "");
 
+    }
+
+    public void  clearOrder(){
+        int idtable = Integer.parseInt(tableIDshow.getText());
+        Table t = db.searchTableById(idtable);
+        System.out.println("in in in ");
+        t.getBill().setFoodBill(new LinkedList<>());
+        System.out.println("smfoe");
+        db.setStatustable("" + t.getId(), "free");
+        tableid.setText("Table (free)");
+        pOrderMenu.removeAll();
+        setTotalcliked();
+        setlabelorder();
     }
     @Override
     public void mouseEntered(MouseEvent e) {
