@@ -3,24 +3,34 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 public class AdminPanel extends JFrame implements ActionListener{
     private JDesktopPane d;
-    private JButton BtnAdd, BtnEdit, BtnDelete, searchButton, searchButton2;
-    private JInternalFrame f1,f2,f3;
+    private JButton BtnAdd, BtnEdit, BtnDelete;
+    private JInternalFrame f,f1,f2,f3;
     private JLabel lMenu, lPrice, lType;
-    private JTextField tMenu, tPrice,tType,searchField, searchField2 ;
+    private JTextField tMenu, tPrice,tType;
 
     private DefaultTableModel menuTable;
-
-
-
     private JMenuBar menuBar;
     private JMenu adminMenu, tableMenu,foodMenu,memMenu;
-    private JMenuItem newAdminMenuItem , exit, tableMenuItem, foodMenuItem, memMenuItem;
+    private JMenuItem newAdminMenuItem , exit, tableMenuItem, foodMenuItem, memMenuItem,closeButton;
     private ArrayList<Menu> menulist;
+    private ArrayList<Table> tablelist;
+    private ArrayList<Member> memlist;
     private DBConnect db;
     public AdminPanel(){
+
+        try {
+            db = new DBConnect();
+            menulist = db.getMenuList();
+            memlist = db.getMemberList();
+            tablelist = db.getTableList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         d = new JDesktopPane();
         d.setBackground(Color.decode("#303030"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,15 +45,14 @@ public class AdminPanel extends JFrame implements ActionListener{
         newAdminMenuItem = new JMenuItem("New Admin");
         newAdminMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //createNewAdminForm();
+                adminFrame();
             }
         });
         adminMenu.add(newAdminMenuItem);
 
         tableMenu = new JMenu("Table");
-        tableMenuItem = new JMenuItem("Booking Table");
-        tableMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        tableMenuItem = new JMenuItem("Table Data");
+        tableMenuItem.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
                 tableFrame();
             }
         });
@@ -51,21 +60,33 @@ public class AdminPanel extends JFrame implements ActionListener{
 
         foodMenu = new JMenu("MenuFood");
         foodMenuItem = new JMenuItem("Menu Management");
-        foodMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        foodMenuItem.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
                 menuFrame();
             }
         });
         foodMenu.add(foodMenuItem);
 
         memMenu = new JMenu("Member");
-        memMenuItem = new JMenuItem("Member Table");
-        memMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        memMenuItem = new JMenuItem("Member Data");
+        memMenuItem.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
                 customerFrame();
             }
         });
         memMenu.add(memMenuItem);
+
+        closeButton = new JMenuItem("Clear All Windows");
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame[] internalFrames = d.getAllFrames();
+                for (JInternalFrame internalFrame : internalFrames) {
+                    internalFrame.dispose(); // ปิดหน้าต่างทั้งหมด
+                }
+            }
+        });
+
+        adminMenu.add(closeButton);
+
 
         exit = new JMenuItem ("Exit Admin");
         exit.addActionListener(new ActionListener() {
@@ -88,30 +109,130 @@ public class AdminPanel extends JFrame implements ActionListener{
         setVisible(true);
     }
 
+    // Admin InternalFrame
+    public void adminFrame(){
+        f = new JInternalFrame("Admin Management System ", false, true, false, false);
+        f.setLayout(new BorderLayout());
+        f.setBackground(Color.darkGray);
+
+        JLabel label2 = new JLabel("Management System");
+        label2.setFont(new Font("Tahoma", Font.BOLD, 18));
+        label2.setForeground(Color.decode("#F14902"));
+
+        JPanel pTop = new JPanel();
+        JPanel pCenter = new JPanel();
+        JPanel p1 = new JPanel();
+        JPanel p2 = new JPanel();
+        JPanel p3 = new JPanel();
+
+        // All Food Items
+        p1.setLayout(new BorderLayout());
+        p1.setBackground(Color.decode("#303030"));
+        p1.setPreferredSize(new Dimension(150, 120));
+        int num1 = menulist.size();
+        JLabel l1 = new JLabel("All Food Items");
+        JLabel l11 = new JLabel("      "+num1);
+        l1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        l11.setFont(new Font("Tahoma", Font.BOLD, 38));
+        l1.setForeground(Color.WHITE);
+        l11.setForeground(Color.decode("#F14902"));
+        p1.add(l1, BorderLayout.NORTH);
+        p1.add(l11, BorderLayout.CENTER);
+
+        //All Tables
+        p2.setLayout(new BorderLayout());
+        p2.setBackground(Color.decode("#303030"));
+        p2.setPreferredSize(new Dimension(150, 120));
+        int num2 = tablelist.size();
+        JLabel l2 = new JLabel("All Tables");
+        JLabel l22 = new JLabel("      "+num2);
+        l2.setFont(new Font("Tahoma", Font.BOLD, 14));
+        l22.setFont(new Font("Tahoma", Font.BOLD, 38));
+        l2.setForeground(Color.WHITE);
+        l22.setForeground(Color.decode("#F14902"));
+        p2.add(l2, BorderLayout.NORTH);
+        p2.add(l22, BorderLayout.CENTER);
+
+        // All Members
+        p3.setLayout(new BorderLayout());
+        p3.setBackground(Color.decode("#303030"));
+        p3.setPreferredSize(new Dimension(150, 120));
+        int num3 = memlist.size();
+        JLabel l3 = new JLabel("All Members");
+        JLabel l33 = new JLabel("      "+num3);
+        l3.setFont(new Font("Tahoma", Font.BOLD, 14));
+        l33.setFont(new Font("Tahoma", Font.BOLD, 38));
+        l3.setForeground(Color.WHITE);
+        l33.setForeground(Color.decode("#F14902"));
+        p3.add(l3, BorderLayout.NORTH);
+        p3.add(l33, BorderLayout.CENTER);
+
+        // add Panel Top
+        pTop.add(p1);
+        pTop.add(p2);
+        pTop.add(p3);
+
+
+        pCenter.setLayout(new BorderLayout());
+        Border compoundBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(10, 10, 10, 10), //ระยะห่างขอบของเส้น
+                BorderFactory.createLineBorder(Color.black, 2)
+        );
+        pCenter.setBorder(compoundBorder);
+        JButton membtn = new JButton("View Members");
+        JButton menubtn = new JButton("View Menu");
+        JButton tablebtn = new JButton("View Tables");
+        membtn.setPreferredSize(new Dimension(150, 120));
+        menubtn.setPreferredSize(new Dimension(150, 120));
+        tablebtn.setPreferredSize(new Dimension(150, 120));
+
+        ////////////////////// addActionListener ///////////////////////////
+        membtn.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                customerFrame();
+            }});
+
+        menubtn.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                menuFrame();
+            }
+        });
+
+        tablebtn.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                tableFrame();
+            }
+        });
+
+
+        JLabel l4 = new JLabel("   View Data");
+        JPanel p = new JPanel();
+        l4.setFont(new Font("Tahoma", Font.BOLD, 28));
+        l4.setForeground(Color.decode("#F14902"));
+
+        p.add(menubtn); p.add(membtn); p.add(tablebtn);
+        pCenter.add(l4, BorderLayout.NORTH);
+        pCenter.add(p,BorderLayout.CENTER);
+
+        f.add(pTop, BorderLayout.NORTH);
+        f.add(pCenter, BorderLayout.CENTER);
+        f.setSize(600, 400);
+        f.setVisible(true);
+        d.add(f);
+
+    }
+
+    // TableList InternalFrame
     public void tableFrame(){
-        // TableList InternalFrame
         DataTable Tablelist = new TablelistTable();
         Tablelist.loadFromDatabase("tablenumber");
         JScrollPane scrollPane = new JScrollPane(Tablelist);
-        f2 = new JInternalFrame("", false, true, false, false);
+        f2 = new JInternalFrame("Table Data", false, true, false, false);
         f2.setLayout(new BorderLayout());
 
-        JLabel label2 = new JLabel("Search: ");
-        label2.setFont(new Font("Tahoma", Font.BOLD, 16));
+        JLabel label2 = new JLabel("Table Data");
+        label2.setFont(new Font("Tahoma", Font.BOLD, 24));
         label2.setForeground(Color.decode("#F14902"));
 
-        searchButton2 = new JButton("Search");
-        searchButton2.setForeground(Color.white);
-        searchButton2.setFont(new Font("Tahoma", Font.BOLD, 14)); // กำหนดแบบอักษร และขนาด
-        searchButton2.setPreferredSize(new Dimension(80, 30));
-        searchButton2.setBorder(BorderFactory.createLineBorder(Color.decode("#E67E22")));
-        searchButton2.setBackground(Color.DARK_GRAY);
-
-        searchField2 = new JTextField(10);
         JPanel searchPanel2 = new JPanel();
         searchPanel2.add(label2);
-        searchPanel2.add(searchField2);
-        searchPanel2.add(searchButton2);
 
         f2.add(searchPanel2, BorderLayout.NORTH);
         f2.add(scrollPane, BorderLayout.CENTER);
@@ -121,30 +242,20 @@ public class AdminPanel extends JFrame implements ActionListener{
 
     }
 
+    // Customerlist JInternalFrame
     public void customerFrame(){
-        // Customerlist JInternalFrame
         DataTable Customerlist = new CustomerlistTable();
         Customerlist.loadFromDatabase("customer");
         JScrollPane scrollPane = new JScrollPane(Customerlist);
-        f3 = new JInternalFrame("", false, true, false, false);
+        f3 = new JInternalFrame("Member Data", false, true, false, false);
         f3.setLayout(new BorderLayout());
 
-        JLabel label = new JLabel("Search: ");
-        label.setFont(new Font("Tahoma", Font.BOLD, 16));
+        JLabel label = new JLabel("Member Data");
+        label.setFont(new Font("Tahoma", Font.BOLD, 24));
         label.setForeground(Color.decode("#F14902"));
 
-        searchButton = new JButton("Search");
-        searchButton.setForeground(Color.white);
-        searchButton.setFont(new Font("Tahoma", Font.BOLD, 14)); // กำหนดแบบอักษร และขนาด
-        searchButton.setPreferredSize(new Dimension(80, 30));
-        searchButton.setBorder(BorderFactory.createLineBorder(Color.decode("#E67E22")));
-        searchButton.setBackground(Color.DARK_GRAY);
-
-        searchField = new JTextField(10);
         JPanel searchPanel = new JPanel();
         searchPanel.add(label);
-        searchPanel.add(searchField);
-        searchPanel.add(searchButton);
 
         f3.add(searchPanel, BorderLayout.NORTH);
         f3.add(scrollPane, BorderLayout.CENTER);
@@ -156,9 +267,10 @@ public class AdminPanel extends JFrame implements ActionListener{
 
     }
 
+    // FoodFrame JInternalFrame
     public void menuFrame(){
-        // FoodFrame JInternalFrame
-        f1 = new JInternalFrame("", false, true, false, false);
+        f1 = new JInternalFrame("Menu Data", false, true, false, false);
+        f1.setLayout(new BorderLayout());
         lMenu = new JLabel("Menu  :  ");
         lPrice = new JLabel("Price  :  ");
         lType = new JLabel("Type  :  ");
@@ -172,9 +284,6 @@ public class AdminPanel extends JFrame implements ActionListener{
         BtnAdd.setBackground(Color.decode("#F14902"));
         BtnEdit.setBackground(Color.decode("#F14902"));
         BtnDelete.setBackground(Color.decode("#F14902"));
-
-
-        f1.setLayout(new BorderLayout());
 
         ///f1addinfo///
         JPanel tempMain = new JPanel();
