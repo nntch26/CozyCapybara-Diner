@@ -50,37 +50,37 @@ public class MemberPanel extends JPanel implements ActionListener {
         addButton.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
         addButton.setPreferredSize(new Dimension(100, 40));
         addButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        addButton.setBackground(Color.DARK_GRAY);
+        addButton.setBackground(Color.decode("#303030"));
 
 
         deleteButton.setForeground(Color.white);
         deleteButton.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
         deleteButton.setPreferredSize(new Dimension(100, 40));
         deleteButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        deleteButton.setBackground(Color.DARK_GRAY);
+        deleteButton.setBackground(Color.decode("#303030"));
 
         editButton.setForeground(Color.white);
         editButton.setFont(new Font("Tahoma", Font.BOLD, 16)); // กำหนดแบบอักษร และขนาด
         editButton.setPreferredSize(new Dimension(100, 40));
         editButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        editButton.setBackground(Color.DARK_GRAY);
+        editButton.setBackground(Color.decode("#303030"));
 
         allButton.setForeground(Color.white);
         allButton.setFont(new Font("Tahoma", Font.BOLD, 14)); // กำหนดแบบอักษร และขนาด
         allButton.setPreferredSize(new Dimension(80, 30));
         allButton.setBorder(BorderFactory.createLineBorder(Color.decode("#F14902")));
-        allButton.setBackground(Color.DARK_GRAY);
+        allButton.setBackground(Color.decode("#303030"));
 
 
         searchButton.setForeground(Color.white);
         searchButton.setFont(new Font("Tahoma", Font.BOLD, 14)); // กำหนดแบบอักษร และขนาด
         searchButton.setPreferredSize(new Dimension(80, 30));
         searchButton.setBorder(BorderFactory.createLineBorder(Color.decode("#F14902")));
-        searchButton.setBackground(Color.DARK_GRAY);
+        searchButton.setBackground(Color.decode("#303030"));
 
         // ตกแต่งตาราง
         memberTable.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
-        memberTable.getTableHeader().setBackground(Color.DARK_GRAY);
+        memberTable.getTableHeader().setBackground(Color.decode("#303030"));
         memberTable.getTableHeader().setForeground(Color.white);
         memberTable.setDefaultRenderer(Object.class, new CustomTableCellRenderer());
 
@@ -115,8 +115,8 @@ public class MemberPanel extends JPanel implements ActionListener {
         JPanel searchPanel2 = new JPanel();
         searchPanel.setLayout(new FlowLayout());
         searchPanel.setPreferredSize(new Dimension(700, 80));
-        searchPanel.setBackground(Color.darkGray);
-        searchPanel2.setBackground(Color.darkGray);
+        searchPanel.setBackground(Color.decode("#303030"));
+        searchPanel2.setBackground(Color.decode("#303030"));
 
         searchPanel.add(label1);
         searchPanel2.add(label2);
