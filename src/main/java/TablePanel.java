@@ -116,17 +116,17 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
         ImageIcon resizedIcon = new ImageIcon(reImage);
 
-        if ("busy".equals(status)) {
+        if ("busy".equals(status) | "Busy".equals(status)) {
             System.out.println("seetsss");
              j.setIcon(resizedIcon);
              j.setText("Busy");
-        } else if ("free".equals(status)) {
+        } else if ("free".equals(status)  | "Free".equals(status)) {
             j.setIcon(resizedIcon);
             j.setText("Free");
-        } else if ("closed".equals(status)) {
+        } else if ("closed".equals(status) | "Closed".equals(status)) {
             j.setIcon(resizedIcon);
             j.setText("close");
-        } else if ("booked".equals(status)) {
+        } else if ("booked".equals(status) | "Booked".equals(status))  {
             j.setIcon(resizedIcon);
             j.setText("booked");
         }

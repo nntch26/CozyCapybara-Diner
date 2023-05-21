@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 
-public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener, Refreshable {
+public class Table_PopUp implements ActionListener, WindowListener, InternalFrameListener, Refreshable, MouseListener {
 
     private JFrame frame;
     private JDesktopPane desktopPane;
@@ -24,7 +24,7 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     private MenuPanel menuPanel;
     private ArrayList<Table> tables;
     private MainGUI mainGUI;
-
+    private JTextField[] textFieldArray;
     public Table_PopUp(TablePanel tablePanel) {
         db = new Database();
         frame = new JFrame();
@@ -47,6 +47,14 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         btn_edit = new JButton("Edit");
         tabledetails = new JTable();
         selectStatus = new JComboBox();
+
+        textFieldArray = new JTextField[5];
+        textFieldArray[0] = take_idTable;
+        textFieldArray[1] = tfName;
+        textFieldArray[2] = tfTime;
+        textFieldArray[3] = tfPhoneNumber;
+        textFieldArray[4] = takeCap;
+
         //selectStatus.addItem("booked");
         selectStatus.addItem("Free");
         selectStatus.addItem("Busy");
@@ -191,28 +199,28 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
      public void setJTable() {
          DefaultTableModel model = (DefaultTableModel) tabledetails.getModel();
          model.setRowCount(0);
-         Object[] columnsName = new Object[5];
+         Object[] columnsName = new Object[6];
          columnsName[0] = "ID";
          columnsName[1] = "NAME";
-         columnsName[2] = "CAPACITY";
-         columnsName[3] = "STATUS";
-         columnsName[4] = "DATE";
-         System.out.println(tables.get(4).getTableStatus());
+         columnsName[2] = "DATE";
+         columnsName[3] = "PHONE";
+         columnsName[4] = "CAP";
+         columnsName[5] = "STATUS";
          model.setColumnIdentifiers(columnsName);
-         Object[] rowData = new Object[5];
-
+         Object[] rowData = new Object[6];
          JTableHeader Theader = tabledetails.getTableHeader();
          Color txtOrange = new Color(0, 0, 0);
          Color backgroundOrange = new Color(255, 128, 0);
          Theader.setBackground(backgroundOrange);
          Theader.setForeground(txtOrange);
-
+         tabledetails.addMouseListener(this);
          for (int i = 0; i < tables.size(); i++) {
              rowData[0] = tables.get(i).getId();
              rowData[1] = tables.get(i).getTableNameCus();
-             rowData[2] = tables.get(i).getTableCap();
-             rowData[3] = tables.get(i).getTableStatus();
-             rowData[4] = tables.get(i).getTableTimeres();
+             rowData[2] = tables.get(i).getTableTimeres();
+             rowData[3] = tables.get(i).getTablePhoneCus();
+             rowData[4] = tables.get(i).getTableCap();
+             rowData[5] = tables.get(i).getTableStatus();
              model.addRow(rowData);
          }
      }
@@ -248,14 +256,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
         } else if(ae.getSource().equals(btn_edit)){
             if (take_idTable.getText().equals("") | takeCap.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Pls insert idtable or cap");
-
             }else{
-                System.out.println(4);
-                System.out.println("asdasd"+selectStatus.getSelectedItem());
-                //db.autoCreatTabel();
                 db.editTable(this);
-
-
                 db.addContactView(tablePanel);
                 db.updateModel(tables);
             }
@@ -346,5 +348,45 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
     public void refreshtable(ArrayList<Table> tables) {
         this.tables = tables;
         setJTable();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        ArrayList<Object> rowData = new ArrayList<>();
+        if (e.getSource().equals(tabledetails)){
+            int row = tabledetails.getSelectedRow(); // รับแถวที่ถูกเลือก
+
+            // นำข้อมูลจากแถวที่ถูกเลือกมาแสดงผล
+            for (int column = 0; column < tabledetails.getColumnCount(); column++) {
+                Object data = tabledetails.getValueAt(row, column);
+                rowData.add(data);
+                System.out.println(data);
+            }
+            for (int i = 0; i < rowData.size()-1; i++) {
+                textFieldArray[i].setText(rowData.get(i).toString());
+            }
+
+        }
+        }
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

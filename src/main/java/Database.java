@@ -9,13 +9,14 @@ import java.util.Iterator;
 
 
 public class Database {
-    String url = "jdbc:mysql://localhost:3306/projectreal"; // URL ของฐานข้อมูล
-    String user = "root"; // ชื่อผู้ใช้
-    String password = "1234"; // รหัสผ่าน
-        private ArrayList<Table> table;
+    String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
+    String user = "rootoop"; // ชื่อผู้ใช้
+    String password = "123456789"; // รหัส
+
+    private ArrayList<Table> table;
         private ArrayList<Menu> menu;
         private ArrayList<Member> member;
-       private ArrayList tableView = new ArrayList();
+        private ArrayList tableView = new ArrayList();
        
        
 //        private static ArrayList<Table> Bill = new ArrayList<Bill>();

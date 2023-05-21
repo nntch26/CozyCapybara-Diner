@@ -76,7 +76,7 @@ public class DetailFrame extends JFrame implements ActionListener {
         setResizable(false);
         setSize(370, 450);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
