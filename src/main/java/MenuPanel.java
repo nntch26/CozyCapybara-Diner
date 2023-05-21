@@ -180,12 +180,11 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
             }
 
             checkBillGUI = new CheckBillGUI(this);
-            checkBillGUI.getTablelaJlable().setText("Table ID  " + idtable);
+            checkBillGUI.getlabelTableID().setText("Table ID  " + idtable);
             checkBillGUI.getTotal().setText("Total " + sum);
             checkBillGUI.getCheckBill().addActionListener(this);
             checkBillGUI.getShowdetail().setText("");
             checkBillGUI.getShowdetail().setText(setTextBill);
-
 
         } else if (e.getSource().equals(checkBillGUI.getCheckBill())) {
             clearOrder();
