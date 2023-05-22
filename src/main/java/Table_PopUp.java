@@ -364,6 +364,15 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
             }
             for (int i = 0; i < rowData.size()-1; i++) {
                 textFieldArray[i].setText(rowData.get(i).toString());
+                System.out.println(i);
+
+                }
+            if (rowData.get(5).equals("booked") | rowData.get(5).equals("Booked")){
+                System.out.println(""+rowData.get(0));
+                Table t = db.searchTableById(Integer.parseInt(String.valueOf(rowData.get(0))));
+                System.out.println("table Id"+t.getId());
+                JOptionPane.showMessageDialog(null, "" + t.getInfocustomer() , "Booked Table By ",JOptionPane.PLAIN_MESSAGE);
+
             }
 
         }

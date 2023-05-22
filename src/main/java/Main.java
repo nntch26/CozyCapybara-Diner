@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         try {
            setLookAndFeel(new FlatLightLaf() );
-            new LoginGUI();
+            new MainGUI();
 
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );

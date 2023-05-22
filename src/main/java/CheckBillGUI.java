@@ -93,7 +93,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
         pSubCenter.add(pMoneyCal, BorderLayout.NORTH);
         pSubCenter.add(changeLabel, BorderLayout.CENTER);
         changeLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        System.out.println("asdasd"+showdetail.getText());
         // totalnum = จำนวนเงินที่ต้องจ่าย
         totalnum = menuPanel.getSum();
         Exchange exchange = new Exchange() {
@@ -143,6 +143,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("asdasd"+showdetail.getText());
         System.out.println(mem);
         if (e.getSource().equals(btn_FindMember)) {
             totalnum = menuPanel.getSum();
@@ -203,9 +204,10 @@ public class CheckBillGUI implements ActionListener, WindowListener {
                     frame.dispose();
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "" + mem.getInfocustomer() + " Have Point",
-                        "member don't have Point", JOptionPane.PLAIN_MESSAGE);
+            }else {
+                JOptionPane.showMessageDialog(null, "" + mem.getInfocustomer() + " Because member Have Point",
+                         "\n member don't have enough Point" + mem.getPoint(), JOptionPane.PLAIN_MESSAGE);
+
             }
         }
     }
@@ -260,6 +262,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
 
     @Override
     public void windowOpened(WindowEvent e) {
+        System.out.println("oee "+ showdetail.getText());
         System.out.println("555");
         db.loadMember();
         member = db.getMember();

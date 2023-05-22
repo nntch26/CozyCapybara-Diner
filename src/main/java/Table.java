@@ -101,6 +101,6 @@ public class Table implements GetInfocustomer{
 
     @Override
     public String getInfocustomer() {
-        return "name"+ this.getTableNameCus() + "Tel"+this.getTablePhoneCus() +"Datetime"+this.getTableTimeres();
+        return "name "+ this.getTableNameCus() + " Tel"+this.getTablePhoneCus() +" Datetime "+this.getTableTimeres();
     }
 }
