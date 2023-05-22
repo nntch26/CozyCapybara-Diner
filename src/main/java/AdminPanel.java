@@ -5,14 +5,18 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
-public class AdminPanel extends JFrame implements ActionListener{
+import javax.swing.table.TableModel;
+
+public class AdminPanel extends JFrame implements ActionListener, DataManagement{
     private JDesktopPane d;
     private JButton BtnAdd, BtnEdit, BtnDelete;
     private JInternalFrame f,f1,f2,f3;
     private JLabel lMenu, lPrice, lType;
     private JTextField tMenu, tPrice,tType;
+    private JTable table;
+    private DefaultTableModel model;
 
-    private DefaultTableModel menuTable;
+    private MenulistTable menulistTable;
     private JMenuBar menuBar;
     private JMenu adminMenu, tableMenu,foodMenu,memMenu;
     private JMenuItem newAdminMenuItem , exit, tableMenuItem, foodMenuItem, memMenuItem,closeButton;
@@ -111,6 +115,7 @@ public class AdminPanel extends JFrame implements ActionListener{
 
     // Admin InternalFrame
     public void adminFrame(){
+        table = new JTable();
         f = new JInternalFrame("Admin Management System ", false, true, false, false);
         f.setLayout(new BorderLayout());
 
@@ -230,7 +235,7 @@ public class AdminPanel extends JFrame implements ActionListener{
 
     // TableList InternalFrame
     public void tableFrame(){
-        DataTable Tablelist = new TablelistTable();
+        TablelistTable Tablelist = new TablelistTable();
         Tablelist.loadFromDatabase("tablenumber");
         JScrollPane scrollPane = new JScrollPane(Tablelist);
         f2 = new JInternalFrame("Table Data", false, true, false, false);
@@ -253,7 +258,7 @@ public class AdminPanel extends JFrame implements ActionListener{
 
     // Customerlist JInternalFrame
     public void customerFrame(){
-        DataTable Customerlist = new CustomerlistTable();
+        CustomerlistTable Customerlist = new CustomerlistTable();
         Customerlist.loadFromDatabase("customer");
         JScrollPane scrollPane = new JScrollPane(Customerlist);
         f3 = new JInternalFrame("Member Data", false, true, false, false);
@@ -318,14 +323,13 @@ public class AdminPanel extends JFrame implements ActionListener{
 
         tempMain.add(temp1, BorderLayout.NORTH);
         f1.add(tempMain, BorderLayout.CENTER);
-        tMenu.setEditable(false); tPrice.setEditable(false); tType.setEditable(false);
 
         ////f1addTable////
-        DataTable menuTable = new MenulistTable();
-        menuTable.loadFromDatabase("menulist");
-        menuTable.getTableHeader().setBackground(Color.decode("#303030"));
-        menuTable.getTableHeader().setForeground(Color.white);
-        tempMain.add(new JScrollPane(menuTable), BorderLayout.CENTER);
+        setTable();
+
+        // เพิ่มตาราง
+        JScrollPane scrollPane = new JScrollPane(table);
+        tempMain.add(scrollPane, BorderLayout.CENTER);
 
         //f1addbutton////
         JPanel temp2 = new JPanel();
@@ -358,75 +362,136 @@ public class AdminPanel extends JFrame implements ActionListener{
 
     /////////////// ส่วนจัดการ เพิ่ม ลบ แก้ไข ข้อมูล ///////////////////////////////////////////////
 
+    @Override
+    public void setTable() {
+        table = new JTable();
+        String[] colname = {"ID", "FoodName", "Price", "Type"};
+        model = new DefaultTableModel(colname,0);
+        db = new DBConnect();
+        try {
+            DBConnect db = new DBConnect();
+            menulist = db.getMenuList();
+
+            for (int i =0; i < menulist.size();i++){
+                String id = String.valueOf(i+1);
+                String name = menulist.get(i).getMenuName();
+                String price = menulist.get(i).getMenuPrice();
+                String type = menulist.get(i).getMenuType();
+                Object[] rowData = { id, name,price, type};
+                model.addRow(rowData);
+                System.out.println("Show Table Successfully");
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error " + e);
+        }
+        table.setModel(model);
+
+    }
+
     // เพิ่มสมาชิก
-    public void addFood(String Menuname,String MenuPrice,String MenuType) {
+
+    public void addData(String Menuname, String MenuPrice, String MenuType) {
         int memberId = menulist.size() + 1;
         Object[] rowData = { memberId,Menuname,MenuPrice,MenuType};
-        menuTable.addRow(rowData);
+        model.addRow(rowData);
 
         menulist.add(new Menu(memberId,Menuname,MenuPrice,MenuType)); // แอดเข้า obj
 
         String s = String.format("'%s','%s','%s'",Menuname,MenuPrice,MenuType); // ข้อมูลใหม่ เพิ่มลง database
         try {
             db.insert("menulist","FoodName, Price, Type",s);
+            setTable();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+
+
+    }
+
+
+    @Override
+    public void addData() {
+
     }
 
 
     // ลบสมาชิก
-    public void deleteFood(int rowIndex) {
+    @Override
+    public void deleteData(int rowIndex) {
         try {
             String tel1 = menulist.get(rowIndex).getMenuName(); // ลบข้อมูลบน Database
-            String query = String.format("TelCustomer ='%s'", tel1);
-            db.delete("customer",query);
+            String query = String.format("FoodName ='%s'", tel1);
+            db.delete("menulist",query);
             System.out.println("Delete Data Successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuTable.removeRow(rowIndex); //ลบแถวในตาราง
+        model.removeRow(rowIndex); //ลบแถวในตาราง
+
+
     }
 
+    @Override
+    public void editData(int rowIndex) {
+
+    }
+
+
     // แก้ไขสมาชิก อัปเดทข้อมูลใหม่
-    public void editFood(int rowIndex, String Menuname,String MenuPrice,String MenuType) {
+
+    public void editData(int rowIndex, String Menuname, String MenuPrice, String MenuType) {
         try {
             String name2 = menulist.get(rowIndex).getMenuName(); // อัปเดทข้อมูลลง database
             String where = String.format("FoodName ='%s'", name2);
             String set = String.format("FoodName = '%s',Price = '%s',Type = '%s'",Menuname,MenuPrice,MenuType);
-            db.update("customer",set,where);
+            db.update("menulist",set,where);
             System.out.println("Update Data Successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         // แก้ไขข้อมูลบนตาราง
-        menuTable.setValueAt(Menuname, rowIndex, 1);
-        menuTable.setValueAt(MenuPrice, rowIndex, 2);
-        menuTable.setValueAt(MenuType, rowIndex, 3);
+        model.setValueAt(Menuname, rowIndex, 1);
+        model.setValueAt(MenuPrice, rowIndex, 2);
+        model.setValueAt(MenuType, rowIndex, 3);
+
     }
+
 
 
 
 
     ////////////////////// ActionEvent ///////////////////////////
-    public void actionPerformed(ActionEvent ae){
-        if(ae.getSource().equals(BtnAdd)){
-            AdminAddMenu menuAdd = new AdminAddMenu();
-            d.add(menuAdd);
-            int x2 = menuAdd.getX();
-            int y2 = menuAdd.getY();
-            menuAdd.setLocation(x2+670, y2+100);
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource().equals(BtnAdd)) {
+            String menu = tMenu.getText();
+            String price = tPrice.getText();
+            String type  =tType.getText();
+            addData(menu,price,type); // เพิ่มข้อมูลใหม่
+            tMenu.setText("");
+            tPrice.setText("");
+            tType.setText("");
+            setTable();
 
-        }else if(ae.getSource().equals(BtnEdit) && BtnEdit.getText() == "Edit"){
-            tMenu.setEditable(true); tPrice.setEditable(true); tType.setEditable(true);
-            BtnEdit.setText("Done");
 
-        }else if(ae.getSource().equals(BtnEdit) && BtnEdit.getText() == "Done"){
-            tMenu.setEditable(false); tPrice.setEditable(false); tType.setEditable(false);
-            BtnEdit.setText("Edit");
+        }else if (ae.getSource().equals(BtnEdit)) {
+            int rowIndex = table.getSelectedRow();
+            if (rowIndex != -1) {
+                String menu = tMenu.getText();
+                String price = tPrice.getText();
+                String type = tType.getText();
+                editData(rowIndex, menu, price, type); // เพิ่มข้อมูลใหม่
+                setTable();
+            }
+
+        }else if (ae.getSource().equals(BtnDelete)) {
+            int rowIndex2 = table.getSelectedRow();
+            if (rowIndex2 != -1) {
+                deleteData(rowIndex2);
+            }
+
         }
     }
-
 
 
 

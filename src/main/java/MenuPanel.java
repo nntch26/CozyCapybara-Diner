@@ -46,6 +46,9 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         total = new JTextField(10);
         tableIDshow.setEditable(false);
         total.setEditable(false);
+        //JSCROLLPANE
+        JScrollPane ScrollpLeft = new JScrollPane();
+        JScrollPane ScrollpRight = new JScrollPane();
 
         //SUBMAIN LEFT SIDE
         db.loadTable();
@@ -68,9 +71,12 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         labelMenu.setHorizontalAlignment(JTextField.CENTER);
         labelMenu.setForeground(Color.WHITE);
         labelMenu.setBorder(onlyBottom);
+        //ScrollPane
+        ScrollpLeft.setViewportView(pShowMenu);
         //ADD**
         pMenuLeftside.add(labelMenu, BorderLayout.NORTH);
-        pMenuLeftside.add(pShowMenu, BorderLayout.CENTER);
+        pMenuLeftside.add(ScrollpLeft, BorderLayout.CENTER);
+
 
         //SUBMAIN RIGHT SIDE
         pOrderRightside.setLayout(new BorderLayout());
@@ -91,11 +97,14 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         pOrderRightside.add(pTopRightside, BorderLayout.NORTH);
 
         //ORDER MENU (CENTER OF SUBMAIN RIGHT SIDE)
-        pOrderMenu.setLayout(new GridLayout(10, 1, 10, 10));
+        pShowMenu.setLayout(new GridLayout(20, 1, 10, 10));
+        pOrderMenu.setLayout(new GridLayout(20, 1, 10, 10));
         pOrderMenu.setBackground(Color.decode("#F6E7D8"));
-        pOrderMenu.setFont(new Font("Tahoma", Font.BOLD, 24));
+        pOrderMenu.setFont(new Font("Tahoma", Font.BOLD, 14));
         pOrderMenu.setBorder(BorderFactory.createCompoundBorder(GridBorder, PanelBorder));
-        pOrderRightside.add(pOrderMenu, BorderLayout.CENTER);
+        ScrollpRight.setViewportView(pOrderMenu);
+        pOrderRightside.add(ScrollpRight, BorderLayout.CENTER);
+
 
         //ADD pTotal
         pTotal.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -176,12 +185,12 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 String str = String.valueOf(key);
                 String substring = str.substring(1, str.length() - 1);
 
-                setTextBill += "                 " + substring + "   amount: " + value + "\n";
+                setTextBill += "   " + substring + "\t\t" + "x" + value + "\n";
             }
 
             checkBillGUI = new CheckBillGUI(this);
-            checkBillGUI.getlabelTableID().setText("Table ID  " + idtable);
-            checkBillGUI.getTotal().setText("Total " + sum);
+            checkBillGUI.getlabelTableID().setText("Table ID : " + idtable);
+            checkBillGUI.getTotal().setText("Total : " + sum + " ฿");
             checkBillGUI.getCheckBill().addActionListener(this);
             checkBillGUI.getShowdetail().setText("");
             checkBillGUI.getShowdetail().setText(setTextBill);
@@ -197,12 +206,11 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         pShowMenu.removeAll();
         menulabels = new JLabel[Menu.size()];
         countmenushow = new JLabel[Menu.size()];
-        pShowMenu.setLayout(new GridLayout(10, 1, 10, 10));
 
         for (int i = 0; i < Menu.size(); i++) {
-            menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "   " + Menu.get(i).getMenuPrice());
+            menulabels[i] = new JLabel(Menu.get(i).getMenuName() + "         " + Menu.get(i).getMenuPrice());
             pShowMenu.add(menulabels[i]);
-            menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 18));
+            menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 14));
             menulabels[i].addMouseListener(this);
         }
 //        pMenuLeftside.setBackground(Color.red);
@@ -224,9 +232,9 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 String str = String.valueOf(key);
                 String substring = str.substring(1, str.length() - 1);
                 ordermenu[i] = new JLabel(substring + "");
-                countmenushow[i] = new JLabel(substring + " x " + countBill.get(key));
+                countmenushow[i] = new JLabel(substring + " x" + countBill.get(key));
                 pOrderMenu.add(countmenushow[i]);
-                countmenushow[i].setFont(new Font("Tahoma", Font.BOLD, 18));
+                countmenushow[i].setFont(new Font("Tahoma", Font.BOLD, 14));
                 countmenushow[i].addMouseListener(this);
                 i++;
 
