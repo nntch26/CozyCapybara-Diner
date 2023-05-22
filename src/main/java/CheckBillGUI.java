@@ -9,14 +9,16 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 public class CheckBillGUI implements ActionListener, WindowListener {
     private JFrame frame;
     private JPanel pTop, pShowNameCustomer, pMemberPhoneNum, pButton_Last, pCenter, pMoneyCal, pSubCenter;
-    private JLabel labelTableID, namecus, totalJlable, phonemem, total, labelMoney, changeLabel;
+    private JLabel labelTableID, namecus, phonemem, total, labelMoney, changeLabel;
     private JTextField tfTableID, tfGetCustomerName, tfGetPhoneNum, tfGetMoney;
     private JButton btn_FindMember, btn_UsePoint, btn_CheckBill, btn_Calculate;
-    private JTextArea showdetail;
+    private JTextArea showdetail, billHere;
     private MenuPanel menuPanel;
     private Database db;
     private ArrayList<Member> member;
@@ -24,6 +26,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
     private Double totalnum, change, pointuse;
     private Exchange exchange;
     private Member mem;
+    private String str;
 
     public CheckBillGUI(MenuPanel menuPanel) {
         frame = new JFrame("Check Bill");
@@ -38,26 +41,47 @@ public class CheckBillGUI implements ActionListener, WindowListener {
         pButton_Last = new JPanel();
         this.menuPanel = menuPanel;
         // JLABEL
-        labelTableID = new JLabel("Table ID");
-        labelMoney = new JLabel("Money");
-        namecus = new JLabel("Customer Name:");
-        phonemem = new JLabel("Phone");
-        total = new JLabel("total");
-        changeLabel = new JLabel("Change");
+        labelTableID = new JLabel("Table ID : ");
+        labelMoney = new JLabel("Receive Money : ");
+        namecus = new JLabel("Customer Name ");
+        phonemem = new JLabel("Phone Number ");
+        total = new JLabel("Total : 0.00 ฿");
+        changeLabel = new JLabel("Change : ");
         // JTEXTFIELD
         tfTableID = new JTextField(7);
-        tfGetCustomerName = new JTextField("customer", 8);
+        tfGetCustomerName = new JTextField("customer", 7);
         tfGetPhoneNum = new JTextField(7);
-        tfGetMoney = new JTextField(8);
+        tfGetMoney = new JTextField(7);
         // TEXTAREA
-        showdetail = new JTextArea();
+        showdetail = new JTextArea(); //เก็บข้อมูลจาก menupanel **menu ที่สั่ง
+        billHere = new JTextArea();
         showdetail.setSize(250, 100);
         // BUTTER เอ้ย BUTTON
-        btn_FindMember = new JButton("find");
+        btn_FindMember = new JButton("Find");
         btn_UsePoint = new JButton("UsePoint");
         btn_CheckBill = new JButton("CheckBill");
         btn_Calculate = new JButton("Calculate");
+        //SET FONTS
+        labelTableID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        labelMoney.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        namecus.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        phonemem.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        total.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        changeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        tfTableID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        tfGetCustomerName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        tfGetPhoneNum.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        tfGetMoney.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        btn_FindMember.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        btn_UsePoint.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        btn_CheckBill.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        btn_Calculate.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
+        //BORDER
+        Border PanelBorder = new EmptyBorder(10, 10, 10, 10);
+        Border onlyBottom = new EmptyBorder(0, 0, 10, 0);
+        pCenter.setBorder(PanelBorder);
+        pButton_Last.setBorder(onlyBottom);
         // SET ENABLED
         btn_UsePoint.setEnabled(false);
         // tfGetCustomerName.setEditable(false);
@@ -71,7 +95,8 @@ public class CheckBillGUI implements ActionListener, WindowListener {
         pShowNameCustomer.add(tfGetCustomerName);
         pTop.add(pShowNameCustomer, BorderLayout.CENTER);
         // ADD BILL HERE
-        pTop.add(showdetail, BorderLayout.SOUTH);
+
+        pTop.add(billHere, BorderLayout.SOUTH);
 
         // CENTER PANEL
         pCenter.setLayout(new BorderLayout());
@@ -127,7 +152,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
         frame.add(pCenter, BorderLayout.CENTER);
         frame.add(pButton_Last, BorderLayout.SOUTH);
 
-        frame.setSize(250, 450);
+        frame.setSize(400, 500);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
@@ -152,7 +177,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
             } else {
                 btn_UsePoint.setEnabled(true);
 
-                total.setText("Total " + mem.culculatetotal(totalnum));
+                total.setText("Total : " + mem.culculatetotal(totalnum));
                 totalnum = mem.culculatetotal(totalnum);
                 JOptionPane.showMessageDialog(null, "" + mem.getInfocustomer(), "alert", JOptionPane.PLAIN_MESSAGE);
 
@@ -167,7 +192,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
             ;
             DecimalFormat decimalFormat = new DecimalFormat("0.00");
             String formattedEx = String.format("%.2f", Ex);
-            changeLabel.setText("Change " + formattedEx);
+            changeLabel.setText("Change : " + formattedEx + " ฿");
         } else if (e.getSource().equals(btn_CheckBill)) {
             if (mem != null & !(showdetail.getText().isEmpty())) {
                 mem.culculatePoint(totalnum);
@@ -264,6 +289,18 @@ public class CheckBillGUI implements ActionListener, WindowListener {
         db.loadMember();
         member = db.getMember();
         System.out.println(member);
+
+        //STR
+        str = String.format(
+                "---------------------------------------------------------------------------------\n" +
+                "   Item & Price Per Item                                      Qty\n" +
+                "---------------------------------------------------------------------------------\n"
+                + showdetail.getText()+ "\n" +
+                "---------------------------------------------------------------------------------\n" +
+                "                    Thanks for coming to Cozy-Capybara Diner\n") +
+                "---------------------------------------------------------------------------------";
+
+        billHere.setText(str);
     }
 
     @Override
