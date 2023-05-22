@@ -113,7 +113,6 @@ public class AdminPanel extends JFrame implements ActionListener{
     public void adminFrame(){
         f = new JInternalFrame("Admin Management System ", false, true, false, false);
         f.setLayout(new BorderLayout());
-        f.setBackground(Color.darkGray);
 
         JLabel label2 = new JLabel("Management System");
         label2.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -124,6 +123,9 @@ public class AdminPanel extends JFrame implements ActionListener{
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
         JPanel p3 = new JPanel();
+
+        pTop.setBackground(Color.LIGHT_GRAY);
+        pCenter.setBackground(Color.LIGHT_GRAY);
 
         // All Food Items
         p1.setLayout(new BorderLayout());
@@ -185,6 +187,12 @@ public class AdminPanel extends JFrame implements ActionListener{
         membtn.setPreferredSize(new Dimension(150, 120));
         menubtn.setPreferredSize(new Dimension(150, 120));
         tablebtn.setPreferredSize(new Dimension(150, 120));
+        membtn.setForeground(Color.WHITE);
+        menubtn.setForeground(Color.WHITE);
+        tablebtn.setForeground(Color.WHITE);
+        membtn.setBackground(Color.decode("#303030"));
+        menubtn.setBackground(Color.decode("#303030"));
+        tablebtn.setBackground(Color.decode("#303030"));
 
         ////////////////////// addActionListener ///////////////////////////
         membtn.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
@@ -204,6 +212,7 @@ public class AdminPanel extends JFrame implements ActionListener{
 
         JLabel l4 = new JLabel("   View Data");
         JPanel p = new JPanel();
+        p.setBackground(Color.LIGHT_GRAY);
         l4.setFont(new Font("Tahoma", Font.BOLD, 28));
         l4.setForeground(Color.decode("#F14902"));
 
