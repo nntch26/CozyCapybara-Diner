@@ -1,8 +1,12 @@
 //import DBJava.Database;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TablePanel extends JPanel implements ActionListener, WindowListener, Refreshable {
@@ -108,31 +112,41 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     }
 
     public void setStausTable(JButton j, String status) {
-        //////////// รูปภาพ ///////////////////////
-        ImageIcon icon = new ImageIcon("src/main/resources/imggui/red.png");
-        // ปรับขนาดของรูปภาพ
-        Image image = icon.getImage();
-        Image reImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
-        ImageIcon resizedIcon = new ImageIcon(reImage);
+//        try {
+//            File imageFile = new File("src/main/resources/imggui/testbusy.png");
+//            File imageFile1 = new File("src/main/resources/imggui/test2.png");// แทนที่ด้วยพาธของไฟล์ PNG ของคุณ
+//            BufferedImage image = ImageIO.read(imageFile);
+//            BufferedImage image1 = ImageIO.read(imageFile1);
 
+            // ปรับขนาดรูปภาพให้เหมาะสมกับ JButton
+//            int width = 266;
+//            int height = 147;
+//            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+//            Image scaledImage1 = image1.getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
+//            ImageIcon icon = new ImageIcon(scaledImage);
+//            ImageIcon icon1 = new ImageIcon(scaledImage1);
         if ("busy".equals(status) | "Busy".equals(status)) {
             System.out.println("seetsss");
-             j.setIcon(resizedIcon);
+//             j.setIcon(icon);
              j.setText("Busy");
         } else if ("free".equals(status)  | "Free".equals(status)) {
-            j.setIcon(resizedIcon);
+            //j.setIcon(resizedIcon);
             j.setText("Free");
         } else if ("closed".equals(status) | "Closed".equals(status)) {
-            j.setIcon(resizedIcon);
+            //j.setIcon(resizedIcon);
             j.setText("close");
         } else if ("booked".equals(status) | "Booked".equals(status))  {
-            j.setIcon(resizedIcon);
+//            j.setIcon(icon1);
             j.setText("booked");
         }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void actionPerformed(ActionEvent e) {
+        Dimension buttonSize = tableButtons[0].getSize();
+        System.out.println(buttonSize);
         for (int i = 0; i < tables.size(); i++) {
             if (e.getSource() == tableButtons[i]) {
                 mainGUI.cardLayout.show(mainGUI.panel_R2, "Menu");
