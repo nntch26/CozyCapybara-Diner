@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class Database {
     String url = "jdbc:mysql://www.db4free.net:3306/projectreal"; // URL ของฐานข้อมูล
     String user = "rootoop"; // ชื่อผู้ใช้
-    String password = "123456789"; // รหัส
+    String password = "123456789"; // รหัสัสผ่าน
 
     private ArrayList<Table> table;
         private ArrayList<Menu> menu;
@@ -64,6 +64,29 @@ public class Database {
         }
      
    }
+    public boolean loginAdmin(LoginGUI loginGUI){
+        String user = loginGUI.getTxtUser().getText();
+        String pass = String.valueOf(loginGUI.getTxtPass().getPassword());
+        try(Connection connect = getConnection();
+            Statement st = connect.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM table_admin where username = '"+user+"' and password = '"+pass+"'");
+        ){
+
+
+            if(rs.next()){
+              return true;
+
+
+            }else{
+                return false;
+            }
+//         return true  System.out.println(table.iterator());
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
     public void autoCreatTabel(){
         PreparedStatement pre = null;
         try(Connection connect = getConnection();
@@ -171,9 +194,7 @@ public class Database {
             Menu t = new Menu(rs.getInt("id"), rs.getString("FoodName"), rs.getString("Price"), rs.getString("Type"));
               
             menu.add(t);
-//               System.out.println(table.size());
-//               System.out.println(table.get(0).getId());
-         
+//
            }
 //         return true  System.out.println(table.iterator());
           return true;  
@@ -274,15 +295,15 @@ public class Database {
     return null;
 }
 
-    public Member searchmemberByphone(Member memObject) {
-        String phone = memObject.getTelcus();
-        for (Member mem : member) {
-            if (mem.getTelcus().equals(phone)) {
-                return mem;
-            }
-        }
-        return null;
-    }
+//    public Member searchmemberByphone(Member memObject) {
+//        String phone = memObject.getTelcus();
+//        for (Member mem : member) {
+//            if (mem.getTelcus().equals(phone)) {
+//                return mem;
+//            }
+//        }
+//        return null;
+//    }
    
 //    public static void main(String[] args) {
 //        Database db = new Database();
@@ -347,8 +368,6 @@ public class Database {
     }
     private void updateView() {
         Iterator notifyViews = tableView.iterator();
-        System.out.println(notifyViews);
-        System.out.println("tappp ++"+tableView.size());
         while (notifyViews.hasNext())
             ((Refreshable)notifyViews.next()).refreshtable(table);
 

@@ -9,7 +9,7 @@ public class LoginGUI implements ActionListener {
     private JTextField txtUser;
     private JPasswordField txtPass;
     private JButton b1;
-
+    private Database db;
     private AutocreateTable a;
 
     public LoginGUI() {
@@ -29,7 +29,7 @@ public class LoginGUI implements ActionListener {
         p3 = new JPanel();
         pi = new JPanel();
         pn = new JPanel();
-
+        db = new Database();
         ///////// ชื่อร้าน /////////////
         JLabel welcome = new JLabel("WELCOME TO");
         JLabel welcome1 = new JLabel("COZY CAPYBARA DINER");
@@ -119,7 +119,7 @@ public class LoginGUI implements ActionListener {
         String username = txtUser.getText();
         String password = String.valueOf(txtPass.getPassword());
 
-        if (username.equals("admin") && password.equals("1234")) {
+        if (db.loginAdmin(this)) {
             JOptionPane.showMessageDialog(null, "Welcome " + username + "!");
             // เปิดหน้าต่าง Main ร้านอาหาร
             a = new AutocreateTable();
@@ -133,5 +133,27 @@ public class LoginGUI implements ActionListener {
 
     }
 
+    public JFrame getF() {
+        return f;
+    }
 
+    public void setF(JFrame f) {
+        this.f = f;
+    }
+
+    public JTextField getTxtUser() {
+        return txtUser;
+    }
+
+    public void setTxtUser(JTextField txtUser) {
+        this.txtUser = txtUser;
+    }
+
+    public JPasswordField getTxtPass() {
+        return txtPass;
+    }
+
+    public void setTxtPass(JPasswordField txtPass) {
+        this.txtPass = txtPass;
+    }
 }

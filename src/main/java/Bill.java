@@ -50,20 +50,22 @@ public class Bill {
     public void setCountBill(HashMap<LinkedList<String> ,Integer> countBill) {
         this.countBill = countBill;
     }
-    
-    
-    
-    public double convertLinkedListToIntArray(LinkedList<String> linkedList) {
+
+
+
+    public static double convertLinkedListToIntArray(LinkedList<String> linkedList) {
         double[] doubleArray = new double[linkedList.size()];
         double sum = 0.0;
         for (int i = 0; i < linkedList.size(); i++) {
             String element = linkedList.get(i);
-            doubleArray[i] = Double.parseDouble(element.split("\\s+")[1]);
+            String numberString = element.replaceAll("[^\\d.]", ""); // ลบตัวอักษรพิเศษ
+            doubleArray[i] = Double.parseDouble(numberString);
         }
-        System.out.println(Arrays.toString(doubleArray));
+
         for (double number : doubleArray) {
             sum += number;
-     }
+        }
+
 
     return sum;
     }

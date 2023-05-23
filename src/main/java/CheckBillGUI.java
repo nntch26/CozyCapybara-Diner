@@ -168,8 +168,6 @@ public class CheckBillGUI implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("asdasd"+showdetail.getText());
-        System.out.println(mem);
         if (e.getSource().equals(btn_FindMember)) {
             totalnum = menuPanel.getSum();
             mem = db.searchmemberByphone(tfGetPhoneNum.getText());
