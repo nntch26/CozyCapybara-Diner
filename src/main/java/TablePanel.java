@@ -139,7 +139,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
                 menuPanel.setTableid("Table ("+tables.get(i).getTableStatus()+")" );
                 menuPanel.setTableIDshow(""+tables.get(i).getId());
                 menuPanel.setTotalcliked();
-                menuPanel.setlabelorder();
+                menuPanel.setLabelOrder();
                 //menuPanel2
             }
 

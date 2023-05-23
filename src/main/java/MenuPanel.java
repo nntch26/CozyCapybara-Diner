@@ -54,7 +54,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         db.loadTable();
         tables = db.getTable();
         pMenuLeftside.setLayout(new BorderLayout());
-        setlabel(); //ADD MENU METHOD
+        setLabel(); //ADD MENU METHOD
         //CUSTOM
         Border PanelBorder = new EmptyBorder(15, 15, 15, 15);
         Border ptotalBorder = new EmptyBorder(5, 5, 5, 5);
@@ -170,7 +170,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
             db.setStatustable("" + t.getId(), "busy");
             tableid.setText("Table (busy)");
             pShowMenu.removeAll();
-            setlabel();
+            setLabel();
 //            pMenuLeftside.revalidate(); // Revalidate the panel
 //            pMenuLeftside.repaint(); //
         } else if (e.getSource().equals(checkBill)) {
@@ -200,7 +200,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         }
     }
 
-    public void setlabel() { //ALL MENUS รายการอาหารทั้งหมด
+    public void setLabel() { //ALL MENUS รายการอาหารทั้งหมด
         db.loadMenu();
         Menu = db.getMenu();
         pShowMenu.removeAll();
@@ -213,13 +213,11 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
             menulabels[i].setFont(new Font("Tahoma", Font.BOLD, 14));
             menulabels[i].addMouseListener(this);
         }
-//        pMenuLeftside.setBackground(Color.red);
-//        pMenuLeftside.setOpaque(true);
         revalidate();
         repaint();
     }
 
-    public void setlabelorder() {
+    public void setLabelOrder() {
         pOrderMenu.removeAll();
         ordermenu = new JLabel[Menu.size()];
         int idtable = Integer.parseInt(tableIDshow.getText());
@@ -237,12 +235,10 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 countmenushow[i].setFont(new Font("Tahoma", Font.BOLD, 14));
                 countmenushow[i].addMouseListener(this);
                 i++;
-
             }
         } else if (t == null) {
             pOrderMenu.removeAll();
         }
-
         revalidate();
         repaint();
     }
@@ -257,7 +253,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 tempBilltable.remove(ordermenu[i].getText());
                 sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
                 total.setText(sum + "");
-                setlabelorder();
+                setLabelOrder();
             }
         }
 
@@ -283,7 +279,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
 //                    db.setStatustable(tableIDshow.getText()+"", "busy");
 //                }
 
-                setlabelorder();
+                setLabelOrder();
 
             }
         }
@@ -293,10 +289,9 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         Table t = db.searchTableById(Integer.parseInt(tableIDshow.getText()));
         Double sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
         total.setText(sum + "");
-
     }
 
-    public void  clearOrder(){
+    public void clearOrder(){
         int idtable = Integer.parseInt(tableIDshow.getText());
         Table t = db.searchTableById(idtable);
         System.out.println("in in in ");
@@ -306,7 +301,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         tableid.setText("Table (free)");
         pOrderMenu.removeAll();
         setTotalcliked();
-        setlabelorder();
+        setLabelOrder();
     }
     @Override
     public void mouseEntered(MouseEvent e) {
