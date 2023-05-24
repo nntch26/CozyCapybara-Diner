@@ -300,6 +300,7 @@ public class CheckBillGUI implements ActionListener, WindowListener{
                 "---------------------------------------------------------------------------------";
 
         billHere.setText(str);
+        frame.pack();
     }
 
     @Override

@@ -15,7 +15,6 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
     private JTable table;
     private DefaultTableModel model;
 
-    private MenulistTable menulistTable;
     private JMenuBar menuBar;
     private JMenu adminMenu, tableMenu,foodMenu,memMenu;
     private JMenuItem newAdminMenuItem , exit, tableMenuItem, foodMenuItem, memMenuItem,closeButton;
@@ -34,6 +33,7 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
             throw new RuntimeException(e);
         }
 
+        table = new JTable();
         d = new JDesktopPane();
         d.setBackground(Color.decode("#303030"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -385,7 +385,6 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
             JOptionPane.showMessageDialog(this, "Error " + e);
         }
         table.setModel(model);
-
     }
 
     // เพิ่มสมาชิก

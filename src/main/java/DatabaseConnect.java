@@ -136,11 +136,4 @@ public class DatabaseConnect {
 
     }
 
-    public ArrayList<Member> getMember() {
-        return members;
-    }
-
-    public void setMember(ArrayList<Member> member) {
-        this.members = member;
-    }
 }

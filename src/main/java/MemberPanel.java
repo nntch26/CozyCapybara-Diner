@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.*;
 
 
-public class MemberPanel extends JPanel implements ActionListener {
+public class MemberPanel extends JPanel implements ActionListener, DataManagement {
 
     public JTable memberTable;
     public DefaultTableModel tableModel;
@@ -124,9 +124,6 @@ public class MemberPanel extends JPanel implements ActionListener {
         searchPanel2.add(allButton);
         searchPanel.add(searchPanel2);
 
-
-
-
         add(searchPanel, BorderLayout.NORTH);
         add(buttonPanel,BorderLayout.SOUTH);
         setSize(500, 300);
@@ -136,6 +133,7 @@ public class MemberPanel extends JPanel implements ActionListener {
 /////////////// ส่วนจัดการ เพิ่ม ลบ แก้ไขข้อมูลบน Table /////////////////////
 
     // ตั่งค่าตารางในการแสดงผล
+    @Override
     public void setTable(){
         String[] colname = {"IDCustomer","Name","TelCustomer","Email","Point"};
         tableModel = new DefaultTableModel(colname,0);
@@ -160,26 +158,31 @@ public class MemberPanel extends JPanel implements ActionListener {
     }
 
 
+    @Override
+    public void addData() {
+
+    }
+
     // เพิ่มสมาชิก
-    public void addMember(String name, String tel, String emil, int point) {
+    public void addData(String name, String tel, String emil, int point) {
         int memberId = memlist.size() + 1;
-        Object[] rowData = { memberId,name, tel, emil,point};
+        Object[] rowData = { memberId,name, tel, emil,point}; // เพิ่มแถวบนตาราง
         tableModel.addRow(rowData);
 
-        memlist.add(new Member(memberId, name,tel,emil,point)); // แอดเข้า obj
+        // สร้าง obj และเพิ่มเข้า ArrayList<Member>
+        memlist.add(new Member(memberId, name,tel,emil,point));
 
-        String s = String.format("'%s','%s', '%s',%d",name,tel,emil,point); // ข้อมูลใหม่ เพิ่มลง database
+        // ข้อมูลใหม่ เพิ่มลง database
+        String s = String.format("'%s','%s', '%s',%d",name,tel,emil,point);
         try {
             db.insert("customer","NameCustomer, TelCustomer, Email, Point",s);
             setTable();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        } catch (SQLException ex) {ex.printStackTrace();}
     }
 
-
     // ลบสมาชิก
-    public void deleteMember(int rowIndex) {
+    @Override
+    public void deleteData(int rowIndex) {
         try {
             String tel1 = memlist.get(rowIndex).getTelcus(); // ลบข้อมูลบน Database
             String query = String.format("TelCustomer ='%s'", tel1);
@@ -189,10 +192,16 @@ public class MemberPanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         tableModel.removeRow(rowIndex); //ลบแถวในตาราง
+
+    }
+
+    @Override
+    public void editData(int rowIndex) {
+
     }
 
     // แก้ไขสมาชิก อัปเดทข้อมูลใหม่
-    public void editMember(int rowIndex, String name, String tel, String emil, int point) {
+    public void editData(int rowIndex, String name, String tel, String emil, int point) {
         try {
             String tel2 = memlist.get(rowIndex).getTelcus(); // อัปเดทข้อมูลลง database
             String where = String.format("TelCustomer ='%s'", tel2);
@@ -209,8 +218,8 @@ public class MemberPanel extends JPanel implements ActionListener {
         tableModel.setValueAt(point, rowIndex, 4);
     }
 
-    // ค้นหาข้อมูล
 
+    // ค้นหาข้อมูล
     private void searchMembers(String kw) {
         rowSorter = new TableRowSorter<>(tableModel);
         memberTable.setRowSorter(rowSorter);
@@ -221,8 +230,6 @@ public class MemberPanel extends JPanel implements ActionListener {
             rowSorter.setRowFilter(rowFilter);
         }
     }
-
-
 
 
 
@@ -239,7 +246,7 @@ public class MemberPanel extends JPanel implements ActionListener {
         else if (e.getSource() == deleteButton) {
             int rowIndex = memberTable.getSelectedRow();
             if (rowIndex != -1) {
-                deleteMember(rowIndex);
+                deleteData(rowIndex);
             }
         }
 
@@ -252,7 +259,7 @@ public class MemberPanel extends JPanel implements ActionListener {
                 String em = JOptionPane.showInputDialog("Enter Email :");
                 String pointString = JOptionPane.showInputDialog("Enter Point :");
                 int point = Integer.parseInt(pointString);
-                editMember(rowIndex,name,tel,em,point);
+                editData(rowIndex,name,tel,em,point);
             }
         }
 
@@ -268,6 +275,8 @@ public class MemberPanel extends JPanel implements ActionListener {
         }
 
     }
+
+
 
     // ตกแต่งส่วน row ของ table
     static class CustomTableCellRenderer extends DefaultTableCellRenderer {
