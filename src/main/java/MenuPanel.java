@@ -297,7 +297,7 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         System.out.println("in in in ");
         t.getBill().setFoodBill(new LinkedList<>());
         System.out.println("smfoe");
-        db.setStatustable("" + t.getId(), "free");
+        db.clearTable(""+t.getId());
         tableid.setText("Table (free)");
         pOrderMenu.removeAll();
         setTotalcliked();

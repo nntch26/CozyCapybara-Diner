@@ -172,7 +172,8 @@ public class CheckBillGUI implements ActionListener, WindowListener {
             totalnum = menuPanel.getSum();
             mem = db.searchmemberByphone(tfGetPhoneNum.getText());
             if (mem == null) {
-                System.out.println("not found");
+                JOptionPane.showMessageDialog(null, "Not found a member", "not found", JOptionPane.PLAIN_MESSAGE);
+
             } else {
                 btn_UsePoint.setEnabled(true);
 
@@ -211,7 +212,7 @@ public class CheckBillGUI implements ActionListener, WindowListener {
             }
         } else if (e.getSource().equals(btn_UsePoint)) {
             System.out.println(menuPanel.getSum());
-            if (mem.getPoint() > menuPanel.getSum()) {
+            if (mem.getPoint() >= menuPanel.getSum()) {
                 pointuse = menuPanel.getSum();
                 int x = JOptionPane.showConfirmDialog(null, mem.getInfocustomer() + "You use point " + pointuse,
                         "choose one", JOptionPane.OK_CANCEL_OPTION);
@@ -285,11 +286,8 @@ public class CheckBillGUI implements ActionListener, WindowListener {
 
     @Override
     public void windowOpened(WindowEvent e) {
-        System.out.println("oee "+ showdetail.getText());
-        System.out.println("555");
         db.loadMember();
         member = db.getMember();
-        System.out.println(member);
 
         //STR
         str = String.format(

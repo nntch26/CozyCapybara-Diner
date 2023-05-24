@@ -24,10 +24,8 @@ public class Database {
     
     public Connection getConnection(){
         Connection connect = null;
-        //PreparedStatement pre = null;
         try {
-            
-            connect = DriverManager.getConnection(url,user,password);
+           connect = DriverManager.getConnection(url,user,password);
      
         } catch (SQLException e) {
         e.printStackTrace();
@@ -174,6 +172,27 @@ public class Database {
         }
        
    }
+    public void clearTable(String id){
+        PreparedStatement pre = null;
+        try(Connection connect = getConnection();
+
+
+        ){pre = connect.prepareStatement("update tablenumber set Status = ?, NameCus = ?, TelCus = ?, DTime = ? where idTable = ?");
+            pre.setString(1, "Free");
+            pre.setString(2, "");
+            pre.setString(3, "");
+            pre.setString(4, "");
+            pre.setString(5, id);
+
+            pre.executeUpdate();
+
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
    public ArrayList<Table> getTable(){
        return table;
    }

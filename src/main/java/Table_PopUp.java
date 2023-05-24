@@ -200,12 +200,8 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
          DefaultTableModel model = (DefaultTableModel) tabledetails.getModel();
          model.setRowCount(0);
          Object[] columnsName = new Object[6];
-         columnsName[0] = "ID";
-         columnsName[1] = "NAME";
-         columnsName[2] = "DATE";
-         columnsName[3] = "PHONE";
-         columnsName[4] = "CAP";
-         columnsName[5] = "STATUS";
+         columnsName[0] = "ID"; columnsName[1] = "NAME" ;columnsName[2] = "DATE";
+         columnsName[3] = "PHONE";columnsName[4] = "CAP";columnsName[5] = "STATUS";
          model.setColumnIdentifiers(columnsName);
          Object[] rowData = new Object[6];
          JTableHeader Theader = tabledetails.getTableHeader();
@@ -246,6 +242,9 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
                 db.reserveTable(take_idTable.getText(), tfName.getText(), tfPhoneNumber.getText(), tfTime.getText()); //ADD TO TABLE
                 db.addContactView(tablePanel);
                 db.updateModel(tables);
+                Table t = db.searchTableById(Integer.parseInt(String.valueOf(take_idTable.getText())));
+                JOptionPane.showMessageDialog(null, " " + t.getInfocustomer() , "Booked Table By ",JOptionPane.PLAIN_MESSAGE);
+
                 //frame.dispose();
             }
         } else if (ae.getSource().equals(btn_closed)) {
@@ -367,13 +366,13 @@ public class Table_PopUp implements ActionListener, WindowListener, InternalFram
                 System.out.println(i);
 
                 }
-            if (rowData.get(5).equals("booked") | rowData.get(5).equals("Booked")){
-                System.out.println(""+rowData.get(0));
-                Table t = db.searchTableById(Integer.parseInt(String.valueOf(rowData.get(0))));
-                System.out.println("table Id"+t.getId());
-                JOptionPane.showMessageDialog(null, "" + t.getInfocustomer() , "Booked Table By ",JOptionPane.PLAIN_MESSAGE);
+//            if (rowData.get(5).equals("booked") | rowData.get(5).equals("Booked")){
+//                System.out.println(""+rowData.get(0));
+//                Table t = db.searchTableById(Integer.parseInt(String.valueOf(rowData.get(0))));
+//                System.out.println("table Id"+t.getId());
+//                JOptionPane.showMessageDialog(null, "" + t.getInfocustomer() , "Booked Table By ",JOptionPane.PLAIN_MESSAGE);
 
-            }
+
 
         }
         }

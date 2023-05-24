@@ -37,18 +37,6 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         this.menuPanel = menuPanel;
 
         db = new Database();
-//        db.loadTable();
-//        tables = db.getTable();
-//        if (tables.size() < counttable){
-//            for(int i = tables.size(); i < counttable; i++){
-//                db.autoCreatTabel();
-//            }
-//        }
-
-
-
-
-        // loadtable
         db.addContactView(this);
         db.addContactView(mainGUI);
         db.loadTable();
@@ -126,7 +114,6 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
 //            ImageIcon icon = new ImageIcon(scaledImage);
 //            ImageIcon icon1 = new ImageIcon(scaledImage1);
         if ("busy".equals(status) | "Busy".equals(status)) {
-            System.out.println("seetsss");
 //             j.setIcon(icon);
              j.setText("Busy");
         } else if ("free".equals(status)  | "Free".equals(status)) {
@@ -150,6 +137,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         for (int i = 0; i < tables.size(); i++) {
             if (e.getSource() == tableButtons[i]) {
                 mainGUI.cardLayout.show(mainGUI.panel_R2, "Menu");
+                mainGUI.setMenuPanelColor();
                 menuPanel.setTableid("Table ("+tables.get(i).getTableStatus()+")" );
                 menuPanel.setTableIDshow(""+tables.get(i).getId());
                 menuPanel.setTotalcliked();

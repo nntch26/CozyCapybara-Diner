@@ -4,10 +4,10 @@
 //import java.awt.image.BufferedImage;
 //import java.io.File;
 //import java.io.IOException;
-////import org.apache.batik.dom.svg.SVGDOMImplementation;
-////import org.apache.batik.svggen.SVGGraphics2D;
-////import org.apache.batik.transcoder.Transcoder;
-////import org.apache.batik.util.SVGConstants;
+//import org.apache.batik.dom.svg.SVGDOMImplementation;
+//import org.apache.batik.svggen.SVGGraphics2D;
+//import org.apache.batik.*;
+//import org.apache.batik.util.SVGConstants;
 //import org.w3c.dom.DOMImplementation;
 //import org.w3c.dom.Document;
 //import org.w3c.dom.Element;

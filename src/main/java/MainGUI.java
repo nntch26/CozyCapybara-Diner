@@ -190,10 +190,15 @@ public class MainGUI implements ActionListener, Refreshable {
 
     @Override
     public void refreshtable(ArrayList<Table> table) {
-        System.out.println("main re fres hhh h asdds");
+        System.out.println("main re fresh");
     }
 
-   
+   public void setMenuPanelColor(){
+       b1.setBackground(Color.darkGray);
+       b2.setBackground(Color.decode("#F14902"));
+       b3.setBackground(Color.darkGray);
+       bAdmin.setBackground(Color.DARK_GRAY);
+   }
 }
 
 
