@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class AdminPanel extends JFrame implements ActionListener, DataManagement{
     private JDesktopPane d;
@@ -23,11 +22,11 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
     private ArrayList<Menu> menulist;
     private ArrayList<Table> tablelist;
     private ArrayList<Member> memlist;
-    private DBConnect db;
+    private DatabaseConnect db;
     public AdminPanel(){
 
         try {
-            db = new DBConnect();
+            db = new DatabaseConnect();
             menulist = db.getMenuList();
             memlist = db.getMemberList();
             tablelist = db.getTableList();
@@ -128,6 +127,8 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
         JPanel p3 = new JPanel();
+        table = new JTable();
+
 
         pTop.setBackground(Color.LIGHT_GRAY);
         pCenter.setBackground(Color.LIGHT_GRAY);
@@ -364,12 +365,11 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
 
     @Override
     public void setTable() {
-        table = new JTable();
         String[] colname = {"ID", "FoodName", "Price", "Type"};
         model = new DefaultTableModel(colname,0);
-        db = new DBConnect();
+        db = new DatabaseConnect();
         try {
-            DBConnect db = new DBConnect();
+            DatabaseConnect db = new DatabaseConnect();
             menulist = db.getMenuList();
 
             for (int i =0; i < menulist.size();i++){

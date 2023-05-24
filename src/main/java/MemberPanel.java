@@ -4,7 +4,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
 import java.sql.*;
 import java.util.*;
 
@@ -19,7 +18,7 @@ public class MemberPanel extends JPanel implements ActionListener {
 
     public JLabel label1;
     private ArrayList<Member> memlist;
-    public DBConnect db;
+    public DatabaseConnect db;
 
     public MemberPanel() {
 
@@ -140,7 +139,7 @@ public class MemberPanel extends JPanel implements ActionListener {
     public void setTable(){
         String[] colname = {"IDCustomer","Name","TelCustomer","Email","Point"};
         tableModel = new DefaultTableModel(colname,0);
-        db = new DBConnect();
+        db = new DatabaseConnect();
         try {
             memlist = db.getMemberList();
             // ดึงข้อมูลใส่ตาราง

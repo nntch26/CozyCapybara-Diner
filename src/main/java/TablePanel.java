@@ -2,6 +2,8 @@
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TablePanel extends JPanel implements ActionListener, WindowListener, Refreshable {
-    public JPanel Table_show, Table_butpanel, txtback;
+    public JPanel Table_show, Table_butpanel, txtback, Table_Main, Table_Booking;
     public JButton[] tableButtons;
     public JButton b1, b2, bre;
     public JScrollPane s;
@@ -18,70 +20,105 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     private Database db;
     private MainGUI mainGUI;
     private MenuPanel menuPanel;
-   // private ArrayList<java.awt.Menu> Menu ;
-//    private static final int counttable = 9;
+    private JPanel[] tmp1, tmp2;
 
     public TablePanel(MainGUI mainGUI,MenuPanel menuPanel) {
-        //////////// รูปภาพ ///////////////////////
-        ImageIcon icon = new ImageIcon("src/main/resources/imggui/busy.png");
-        // ปรับขนาดของรูปภาพ
-        Image image = icon.getImage();
-        Image reImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        // สร้าง ImageIcon จากรูปภาพที่ปรับขนาดแล้ว
-        ImageIcon resizedIcon = new ImageIcon(reImage);
 
         Table_butpanel = new JPanel();
         Table_show = new JPanel();
+        Table_Main = new JPanel();
+        Table_Booking = new JPanel();
         txtback = new JPanel();
         this.mainGUI = mainGUI;
         this.menuPanel = menuPanel;
 
         db = new Database();
+        // loadtable
         db.addContactView(this);
         db.addContactView(mainGUI);
         db.loadTable();
         tables = db.getTable();
-        setTablespanel();
         System.out.println(tables.get(0).getId());
         // mainpanel show table
         setLayout(new BorderLayout());
-        Table_show.setLayout(new GridLayout(3, 3, 5, 5));
+        Table_Booking.setLayout(new BorderLayout());
+        Table_Main.setLayout((new BorderLayout()));
+        Table_show.setLayout(new GridLayout(2, 4, 20, 30));
         System.out.println(tables.size());
+        tableButtons = new JButton[tables.size()];
+        tmp2 = new JPanel[tables.size()];
+        tmp1 = new JPanel[tables.size()];
+        for (int i = 0; i < tables.size(); i++) {
+            tmp1[i] = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            tmp2[i] = new JPanel(new GridLayout(2,1));
+            tableButtons[i] = new JButton("Free");
+            tableButtons[i].addActionListener(this);
+            tmp2[i].add(tableButtons[i]);
+            JLabel table = new JLabel("Table "+(i+1));
+            table.setFont(new Font("Tahoma", Font.BOLD, 18));
+            table.setForeground(Color.decode("#F14902"));
+            table.setHorizontalAlignment(JLabel.CENTER);
+            tmp2[i].add(table);
+            tmp2[i].setForeground(Color.white);
+            tmp1[i].add(tmp2[i]);
+            Table_show.add(tmp1[i]);
+            tmp1[i].setBackground(Color.decode("#303030"));
+            tmp2[i].setBackground(Color.decode("#303030"));
+            tableButtons[i].setPreferredSize(new Dimension(100, 55));
+            tableButtons[i].setFont(new Font("Tahoma", Font.BOLD, 12));
+            setStausTable(tableButtons[i], tables.get(i).getTableStatus());
+        }
+        Table_Main.add(Table_show, BorderLayout.CENTER);
+        Table_Main.add(Box.createRigidArea(new Dimension(60,0)), BorderLayout.WEST);
+        Table_Main.add(Box.createRigidArea(new Dimension(60,0)), BorderLayout.EAST);
+        Table_Main.add(Box.createRigidArea(new Dimension(0,30)), BorderLayout.NORTH);
+        Table_Main.add(Box.createRigidArea(new Dimension(0,30)), BorderLayout.SOUTH);
+        Table_Main.setBackground(Color.decode("#FFDEAD"));
 
-        add(Table_show, BorderLayout.CENTER);
+        Table_Booking.add(Table_Main, BorderLayout.CENTER);
+        Table_Booking.add(Box.createRigidArea(new Dimension(35,0)), BorderLayout.WEST);
+        Table_Booking.add(Box.createRigidArea(new Dimension(35,0)), BorderLayout.EAST);
+        Table_Booking.add(Box.createRigidArea(new Dimension(0,35)), BorderLayout.NORTH);
+        Table_Booking.setBackground(Color.decode("#303030"));
+
+        add(Table_Booking, BorderLayout.CENTER);
+        JLabel tmp = new JLabel("       Booking Table");
+        tmp.setFont(new Font("Tahoma", Font.BOLD, 35));
+        tmp.setForeground(Color.decode("#F14902"));
+        tmp.setPreferredSize(new Dimension(400,60));
+        add(tmp, BorderLayout.NORTH);
+        JPanel rigidArea = new JPanel();
+        Border onlyBottom = new EmptyBorder(40, 0, 30, 0);
+        Table_butpanel.setBorder(onlyBottom);
+        setBackground(Color.decode("#FFDEAD"));
+
+
         Table_show.setBackground(Color.decode("#FFDEAD"));
 
-        //bupanel 
+        //bupanel
         Table_butpanel.setLayout(new FlowLayout());
 
-        b1 = new JButton("Free Table");
+        b1 = new JButton("Booking Table");
         b2 = new JButton("Busy Table");
         bre = new JButton("REFRESH");
-        b1.setPreferredSize(new Dimension(240, 100));
-        b1.setFont(new Font("Tahoma", Font.BOLD, 12));
-        b1.setBackground(Color.decode("#deba83"));
-        b1.setVerticalAlignment(SwingConstants.TOP);
-        b1.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
-        b2.setPreferredSize(new Dimension(240, 100));
-        b2.setFont(new Font("Tahoma", Font.BOLD, 12));
-        b2.setBackground(Color.decode("#deba83"));
-        b2.setVerticalAlignment(SwingConstants.TOP);
-        b2.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
-        bre.setPreferredSize(new Dimension(240, 100));
-        bre.setFont(new Font("Tahoma", Font.BOLD, 12));
-        bre.setBackground(Color.decode("#deba83"));
-        bre.setVerticalAlignment(SwingConstants.TOP);
-        bre.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#c29d65")));
+        b1.setPreferredSize(new Dimension(200, 50));
+        b1.setFont(new Font("Tahoma", Font.BOLD, 15));
+        b1.setBackground(Color.DARK_GRAY);
+        b1.setForeground(Color.decode("#2ECC71"));
+        bre.setPreferredSize(new Dimension(200, 50));
+        bre.setFont(new Font("Tahoma", Font.BOLD, 15));
+        bre.setBackground(Color.DARK_GRAY);
+        bre.setForeground(Color.WHITE);
         bre.addActionListener(this);
         b1.addActionListener(this);
         Table_butpanel.add(b1);
+        Table_butpanel.add(Box.createRigidArea(new Dimension(10,0)));
         Table_butpanel.add(bre);
-        Table_butpanel.add(b2);
-        Table_butpanel.setBackground(Color.decode("#FFDEAD"));
-        add(Table_butpanel, BorderLayout.SOUTH);
+        Table_butpanel.add(Box.createRigidArea(new Dimension(10,0)));
+        Table_butpanel.setBackground(Color.decode("#303030"));
+        Table_Booking.add(Table_butpanel, BorderLayout.SOUTH);
 
     }
-
     public void setTablespanel(){
         tableButtons = new JButton[tables.size()];
         Table_show.removeAll();
@@ -100,22 +137,10 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
     }
 
     public void setStausTable(JButton j, String status) {
-//        try {
-//            File imageFile = new File("src/main/resources/imggui/testbusy.png");
-//            File imageFile1 = new File("src/main/resources/imggui/test2.png");// แทนที่ด้วยพาธของไฟล์ PNG ของคุณ
-//            BufferedImage image = ImageIO.read(imageFile);
-//            BufferedImage image1 = ImageIO.read(imageFile1);
 
-            // ปรับขนาดรูปภาพให้เหมาะสมกับ JButton
-//            int width = 266;
-//            int height = 147;
-//            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-//            Image scaledImage1 = image1.getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
-//            ImageIcon icon = new ImageIcon(scaledImage);
-//            ImageIcon icon1 = new ImageIcon(scaledImage1);
         if ("busy".equals(status) | "Busy".equals(status)) {
 //             j.setIcon(icon);
-             j.setText("Busy");
+            j.setText("Busy");
         } else if ("free".equals(status)  | "Free".equals(status)) {
             //j.setIcon(resizedIcon);
             j.setText("Free");
@@ -126,9 +151,6 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
 //            j.setIcon(icon1);
             j.setText("booked");
         }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -149,33 +171,16 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         if (e.getSource() == bre) {
             //checkFoodBillInTable();
             db.loadTable();
-            tables = new ArrayList<>();
             tables = db.getTable();
-            setTablespanel();
-
+            for (int i = 0; i < tables.size(); i++){
+                setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
         }else if(e.getSource().equals(b1)){
             new Table_PopUp(this);
             db.addContactView(this);
         }
-         
     }
-   
-//    public void checkFoodBillInTable(){
-//        
-//        Table t;
-//        tables = menuPanel.getTables();
-//        for (int i = 0; i < tables.size(); i++){
-//            t = tables.get(i);
-//            if (!t.getBill().getFoodBill().isEmpty() & !t.getTableStatus().equals("booked")){
-//                db.setStatustable(t.getId()+"", "busy");
-//            }else if(t.getBill().getFoodBill().isEmpty()& !t.getTableStatus().equals("booked")){
-//                System.out.println("in");
-//                db.setStatustable(t.getId()+"","free");
-//            }
-//            
-//        }
-//        }
-        
+
+
 
     public static void main(String[] args) {
         new MainGUI();
@@ -212,11 +217,11 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
 
     @Override
     public void refreshtable(ArrayList<Table> tables) {
-       
+
         this.tables = tables;
         for (int i = 0; i < tables.size(); i++){
             //System.out.println(tables.get(i).getId()+ "   in loop set"+tables.get(i).getTableStatus());
             setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
-        }
-    
+    }
+
 }

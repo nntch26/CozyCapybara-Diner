@@ -9,7 +9,7 @@ public class MenulistTable extends DataTable {
     public void loadFromDatabase(String query) {
         // เพิ่มข้อมูลลงในตาราง
         try {
-            DBConnect conn = new DBConnect();
+            DatabaseConnect conn = new DatabaseConnect();
             ResultSet rs = conn.selectAr(query);
 
             int i = 0;
