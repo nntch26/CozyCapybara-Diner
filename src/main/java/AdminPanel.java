@@ -15,7 +15,6 @@ public class AdminPanel extends JFrame implements ActionListener, DataManagement
     private JTable table;
     private DefaultTableModel model;
 
-    private MenulistTable menulistTable;
     private JMenuBar menuBar;
     private JMenu adminMenu, tableMenu,foodMenu,memMenu;
     private JMenuItem newAdminMenuItem , exit, tableMenuItem, foodMenuItem, memMenuItem,closeButton;

@@ -160,6 +160,7 @@ public class MemberPanel extends JPanel implements ActionListener {
     }
 
 
+
     // เพิ่มสมาชิก
     public void addMember(String name, String tel, String emil, int point) {
         int memberId = memlist.size() + 1;
