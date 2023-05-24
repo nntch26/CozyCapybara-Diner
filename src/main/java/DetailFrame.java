@@ -88,7 +88,7 @@ public class DetailFrame extends JFrame implements ActionListener {
             String email = tfEmail.getText();
             String pointString = tfPoint.getText();
             int point = Integer.parseInt(pointString);
-            member.addMember(name,phone,email,point); // เพิ่มข้อมูลใหม่
+            member.addData(name,phone,email,point); // เพิ่มข้อมูลใหม่
 
         }else if (e.getSource() == closeButton){
             member.setTable();
