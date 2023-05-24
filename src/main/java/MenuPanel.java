@@ -167,34 +167,45 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
         int idtable = Integer.parseInt(tableIDshow.getText());
         Table t = db.searchTableById(idtable);
         if (e.getSource().equals(addmenu)) {
-            db.setStatustable("" + t.getId(), "busy");
-            tableid.setText("Table (busy)");
-            pShowMenu.removeAll();
-            setLabel();
+            if (t.getBill().getFoodBill().size() > 0){
+                t.setTableStatus("busy");
+                db.setStatustable("" + t.getId(), "busy");
+                tableid.setText("Table (busy)");
+                pShowMenu.removeAll();
+                setLabel();
+                JOptionPane.showMessageDialog(null, "Table Id "+ t.getId() + "Order ", "Order Menu", JOptionPane.PLAIN_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Don't have menu", "Empty", JOptionPane.PLAIN_MESSAGE);
+
+            }
+
 //            pMenuLeftside.revalidate(); // Revalidate the panel
 //            pMenuLeftside.repaint(); //
         } else if (e.getSource().equals(checkBill)) {
+            if(t.getTableStatus().equals("busy") | t.getTableStatus().equals("Busy") ) {
+                t.getBill().countBill();
+                setTextBill = "";
+                HashMap<LinkedList<String>, Integer> countBill = t.getBill().getCountBill();
+                sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
+                for (Map.Entry<LinkedList<String>, Integer> entry : countBill.entrySet()) {
+                    LinkedList<String> key = entry.getKey();
+                    Integer value = entry.getValue();
+                    String str = String.valueOf(key);
+                    String substring = str.substring(1, str.length() - 1);
 
-            t.getBill().countBill();
-            setTextBill = "";
-            HashMap<LinkedList<String>, Integer> countBill = t.getBill().getCountBill();
-            sum = t.getBill().convertLinkedListToIntArray(t.getBill().getFoodBill());
-            for (Map.Entry<LinkedList<String>, Integer> entry : countBill.entrySet()) {
-                LinkedList<String> key = entry.getKey();
-                Integer value = entry.getValue();
-                String str = String.valueOf(key);
-                String substring = str.substring(1, str.length() - 1);
+                    setTextBill += "   " + substring + "\t\t" + "x" + value + "\n";
+                }
 
-                setTextBill += "   " + substring + "\t\t" + "x" + value + "\n";
+                checkBillGUI = new CheckBillGUI(this);
+                checkBillGUI.getlabelTableID().setText("Table ID : " + idtable);
+                checkBillGUI.getTotal().setText("Total : " + sum + " ฿");
+                checkBillGUI.getCheckBill().addActionListener(this);
+                checkBillGUI.getShowdetail().setText("");
+                checkBillGUI.getShowdetail().setText(setTextBill);
+            }else {
+                JOptionPane.showMessageDialog(null, "Table Id "+t.getId() + "  dont' have  Order", "Check order menu", JOptionPane.PLAIN_MESSAGE);
+
             }
-
-            checkBillGUI = new CheckBillGUI(this);
-            checkBillGUI.getlabelTableID().setText("Table ID : " + idtable);
-            checkBillGUI.getTotal().setText("Total : " + sum + " ฿");
-            checkBillGUI.getCheckBill().addActionListener(this);
-            checkBillGUI.getShowdetail().setText("");
-            checkBillGUI.getShowdetail().setText(setTextBill);
-
         } else if (e.getSource().equals(checkBillGUI.getCheckBill())) {
             clearOrder();
         }
