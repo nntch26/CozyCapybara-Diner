@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class CheckBillGUI implements ActionListener, WindowListener {
+public class CheckBillGUI implements ActionListener, WindowListener{
     private JFrame frame;
     private JPanel pTop, pShowNameCustomer, pMemberPhoneNum, pButton_Last, pCenter, pMoneyCal, pSubCenter;
     private JLabel labelTableID, namecus, phonemem, total, labelMoney, changeLabel;

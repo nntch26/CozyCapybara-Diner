@@ -48,6 +48,7 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
         tableButtons = new JButton[tables.size()];
         tmp2 = new JPanel[tables.size()];
         tmp1 = new JPanel[tables.size()];
+
         for (int i = 0; i < tables.size(); i++) {
             tmp1[i] = new JPanel(new FlowLayout(FlowLayout.CENTER));
             tmp2[i] = new JPanel(new GridLayout(2,1));
@@ -217,10 +218,8 @@ public class TablePanel extends JPanel implements ActionListener, WindowListener
 
     @Override
     public void refreshtable(ArrayList<Table> tables) {
-
         this.tables = tables;
         for (int i = 0; i < tables.size(); i++){
-            //System.out.println(tables.get(i).getId()+ "   in loop set"+tables.get(i).getTableStatus());
             setStausTable(tableButtons[i], tables.get(i).getTableStatus());}
     }
 

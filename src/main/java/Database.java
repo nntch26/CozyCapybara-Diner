@@ -108,24 +108,17 @@ public class Database {
    public void reserveTable(String id,String namecus, String phonecus, String time){
        PreparedStatement pre = null;
        try(Connection connect = getConnection();
-            
-
-            ){pre = connect.prepareStatement("update tablenumber set NameCus = ?, TelCus = ?, DTime = ?, Status = ? where idTable = ?");
+           ){pre = connect.prepareStatement("update tablenumber set NameCus = ?, TelCus = ?, DTime = ?, Status = ? where idTable = ?");
               pre.setString(1, namecus);
               pre.setString(2, phonecus);
               pre.setString(3, time);
               pre.setString(4, "booked");
               pre.setString(5, id);
-              
               pre.executeUpdate();
-           
-           
-
-       }catch (SQLException e) {
+         }catch (SQLException e) {
         e.printStackTrace();
         }
-       
-   }
+    }
 
     public void editTable(Table_PopUp tablePopUp){
         String id = tablePopUp.getTake_idTable().getText();
@@ -133,22 +126,15 @@ public class Database {
         String time = tablePopUp.getTfTime().getText();
         String status = ""+tablePopUp.getSelectStatus().getSelectedItem();
         String phonecus = tablePopUp.getTfPhoneNumber().getText();
-
         PreparedStatement pre = null;
         try(Connection connect = getConnection();
-
-
         ){pre = connect.prepareStatement("update tablenumber set NameCus = ?, TelCus = ?, DTime = ?, Status = ? where idTable = ?");
             pre.setString(1, namecus);
             pre.setString(2, phonecus);
             pre.setString(3, time);
             pre.setString(4, status);
             pre.setString(5, id);
-
             pre.executeUpdate();
-
-
-
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -244,25 +230,15 @@ public class Database {
    }
 
     public void memSetPoint(Member memobject){
-
-
-        PreparedStatement pre = null;
+         PreparedStatement pre = null;
         try(Connection connect = getConnection();
-
-
-        ){pre = connect.prepareStatement("UPDATE customer SET point = ? WHERE TelCustomer = ?");
+         ){pre = connect.prepareStatement("UPDATE customer SET point = ? WHERE TelCustomer = ?");
             pre.setDouble(1, memobject.getPoint());
             pre.setString(2, memobject.getTelcus());
-
-
             pre.executeUpdate();
-
-
-
         }catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
    public void addMenu2(Addmenu menu){
        PreparedStatement pre = null;
@@ -389,9 +365,7 @@ public class Database {
         Iterator notifyViews = tableView.iterator();
         while (notifyViews.hasNext())
             ((Refreshable)notifyViews.next()).refreshtable(table);
-
-
-    }
+ }
 
 }
    

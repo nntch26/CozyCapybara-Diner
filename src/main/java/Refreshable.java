@@ -12,6 +12,4 @@ import java.util.ArrayList;
  */
 public interface Refreshable {
     public abstract void refreshtable(ArrayList<Table> table);
-        
-    
 }
