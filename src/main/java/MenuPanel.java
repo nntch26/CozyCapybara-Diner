@@ -171,8 +171,6 @@ public class MenuPanel extends JPanel implements ActionListener, MouseListener {
                 t.setTableStatus("busy");
                 db.setStatustable("" + t.getId(), "busy");
                 tableid.setText("Table (busy)");
-                pShowMenu.removeAll();
-                setLabel();
                 JOptionPane.showMessageDialog(null, "Table Id "+ t.getId() + "Order ", "Order Menu", JOptionPane.PLAIN_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "Don't have menu", "Empty", JOptionPane.PLAIN_MESSAGE);
